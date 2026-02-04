@@ -12,5 +12,10 @@ import blog__cudaOptimizationTipsMd from './blog__cuda-optimization-tips.md.json
 import blog__highAccuracySegmentationMd from './blog__high-accuracy-segmentation.md.json' with { type: 'json' }
 import blog__llmOnRayMd from './blog__llm-on-ray.md.json' with { type: 'json' }
 import blog__makefileIntroMd from './blog__makefile-intro.md.json' with { type: 'json' }
+import blog__vtuneIntroMd from './blog__vtune-intro.md.json' with { type: 'json' }
+import blog__jekyllStaticryptProtectedPostMd from './blog__jekyll-staticrypt-protected-post.md.json' with { type: 'json' }
+import blog__dlBasisMd from './blog__dl-basis.md.json' with { type: 'json' }
+import blog__makefileAdvanceMd from './blog__makefile-advance.md.json' with { type: 'json' }
+import blog__tbbSampleCountStringMd from './blog__tbb-sample-count-string.md.json' with { type: 'json' }
 
-export const allBlogs = [blog__multiAgentAutogenMd, blog__onedalIntroMd, blog__ragBestPracticesMd, blog__rlBasicsMd, blog__tbbIntroMd, blog__text2sqlFinetuningPracticeMd, blog__welcomeMd, blog__avxIntroMd, blog__cudaOptimizationTipsMd, blog__highAccuracySegmentationMd, blog__llmOnRayMd, blog__makefileIntroMd]
+export const allBlogs = [blog__multiAgentAutogenMd, blog__onedalIntroMd, blog__ragBestPracticesMd, blog__rlBasicsMd, blog__tbbIntroMd, blog__text2sqlFinetuningPracticeMd, blog__welcomeMd, blog__avxIntroMd, blog__cudaOptimizationTipsMd, blog__highAccuracySegmentationMd, blog__llmOnRayMd, blog__makefileIntroMd, blog__vtuneIntroMd, blog__jekyllStaticryptProtectedPostMd, blog__dlBasisMd, blog__makefileAdvanceMd, blog__tbbSampleCountStringMd]
