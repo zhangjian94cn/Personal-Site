@@ -1,0 +1,75 @@
+# Portfolio Page Content
+# 作品集页面内容 - 编辑此文件即可更新网站上的作品信息
+#
+# 每个项目支持以下链接类型（可同时存在多个）：
+#   - blogSlug: 关联的博客文章 slug（如 "text2sql-finetuning-practice"）
+#   - externalLink: 外部链接（如 GitHub、Demo 页面）
+#   - projectSlug: 独立的项目详情页 slug（预留，暂不实现）
+#
+# 卡片点击行为优先级：blogSlug > externalLink > projectSlug
+
+projects:
+  - title:
+      zh: "Text2SQL 大模型微调"
+      en: "Text2SQL LLM Fine-tuning"
+    description:
+      zh: "基于 LoRA 微调 Qwen-7B 实现自然语言转 SQL，准确率达 98.56%"
+      en: "Fine-tuned Qwen-7B with LoRA for NL-to-SQL task, achieving 98.56% accuracy."
+    tags: ["LLM", "Fine-tuning", "LoRA"]
+    status: "completed"
+    featured: true
+    blogSlug: "text2sql-finetuning-practice"
+    # Placeholder for Text2SQL (can be replaced with real image later)
+    # imgSrc: "/static/images/text2sql-banner.png"
+
+  - title:
+      zh: "数智助手 RAG 系统"
+      en: "AI Assistant RAG System"
+    description:
+      zh: "企业级检索增强生成系统，支持多轮对话和知识库管理"
+      en: "Enterprise RAG system supporting multi-turn dialogue and knowledge base management."
+    tags: ["RAG", "LangChain", "Vector DB"]
+    status: "completed"
+    blogSlug: "rag-best-practices"
+
+  - title:
+      zh: "高精度图像分割"
+      en: "High-Precision Image Segmentation"
+    description:
+      zh: "基于深度学习的图像语义分割算法优化"
+      en: "Optimization of semantic segmentation algorithms based on deep learning."
+    tags: ["CV", "Segmentation", "PyTorch"]
+    status: "completed"
+    blogSlug: "high-accuracy-segmentation"
+
+  - title:
+      zh: "ChatGLM 金融大模型"
+      en: "ChatGLM Finance LLM"
+    description:
+      zh: "天池 SMP 2023 ChatGLM 金融大模型挑战赛，2294 支队伍中复赛排名 13"
+      en: "Achieved 13th place among 2294 teams in Tianchi SMP 2023 ChatGLM Finance Challenge."
+    tags: ["LLM", "ChatGLM", "Finance"]
+    status: "completed"
+    blogSlug: "chatglm-serving"
+
+  - title:
+      zh: "Ray 分布式 LLM 训练框架"
+      en: "Ray Distributed LLM Training"
+    description:
+      zh: "基于 Ray 框架实现多机多卡大模型预训练与微调"
+      en: "Multi-node distributed LLM pretraining and fine-tuning using Ray framework."
+    tags: ["Ray", "Distributed", "LLM"]
+    status: "completed"
+    externalLink: "https://github.com/ray-project/ray"
+
+  - title:
+      zh: "Object Drawer 3D 重建"
+      en: "Object Drawer 3D Reconstruction"
+    description:
+      zh: "淘宝 3D 商品重建系统，实现低成本高质量的神经网络模型生成"
+      en: "Taobao's 3D product reconstruction system for high-quality neural model generation."
+    tags: ["NeRF", "3D", "Neural Rendering"]
+    status: "completed"
+    featured: true
+    projectPagePath: "/project/hrsrg/index.html"
+    imgSrc: "/project/hrsrg/img/main-figure-eccv.png"

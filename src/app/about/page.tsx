@@ -51,22 +51,45 @@ export default function AboutPage() {
           <div className="md:w-2/3 flex flex-col justify-center">
             <div className="space-y-6 text-lg leading-relaxed text-gray-700 dark:text-gray-300">
               {/* Render bio with markdown-like formatting */}
-              <div 
-                className="prose prose-lg dark:prose-invert max-w-none
-                  prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-p:my-6
-                  prose-a:text-primary-500 hover:prose-a:underline
-                  prose-strong:text-gray-900 dark:prose-strong:text-gray-100
-                  prose-li:text-gray-700 dark:prose-li:text-gray-300
-                  prose-ul:my-4"
-                dangerouslySetInnerHTML={{ 
-                  __html: bio
-                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                    .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-primary-500 hover:underline">$1</a>')
-                    .replace(/^- (.*?)$/gm, '<li>$1</li>')
-                    .replace(/(<li>.*?<\/li>\n?)+/g, '<ul class="list-disc pl-5 space-y-2 marker:text-primary-500">$&</ul>')
-                    .split('\n\n').map(p => `<p class="my-6">${p}</p>`).join('')
-                }}
-              />
+              {/* Render bio with improved parsing */}
+              <div className="text-lg leading-relaxed text-gray-600 dark:text-gray-300">
+                {bio.split('\n\n').map((block, index) => {
+                  // Process inline formatting (Bold, Link)
+                  const processInline = (text: string) => {
+                    return text
+                      .replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-gray-900 dark:text-gray-100">$1</strong>')
+                      .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="font-medium text-primary-500 hover:text-primary-600 underline decoration-primary-500/30 hover:decoration-primary-500 underline-offset-4 transition-all">$1</a>');
+                  };
+
+                  // Check if it's a list (starts with "- ")
+                  if (block.trim().startsWith('- ')) {
+                    const listItems = block
+                      .split('\n')
+                      .filter(line => line.trim().startsWith('- '))
+                      .map(line => processInline(line.replace(/^- /, '')));
+
+                    return (
+                      <ul key={index} className="my-6 space-y-4">
+                        {listItems.map((item, i) => (
+                          <li key={i} className="relative pl-7 group">
+                            <span className="absolute left-0 top-2.5 w-2 h-2 rounded-full bg-primary-400/60 group-hover:bg-primary-500 transition-colors" />
+                            <span dangerouslySetInnerHTML={{ __html: item }} />
+                          </li>
+                        ))}
+                      </ul>
+                    );
+                  }
+
+                  // Regular paragraph
+                  return (
+                    <p 
+                      key={index} 
+                      className="my-6 first:mt-0"
+                      dangerouslySetInnerHTML={{ __html: processInline(block) }} 
+                    />
+                  );
+                })}
+              </div>
 
               {/* Research Interests */}
               <div>
