@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 个人博客系统 (Personal Blog Site)
 
-## Getting Started
+一个基于 [Next.js](https://nextjs.org) 15、Tailwind CSS 和 TypeScript 构建的现代化个人博客网站。支持 Markdown/MDX 渲染、LaTeX 公式、国际化以及基于 YAML 的内容管理。
 
-First, run the development server:
+## ✨ 特性
+
+- **内容与代码分离**：所有内容集中在 `content/` 目录下，管理方便
+- **LaTeX 公式支持**：完美支持行内和块级数学公式渲染
+- **国际化 (i18n)**：内置中英文双语支持
+- **MDX 支持**：博客文章支持 Markdown 和 React 组件混排
+- **响应式设计**：基于 Tailwind CSS 的精美 UI
+- **GitHub 风格代码高亮**
+
+## 🚀 快速开始
+
+1. **安装依赖**
+
+```bash
+npm install
+```
+
+2. **启动开发服务器**
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+打开 [http://localhost:3000](http://localhost:3000) 即可预览。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📝 内容管理
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+详细内容管理指南请参阅 [CONTENT_GUIDE.md](CONTENT_GUIDE.md)。
 
-## Learn More
+- **站点配置**：编辑 `content/siteMetadata.yml`
+- **个人简介**：编辑 `content/about.yml`
+- **写博客**：在 `content/blog/` 目录下创建 `.mdx` 文件
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠️ 技术栈
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **框架**: Next.js 15 (App Router)
+- **语言**: TypeScript
+- **样式**: Tailwind CSS
+- **内容处理**: Contentlayer2, JS-YAML
+- **数学公式**: KaTeX, remark-math, rehype-katex
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📦 部署
 
-## Deploy on Vercel
+本项目可以直接部署到 Vercel：
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Fork 本仓库
+2. 在 Vercel 中导入项目
+3. 部署即可（Vercel 会自动检测 Next.js 配置）
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📄 License
+
+MIT

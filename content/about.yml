@@ -1,0 +1,146 @@
+# About Page Content
+# 关于页面内容 - 编辑此文件即可更新网站上的个人信息
+
+# 个人简介
+bio:
+  zh: |
+    **Hi，我是章坚。** 目前任职于**江苏移动**人工智能团队。
+
+    作为**灵犀助手**等核心应用负责人，我聚焦于 AI 技术架构与业务流程智能化，构建统一的 AI 助理入口和多智能体协同体系。围绕高频业务场景（营销、客户洞察、业务办理等），我牵头推进智能体落地并深度嵌入一线流程，持续推动 AI 从"工具可用"向"业务可依赖"的组织级能力演进。
+
+    在此之前，我积累了丰富的工业界算法经验：
+    - 曾在**英特尔**担任人工智能架构工程师，致力于推进 [Ray 分布式框架](https://github.com/ray-project/ray) 在大语言模型预训练与微调场景中的应用与落地。
+    - 曾在**阿里巴巴**淘系技术部担任高级算法工程师，深耕基于神经渲染的 3D 重建领域。作为 [Object Drawer](https://tech.taobao.org/objectdrawer) 项目的核心成员，负责重建算法的开发，为淘宝提供了低成本、高质量的 3D 模型生成方案。
+
+    我的求学之路始于六朝古都**南京**。本科毕业于"止于至善"的[东南大学](https://www.seu.edu.cn/)，硕士毕业于"诚朴雄伟"的[南京大学](https://www.nju.edu.cn/)。
+    在南大 ViSG 实验室求学期间，我在[周博](https://ese.nju.edu.cn/zy/list.htm)、[于博](https://ese.nju.edu.cn/yy/list.htm)及[都教授](https://ese.nju.edu.cn/dsd/list.htm)的悉心指导下，完成了"高精度语义地图重建"项目，重点研究基于激光雷达的位姿估计、场景重建与理解。此外，我早期也曾在网易游戏和 D5 Render 实习，积累了图形渲染的一线工程经验。
+
+  en: |
+    **Hi, I'm Zhang Jian.** Currently serving as an Algorithm Engineer at **Jiangsu Mobile**'s AI team.
+
+    As the lead of core applications like **Lingxi Assistant**, I focus on AI architecture and business process intelligence, building a unified AI entry and a multi-agent collaboration system. Leading the deployment of agents in high-frequency scenarios (marketing, customer insights, etc.), I drive the deep embedding of AI into frontline workflows, evolving AI from a "usable tool" to a "reliable organizational capability".
+
+    I have extensive experience in industrial AI algorithms:
+    - At **Intel**, I worked as an AI Architecture Engineer, focusing on Large Language Model (LLM) pretraining and fine-tuning utilizing the [Ray distributed framework](https://github.com/ray-project/ray).
+    - At **Alibaba**, as a Senior Algorithm Engineer, I specialized in neural rendering-based 3D reconstruction. I was a core member of the [Object Drawer](https://tech.taobao.org/objectdrawer) project, developing algorithms to generate high-quality 3D models at scale.
+
+    I completed my academic journey in Nanjing. I hold a Master's degree from [Nanjing University](https://www.nju.edu.cn/) and a Bachelor's degree from [Southeast University](https://www.seu.edu.cn/).
+
+    During my time at NJU's ViSG Lab, under the guidance of my professors, I researched LiDAR-based pose estimation and high-precision semantic map reconstruction. My early career also includes internships at NetEase Games and D5 Render, deepening my expertise in graphics and rendering.
+
+# 座右铭
+motto:
+  zh: 技术不仅是工作，更是热爱。我始终保持探索之心，紧跟前沿，持续精进。
+  en: Technology is my passion. I am dedicated to continuous learning and keeping pace with the latest innovations.
+
+# 研究兴趣/技能标签
+interests:
+  zh: ["大语言模型", "多智能体", "计算机视觉", "计算机图形学", "机器人技术"]
+  en:
+    [
+      "Large Language Models",
+      "Multi-Agent Systems",
+      "Computer Vision",
+      "Computer Graphics",
+      "Robotics",
+    ]
+
+# 工作经历
+experiences:
+  - company:
+      zh: 江苏移动
+      en: Jiangsu Mobile
+    role:
+      zh: 人工智能团队
+      en: Artificial Intelligence Team
+    period: "2024.03 - Now"
+    current: true
+
+  - company:
+      zh: 英特尔
+      en: Intel
+    role:
+      zh: 人工智能与分析部 (AIA)
+      en: Artificial Intelligence and Analytics (AIA) Department
+    period: "2022.07 - 2024.03"
+    link: https://github.com/ray-project/ray
+
+  - company:
+      zh: 阿里巴巴集团
+      en: Alibaba
+    role:
+      zh: 淘天集团 - 淘系技术部
+      en: Tao Technology Department
+    period: "2020.06 - 2022.07"
+
+  - company:
+      zh: D5 Render
+      en: D5 Render
+    role:
+      zh: 渲染引擎组
+      en: Rendering Engine Group
+    period: "2019.10 - 2020.04"
+    link: https://www.d5render.com/
+
+  - company:
+      zh: 网易游戏
+      en: NetEase Games
+    role:
+      zh: 游戏引擎组
+      en: Game Engine Group
+    period: "2019.06 - 2019.08"
+
+# 学术发表
+publications:
+  - title: "Digging into Radiance Grid for Real-Time View Synthesis with Detail Preservation"
+    venue: "ECCV, 2022"
+    authors: "Jian Zhang*, Jinchi Huang*, Bowen Cai*, Mingming Gong, Chaohui Wang, Jiaming Wang, Hongchen Luo, Rongfei Jia, Binqiang Zhao, Xing Tang, Huan Fu#"
+    links:
+      - name: Project
+        url: https://zhangjian94cn.github.io/project/hrsrg/index.html
+
+  - title: "Ray Priors through Reprojection: Improving Neural Radiance Fields for Novel View Extrapolation"
+    venue: "CVPR, 2022"
+    authors: "Jian Zhang*, Yuanqing Zhang*, Huan Fu#, Xiaowei Zhou, Bowen Cai, Jinchi Huang, Rongfei Jia, Binqiang Zhao, and Xing Tang"
+    links:
+      - name: PDF
+        url: https://arxiv.org/abs/2205.05922
+
+  - title: "Reconstruction of High-Precision Semantic Map"
+    venue: "SENSOR, 2020"
+    authors: "Xinyuan Tu, Jian Zhang, Runhao Luo, Kai Wang, Qingji Zeng, Yu Zhou *, Yao Yu and Sidan Du"
+    links:
+      - name: Project
+        url: https://txycircle.github.io/files/projects/index_sensors.html
+
+# 项目经历
+projects:
+  - title: "SDFMap: A Real-time 3D Semantic Mapping for LiDAR Point Cloud"
+    org: "Nanjing University, ViSG Lab"
+    authors: "Jian Zhang*, Runhao Luo∗, Conghui Geng, Pei Li, Yu Zhou, Yao Yu, Sidan Du"
+    description:
+      zh: 基于激光雷达点云的实时 3D 语义地图构建系统
+      en: Real-time 3D semantic mapping system for LiDAR point cloud
+    links:
+      - name: PDF
+        url: https://zhangjian94cn.github.io/about/assets/iros2020.pdf
+      - name: Video
+        url: https://zhangjian94cn.github.io/about/assets/ICRA19_0880_VI_i.mp4
+
+  - title: "Real-time 3D Reconstruction based on LiDAR Point Cloud"
+    org: "Nanjing University, ViSG Lab"
+    description:
+      zh: 基于激光雷达点云的实时 3D 重建系统
+      en: Real-time 3D reconstruction based on LiDAR point cloud
+    links:
+      - name: Video
+        url: https://zhangjian94cn.github.io/about/assets/IROS18_0838_VI_i.mp4
+
+  - title: "Object Drawer"
+    org: "Alibaba Group, Tao Technology Department"
+    description:
+      zh: 高性能端到端 3D 物体重建系统，为淘宝提供高质量 3D 模型
+      en: A high-performing end-to-end 3D object reconstruction system providing high-quality 3D models for Taobao
+    links:
+      - name: Link
+        url: https://tech.taobao.org/objectdrawer

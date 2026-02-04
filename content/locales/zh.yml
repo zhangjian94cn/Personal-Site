@@ -1,0 +1,43 @@
+# Localization Strings - Chinese
+# 中文本地化文本
+
+common:
+  readMore: 阅读更多
+  backToBlog: 返回博客
+  allPosts: 所有文章
+  tags: 标签
+  postedOn: 发布于
+  readingTime: 阅读时长
+
+nav:
+  home: 首页
+  blog: 博客
+  tags: 标签
+  portfolio: 作品
+  about: 关于
+
+about:
+  title: 关于我
+  experience: 工作经历
+  publications: 学术发表
+  projects: 项目经历
+  interests: 研究兴趣
+
+blog:
+  title: 博客
+  description: 技术探索与生活分享
+  noResults: 暂无文章
+  latestPosts: 最新文章
+
+home:
+  greeting: 嗨，我是
+  welcome: 欢迎来到我的个人网站
+
+tags:
+  title: 标签
+  allTags: 所有标签
+  postsTagged: 篇文章
+
+portfolio:
+  title: 作品集
+  description: 我的项目和作品

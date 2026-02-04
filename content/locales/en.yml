@@ -1,0 +1,43 @@
+# Localization Strings - English
+# English localization strings
+
+common:
+  readMore: Read More
+  backToBlog: Back to Blog
+  allPosts: All Posts
+  tags: Tags
+  postedOn: Posted on
+  readingTime: Reading Time
+
+nav:
+  home: Home
+  blog: Blog
+  tags: Tags
+  portfolio: Portfolio
+  about: About
+
+about:
+  title: About Me
+  experience: Experience
+  publications: Publications
+  projects: Projects
+  interests: Research Interests
+
+blog:
+  title: Blog
+  description: Tech exploration and life sharing
+  noResults: No posts found
+  latestPosts: Latest Posts
+
+home:
+  greeting: "Hi, I'm"
+  welcome: Welcome to my personal website
+
+tags:
+  title: Tags
+  allTags: All Tags
+  postsTagged: posts tagged
+
+portfolio:
+  title: Portfolio
+  description: My projects and works

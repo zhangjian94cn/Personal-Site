@@ -1,0 +1,74 @@
+# Site Metadata Configuration
+# 站点元数据配置 - 编辑此文件来更新网站基本信息
+
+# 基本信息
+title: 章坚的博客
+titleTemplate: "%s | Zhang Jian"
+author: Zhang Jian
+description: AI 技术探索与生活分享
+language: zh-CN
+siteUrl: https://zhangjian94cn.github.io
+siteRepo: https://github.com/zhangjian94cn/personal-site
+
+# 作者信息
+profile:
+  name: Zhang Jian
+  name_zh: 章坚
+  avatar: /images/avatar.png
+  occupation: Algorithm Engineer
+  occupation_zh: 算法工程师
+  company: Jiangsu Mobile
+  company_zh: 江苏移动
+  email: jianzhang@smail.nju.edu.cn
+
+# 社交链接
+social:
+  github: https://github.com/zhangjian94cn
+  googleScholar: https://scholar.google.com/citations?user=vUlkWIEAAAAJ
+  twitter: ""
+  linkedin: ""
+
+# 导航菜单
+navigation:
+  - title:
+      zh: 首页
+      en: Home
+    href: /
+
+  - title:
+      zh: 博客
+      en: Blog
+    href: /blog
+
+  - title:
+      zh: 标签
+      en: Tags
+    href: /tags
+
+  - title:
+      zh: 作品
+      en: Portfolio
+    href: /portfolio
+
+  - title:
+      zh: 关于
+      en: About
+    href: /about
+
+# SEO
+seo:
+  socialBanner: /images/social-banner.png
+
+# 评论系统 (可选)
+comments:
+  enabled: false
+  provider: giscus # giscus | utterances | disqus
+  giscus:
+    repo: ""
+    repositoryId: ""
+    category: ""
+    categoryId: ""
+
+# 分析服务 (可选)
+analytics:
+  googleAnalytics: ""
