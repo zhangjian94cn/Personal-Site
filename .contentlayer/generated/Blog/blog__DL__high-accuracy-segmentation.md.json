@@ -1,0 +1,101 @@
+{
+  "title": "高精度图像分割技术回顾",
+  "date": "2023-11-06T00:00:00.000Z",
+  "tags": [
+    "深度学习",
+    "计算机视觉",
+    "图像分割"
+  ],
+  "draft": false,
+  "summary": "回顾高精度图像分割算法发展：从 BASNet 到 U2Net，再到 DIS。探讨 Residual Refine Module 及多尺度融合技术。",
+  "authors": [
+    "default"
+  ],
+  "body": {
+    "raw": "\n## 前言\n\n最近回顾了一下之前使用过的高精度图像分割算法，从 BASNet，到 U2Net，再到 2022 年的 DIS。高精度的图像分割技术在计算机视觉领域具有着极为重要的应用。通过准确地分离图像中的不同对象、区域和特征，我们可以实现：\n\n1. **更安全的自动驾驶**：通过将道路、车道线、交通标志和行人精确分离，以帮助车辆导航\n2. **更精确的医疗诊断**：通过将自动化的分割人体器官，可以实现高精度自动化的人体手术\n3. **更佳的社交应用体验**：通过高精度的分割，我们可以实现各种创意效果，如背景虚化、景深效果和图像合成等等\n\n## BASNet\n\n这篇论文的贡献主要有两个：\n\n- 提出了一个基于残差的 Refine 模块（Residual Refine Module）\n- 使用了多层级的 loss，分别是 pixel，patch 和 map 级别的 BCE，SSIM，IOU loss\n\n### predict-refine 网络架构\n\nBASNet 是一个类似 U-Net 的 encoder-decoder 的网络架构，其和传统分割网络的区别在于：增加了一个 refine 模块。refine 模块的输入是：encoder 的特征，其学习的目标是 coarse predict 网络与 ground truth 的残差。\n\n### 多层级的混合 loss\n\n- **BCE loss**：这是一个针对像素进行二分类的 loss\n- **Structural SIMilarity (SSIM)**：结构相似性的度量，用于衡量两张图的相似度，特别关注边缘效果\n- **IOU**：对整个图像的分割正确率的一种度量\n\n## U2Net\n\nU2Net 的主要贡献有两个：\n\n- 提出了一个能融合多尺度信息的 RSU（ReSidual U-blocks）结构\n- 基于 RSU 结构的新的网络架构\n\n### ReSidual U-blocks\n\nRSU 的结构简单来说就是：残差的跨接维度是以一个 UNet 为单位的。换句话说 ResNet 结构中的 weight layer 被替换成了一个 UNet，这样做的优势在于 U-block 的输出可以认为是带有多尺度信息的，从而增强了模型的能力。\n\n### 网络架构\n\n整体的网络架构是在原来的 RSU 模块的基础上再套一个 UNet 的结构，这也是为什么叫 U² 的原因。对于每一层的特征输出，最终都会被 concate 到一起，得到一个融合之后的结果。\n\n需要注意的是，在 loss 计算时，不仅考虑了最终的 S_fuse，其每一个特征层的输出都会被加入到 loss 计算中去。\n\n## Highly Accurate Dichotomous Image Segmentation（DIS）\n\n这篇工作很大的贡献在于：提供了一个高精度的分割数据集。尤其是对于物体细节这块，标注的非常精准，此类数据成本往往很高，能够公开出来是非常难得的。\n\n相对于 U2Net，效果上也有了很大的提升。除了数据集的贡献之外，这篇工作提出了：\n\n- 一种新的基于中间监督的基线 IS-Net，它通过强制高维特征的直接同步来减少过拟合\n- 人工矫正量（HCE）指标\n\n### IS-Net 网络架构\n\nIS-Net 的网络架构基本上是沿用了 U2Net 的结构，区别在于其对多尺度下的特征进行直接的监督。如何做到这一点呢？其将训练分成了两个阶段：\n\n1. 第一阶段基于 ground truth 训练一个编码器，其包含了多尺度下对应的**特征 ground truth**\n2. 第二阶段利用这些特征 ground truth 去训练原来的 U2Net 结构\n\n需要注意的是，在推理过程中，我们只需要主干部分，特征监督模块只参与训练。\n\n## 结语\n\n通过本文，我们简单回顾了高精度图像分割相关工作，其在计算机视觉领域具有着广泛的应用前景。这些算法的不断发展和改进使我们能够更准确地分离图像中的不同对象、区域和特征。\n\n## 参考\n\n- [BASNet](https://github.com/xuebinqin/BASNet)\n- [U-2-Net](https://github.com/xuebinqin/U-2-Net)\n- [DIS](https://github.com/xuebinqin/DIS)\n",
+    "code": "var Component=(()=>{var u=Object.create;var c=Object.defineProperty;var m=Object.getOwnPropertyDescriptor;var N=Object.getOwnPropertyNames;var p=Object.getPrototypeOf,f=Object.prototype.hasOwnProperty;var g=(i,e)=>()=>(e||i((e={exports:{}}).exports,e),e.exports),S=(i,e)=>{for(var r in e)c(i,r,{get:e[r],enumerable:!0})},t=(i,e,r,a)=>{if(e&&typeof e==\"object\"||typeof e==\"function\")for(let l of N(e))!f.call(i,l)&&l!==r&&c(i,l,{get:()=>e[l],enumerable:!(a=m(e,l))||a.enumerable});return i};var I=(i,e,r)=>(r=i!=null?u(p(i)):{},t(e||!i||!i.__esModule?c(r,\"default\",{value:i,enumerable:!0}):r,i)),b=i=>t(c({},\"__esModule\",{value:!0}),i);var h=g((R,d)=>{d.exports=_jsx_runtime});var U={};S(U,{default:()=>o,frontmatter:()=>x});var n=I(h()),x={title:\"\\u9AD8\\u7CBE\\u5EA6\\u56FE\\u50CF\\u5206\\u5272\\u6280\\u672F\\u56DE\\u987E\",date:\"2023-11-06\",tags:[\"\\u6DF1\\u5EA6\\u5B66\\u4E60\",\"\\u8BA1\\u7B97\\u673A\\u89C6\\u89C9\",\"\\u56FE\\u50CF\\u5206\\u5272\"],draft:!1,summary:\"\\u56DE\\u987E\\u9AD8\\u7CBE\\u5EA6\\u56FE\\u50CF\\u5206\\u5272\\u7B97\\u6CD5\\u53D1\\u5C55\\uFF1A\\u4ECE BASNet \\u5230 U2Net\\uFF0C\\u518D\\u5230 DIS\\u3002\\u63A2\\u8BA8 Residual Refine Module \\u53CA\\u591A\\u5C3A\\u5EA6\\u878D\\u5408\\u6280\\u672F\\u3002\",authors:[\"default\"]};function s(i){let e={a:\"a\",h2:\"h2\",h3:\"h3\",li:\"li\",ol:\"ol\",p:\"p\",span:\"span\",strong:\"strong\",ul:\"ul\",...i.components};return(0,n.jsxs)(n.Fragment,{children:[(0,n.jsxs)(e.h2,{id:\"\\u524D\\u8A00\",className:\"content-header\",children:[(0,n.jsx)(e.a,{\"aria-hidden\":\"true\",tabIndex:\"-1\",href:\"#\\u524D\\u8A00\",children:(0,n.jsx)(e.span,{className:\"icon icon-link\"})}),\"\\u524D\\u8A00\"]}),`\n`,(0,n.jsx)(e.p,{children:\"\\u6700\\u8FD1\\u56DE\\u987E\\u4E86\\u4E00\\u4E0B\\u4E4B\\u524D\\u4F7F\\u7528\\u8FC7\\u7684\\u9AD8\\u7CBE\\u5EA6\\u56FE\\u50CF\\u5206\\u5272\\u7B97\\u6CD5\\uFF0C\\u4ECE BASNet\\uFF0C\\u5230 U2Net\\uFF0C\\u518D\\u5230 2022 \\u5E74\\u7684 DIS\\u3002\\u9AD8\\u7CBE\\u5EA6\\u7684\\u56FE\\u50CF\\u5206\\u5272\\u6280\\u672F\\u5728\\u8BA1\\u7B97\\u673A\\u89C6\\u89C9\\u9886\\u57DF\\u5177\\u6709\\u7740\\u6781\\u4E3A\\u91CD\\u8981\\u7684\\u5E94\\u7528\\u3002\\u901A\\u8FC7\\u51C6\\u786E\\u5730\\u5206\\u79BB\\u56FE\\u50CF\\u4E2D\\u7684\\u4E0D\\u540C\\u5BF9\\u8C61\\u3001\\u533A\\u57DF\\u548C\\u7279\\u5F81\\uFF0C\\u6211\\u4EEC\\u53EF\\u4EE5\\u5B9E\\u73B0\\uFF1A\"}),`\n`,(0,n.jsxs)(e.ol,{children:[`\n`,(0,n.jsxs)(e.li,{children:[(0,n.jsx)(e.strong,{children:\"\\u66F4\\u5B89\\u5168\\u7684\\u81EA\\u52A8\\u9A7E\\u9A76\"}),\"\\uFF1A\\u901A\\u8FC7\\u5C06\\u9053\\u8DEF\\u3001\\u8F66\\u9053\\u7EBF\\u3001\\u4EA4\\u901A\\u6807\\u5FD7\\u548C\\u884C\\u4EBA\\u7CBE\\u786E\\u5206\\u79BB\\uFF0C\\u4EE5\\u5E2E\\u52A9\\u8F66\\u8F86\\u5BFC\\u822A\"]}),`\n`,(0,n.jsxs)(e.li,{children:[(0,n.jsx)(e.strong,{children:\"\\u66F4\\u7CBE\\u786E\\u7684\\u533B\\u7597\\u8BCA\\u65AD\"}),\"\\uFF1A\\u901A\\u8FC7\\u5C06\\u81EA\\u52A8\\u5316\\u7684\\u5206\\u5272\\u4EBA\\u4F53\\u5668\\u5B98\\uFF0C\\u53EF\\u4EE5\\u5B9E\\u73B0\\u9AD8\\u7CBE\\u5EA6\\u81EA\\u52A8\\u5316\\u7684\\u4EBA\\u4F53\\u624B\\u672F\"]}),`\n`,(0,n.jsxs)(e.li,{children:[(0,n.jsx)(e.strong,{children:\"\\u66F4\\u4F73\\u7684\\u793E\\u4EA4\\u5E94\\u7528\\u4F53\\u9A8C\"}),\"\\uFF1A\\u901A\\u8FC7\\u9AD8\\u7CBE\\u5EA6\\u7684\\u5206\\u5272\\uFF0C\\u6211\\u4EEC\\u53EF\\u4EE5\\u5B9E\\u73B0\\u5404\\u79CD\\u521B\\u610F\\u6548\\u679C\\uFF0C\\u5982\\u80CC\\u666F\\u865A\\u5316\\u3001\\u666F\\u6DF1\\u6548\\u679C\\u548C\\u56FE\\u50CF\\u5408\\u6210\\u7B49\\u7B49\"]}),`\n`]}),`\n`,(0,n.jsxs)(e.h2,{id:\"basnet\",className:\"content-header\",children:[(0,n.jsx)(e.a,{\"aria-hidden\":\"true\",tabIndex:\"-1\",href:\"#basnet\",children:(0,n.jsx)(e.span,{className:\"icon icon-link\"})}),\"BASNet\"]}),`\n`,(0,n.jsx)(e.p,{children:\"\\u8FD9\\u7BC7\\u8BBA\\u6587\\u7684\\u8D21\\u732E\\u4E3B\\u8981\\u6709\\u4E24\\u4E2A\\uFF1A\"}),`\n`,(0,n.jsxs)(e.ul,{children:[`\n`,(0,n.jsx)(e.li,{children:\"\\u63D0\\u51FA\\u4E86\\u4E00\\u4E2A\\u57FA\\u4E8E\\u6B8B\\u5DEE\\u7684 Refine \\u6A21\\u5757\\uFF08Residual Refine Module\\uFF09\"}),`\n`,(0,n.jsx)(e.li,{children:\"\\u4F7F\\u7528\\u4E86\\u591A\\u5C42\\u7EA7\\u7684 loss\\uFF0C\\u5206\\u522B\\u662F pixel\\uFF0Cpatch \\u548C map \\u7EA7\\u522B\\u7684 BCE\\uFF0CSSIM\\uFF0CIOU loss\"}),`\n`]}),`\n`,(0,n.jsxs)(e.h3,{id:\"predict-refine-\\u7F51\\u7EDC\\u67B6\\u6784\",className:\"content-header\",children:[(0,n.jsx)(e.a,{\"aria-hidden\":\"true\",tabIndex:\"-1\",href:\"#predict-refine-\\u7F51\\u7EDC\\u67B6\\u6784\",children:(0,n.jsx)(e.span,{className:\"icon icon-link\"})}),\"predict-refine \\u7F51\\u7EDC\\u67B6\\u6784\"]}),`\n`,(0,n.jsx)(e.p,{children:\"BASNet \\u662F\\u4E00\\u4E2A\\u7C7B\\u4F3C U-Net \\u7684 encoder-decoder \\u7684\\u7F51\\u7EDC\\u67B6\\u6784\\uFF0C\\u5176\\u548C\\u4F20\\u7EDF\\u5206\\u5272\\u7F51\\u7EDC\\u7684\\u533A\\u522B\\u5728\\u4E8E\\uFF1A\\u589E\\u52A0\\u4E86\\u4E00\\u4E2A refine \\u6A21\\u5757\\u3002refine \\u6A21\\u5757\\u7684\\u8F93\\u5165\\u662F\\uFF1Aencoder \\u7684\\u7279\\u5F81\\uFF0C\\u5176\\u5B66\\u4E60\\u7684\\u76EE\\u6807\\u662F coarse predict \\u7F51\\u7EDC\\u4E0E ground truth \\u7684\\u6B8B\\u5DEE\\u3002\"}),`\n`,(0,n.jsxs)(e.h3,{id:\"\\u591A\\u5C42\\u7EA7\\u7684\\u6DF7\\u5408-loss\",className:\"content-header\",children:[(0,n.jsx)(e.a,{\"aria-hidden\":\"true\",tabIndex:\"-1\",href:\"#\\u591A\\u5C42\\u7EA7\\u7684\\u6DF7\\u5408-loss\",children:(0,n.jsx)(e.span,{className:\"icon icon-link\"})}),\"\\u591A\\u5C42\\u7EA7\\u7684\\u6DF7\\u5408 loss\"]}),`\n`,(0,n.jsxs)(e.ul,{children:[`\n`,(0,n.jsxs)(e.li,{children:[(0,n.jsx)(e.strong,{children:\"BCE loss\"}),\"\\uFF1A\\u8FD9\\u662F\\u4E00\\u4E2A\\u9488\\u5BF9\\u50CF\\u7D20\\u8FDB\\u884C\\u4E8C\\u5206\\u7C7B\\u7684 loss\"]}),`\n`,(0,n.jsxs)(e.li,{children:[(0,n.jsx)(e.strong,{children:\"Structural SIMilarity (SSIM)\"}),\"\\uFF1A\\u7ED3\\u6784\\u76F8\\u4F3C\\u6027\\u7684\\u5EA6\\u91CF\\uFF0C\\u7528\\u4E8E\\u8861\\u91CF\\u4E24\\u5F20\\u56FE\\u7684\\u76F8\\u4F3C\\u5EA6\\uFF0C\\u7279\\u522B\\u5173\\u6CE8\\u8FB9\\u7F18\\u6548\\u679C\"]}),`\n`,(0,n.jsxs)(e.li,{children:[(0,n.jsx)(e.strong,{children:\"IOU\"}),\"\\uFF1A\\u5BF9\\u6574\\u4E2A\\u56FE\\u50CF\\u7684\\u5206\\u5272\\u6B63\\u786E\\u7387\\u7684\\u4E00\\u79CD\\u5EA6\\u91CF\"]}),`\n`]}),`\n`,(0,n.jsxs)(e.h2,{id:\"u2net\",className:\"content-header\",children:[(0,n.jsx)(e.a,{\"aria-hidden\":\"true\",tabIndex:\"-1\",href:\"#u2net\",children:(0,n.jsx)(e.span,{className:\"icon icon-link\"})}),\"U2Net\"]}),`\n`,(0,n.jsx)(e.p,{children:\"U2Net \\u7684\\u4E3B\\u8981\\u8D21\\u732E\\u6709\\u4E24\\u4E2A\\uFF1A\"}),`\n`,(0,n.jsxs)(e.ul,{children:[`\n`,(0,n.jsx)(e.li,{children:\"\\u63D0\\u51FA\\u4E86\\u4E00\\u4E2A\\u80FD\\u878D\\u5408\\u591A\\u5C3A\\u5EA6\\u4FE1\\u606F\\u7684 RSU\\uFF08ReSidual U-blocks\\uFF09\\u7ED3\\u6784\"}),`\n`,(0,n.jsx)(e.li,{children:\"\\u57FA\\u4E8E RSU \\u7ED3\\u6784\\u7684\\u65B0\\u7684\\u7F51\\u7EDC\\u67B6\\u6784\"}),`\n`]}),`\n`,(0,n.jsxs)(e.h3,{id:\"residual-u-blocks\",className:\"content-header\",children:[(0,n.jsx)(e.a,{\"aria-hidden\":\"true\",tabIndex:\"-1\",href:\"#residual-u-blocks\",children:(0,n.jsx)(e.span,{className:\"icon icon-link\"})}),\"ReSidual U-blocks\"]}),`\n`,(0,n.jsx)(e.p,{children:\"RSU \\u7684\\u7ED3\\u6784\\u7B80\\u5355\\u6765\\u8BF4\\u5C31\\u662F\\uFF1A\\u6B8B\\u5DEE\\u7684\\u8DE8\\u63A5\\u7EF4\\u5EA6\\u662F\\u4EE5\\u4E00\\u4E2A UNet \\u4E3A\\u5355\\u4F4D\\u7684\\u3002\\u6362\\u53E5\\u8BDD\\u8BF4 ResNet \\u7ED3\\u6784\\u4E2D\\u7684 weight layer \\u88AB\\u66FF\\u6362\\u6210\\u4E86\\u4E00\\u4E2A UNet\\uFF0C\\u8FD9\\u6837\\u505A\\u7684\\u4F18\\u52BF\\u5728\\u4E8E U-block \\u7684\\u8F93\\u51FA\\u53EF\\u4EE5\\u8BA4\\u4E3A\\u662F\\u5E26\\u6709\\u591A\\u5C3A\\u5EA6\\u4FE1\\u606F\\u7684\\uFF0C\\u4ECE\\u800C\\u589E\\u5F3A\\u4E86\\u6A21\\u578B\\u7684\\u80FD\\u529B\\u3002\"}),`\n`,(0,n.jsxs)(e.h3,{id:\"\\u7F51\\u7EDC\\u67B6\\u6784\",className:\"content-header\",children:[(0,n.jsx)(e.a,{\"aria-hidden\":\"true\",tabIndex:\"-1\",href:\"#\\u7F51\\u7EDC\\u67B6\\u6784\",children:(0,n.jsx)(e.span,{className:\"icon icon-link\"})}),\"\\u7F51\\u7EDC\\u67B6\\u6784\"]}),`\n`,(0,n.jsx)(e.p,{children:\"\\u6574\\u4F53\\u7684\\u7F51\\u7EDC\\u67B6\\u6784\\u662F\\u5728\\u539F\\u6765\\u7684 RSU \\u6A21\\u5757\\u7684\\u57FA\\u7840\\u4E0A\\u518D\\u5957\\u4E00\\u4E2A UNet \\u7684\\u7ED3\\u6784\\uFF0C\\u8FD9\\u4E5F\\u662F\\u4E3A\\u4EC0\\u4E48\\u53EB U\\xB2 \\u7684\\u539F\\u56E0\\u3002\\u5BF9\\u4E8E\\u6BCF\\u4E00\\u5C42\\u7684\\u7279\\u5F81\\u8F93\\u51FA\\uFF0C\\u6700\\u7EC8\\u90FD\\u4F1A\\u88AB concate \\u5230\\u4E00\\u8D77\\uFF0C\\u5F97\\u5230\\u4E00\\u4E2A\\u878D\\u5408\\u4E4B\\u540E\\u7684\\u7ED3\\u679C\\u3002\"}),`\n`,(0,n.jsx)(e.p,{children:\"\\u9700\\u8981\\u6CE8\\u610F\\u7684\\u662F\\uFF0C\\u5728 loss \\u8BA1\\u7B97\\u65F6\\uFF0C\\u4E0D\\u4EC5\\u8003\\u8651\\u4E86\\u6700\\u7EC8\\u7684 S_fuse\\uFF0C\\u5176\\u6BCF\\u4E00\\u4E2A\\u7279\\u5F81\\u5C42\\u7684\\u8F93\\u51FA\\u90FD\\u4F1A\\u88AB\\u52A0\\u5165\\u5230 loss \\u8BA1\\u7B97\\u4E2D\\u53BB\\u3002\"}),`\n`,(0,n.jsxs)(e.h2,{id:\"highly-accurate-dichotomous-image-segmentationdis\",className:\"content-header\",children:[(0,n.jsx)(e.a,{\"aria-hidden\":\"true\",tabIndex:\"-1\",href:\"#highly-accurate-dichotomous-image-segmentationdis\",children:(0,n.jsx)(e.span,{className:\"icon icon-link\"})}),\"Highly Accurate Dichotomous Image Segmentation\\uFF08DIS\\uFF09\"]}),`\n`,(0,n.jsx)(e.p,{children:\"\\u8FD9\\u7BC7\\u5DE5\\u4F5C\\u5F88\\u5927\\u7684\\u8D21\\u732E\\u5728\\u4E8E\\uFF1A\\u63D0\\u4F9B\\u4E86\\u4E00\\u4E2A\\u9AD8\\u7CBE\\u5EA6\\u7684\\u5206\\u5272\\u6570\\u636E\\u96C6\\u3002\\u5C24\\u5176\\u662F\\u5BF9\\u4E8E\\u7269\\u4F53\\u7EC6\\u8282\\u8FD9\\u5757\\uFF0C\\u6807\\u6CE8\\u7684\\u975E\\u5E38\\u7CBE\\u51C6\\uFF0C\\u6B64\\u7C7B\\u6570\\u636E\\u6210\\u672C\\u5F80\\u5F80\\u5F88\\u9AD8\\uFF0C\\u80FD\\u591F\\u516C\\u5F00\\u51FA\\u6765\\u662F\\u975E\\u5E38\\u96BE\\u5F97\\u7684\\u3002\"}),`\n`,(0,n.jsx)(e.p,{children:\"\\u76F8\\u5BF9\\u4E8E U2Net\\uFF0C\\u6548\\u679C\\u4E0A\\u4E5F\\u6709\\u4E86\\u5F88\\u5927\\u7684\\u63D0\\u5347\\u3002\\u9664\\u4E86\\u6570\\u636E\\u96C6\\u7684\\u8D21\\u732E\\u4E4B\\u5916\\uFF0C\\u8FD9\\u7BC7\\u5DE5\\u4F5C\\u63D0\\u51FA\\u4E86\\uFF1A\"}),`\n`,(0,n.jsxs)(e.ul,{children:[`\n`,(0,n.jsx)(e.li,{children:\"\\u4E00\\u79CD\\u65B0\\u7684\\u57FA\\u4E8E\\u4E2D\\u95F4\\u76D1\\u7763\\u7684\\u57FA\\u7EBF IS-Net\\uFF0C\\u5B83\\u901A\\u8FC7\\u5F3A\\u5236\\u9AD8\\u7EF4\\u7279\\u5F81\\u7684\\u76F4\\u63A5\\u540C\\u6B65\\u6765\\u51CF\\u5C11\\u8FC7\\u62DF\\u5408\"}),`\n`,(0,n.jsx)(e.li,{children:\"\\u4EBA\\u5DE5\\u77EB\\u6B63\\u91CF\\uFF08HCE\\uFF09\\u6307\\u6807\"}),`\n`]}),`\n`,(0,n.jsxs)(e.h3,{id:\"is-net-\\u7F51\\u7EDC\\u67B6\\u6784\",className:\"content-header\",children:[(0,n.jsx)(e.a,{\"aria-hidden\":\"true\",tabIndex:\"-1\",href:\"#is-net-\\u7F51\\u7EDC\\u67B6\\u6784\",children:(0,n.jsx)(e.span,{className:\"icon icon-link\"})}),\"IS-Net \\u7F51\\u7EDC\\u67B6\\u6784\"]}),`\n`,(0,n.jsx)(e.p,{children:\"IS-Net \\u7684\\u7F51\\u7EDC\\u67B6\\u6784\\u57FA\\u672C\\u4E0A\\u662F\\u6CBF\\u7528\\u4E86 U2Net \\u7684\\u7ED3\\u6784\\uFF0C\\u533A\\u522B\\u5728\\u4E8E\\u5176\\u5BF9\\u591A\\u5C3A\\u5EA6\\u4E0B\\u7684\\u7279\\u5F81\\u8FDB\\u884C\\u76F4\\u63A5\\u7684\\u76D1\\u7763\\u3002\\u5982\\u4F55\\u505A\\u5230\\u8FD9\\u4E00\\u70B9\\u5462\\uFF1F\\u5176\\u5C06\\u8BAD\\u7EC3\\u5206\\u6210\\u4E86\\u4E24\\u4E2A\\u9636\\u6BB5\\uFF1A\"}),`\n`,(0,n.jsxs)(e.ol,{children:[`\n`,(0,n.jsxs)(e.li,{children:[\"\\u7B2C\\u4E00\\u9636\\u6BB5\\u57FA\\u4E8E ground truth \\u8BAD\\u7EC3\\u4E00\\u4E2A\\u7F16\\u7801\\u5668\\uFF0C\\u5176\\u5305\\u542B\\u4E86\\u591A\\u5C3A\\u5EA6\\u4E0B\\u5BF9\\u5E94\\u7684\",(0,n.jsx)(e.strong,{children:\"\\u7279\\u5F81 ground truth\"})]}),`\n`,(0,n.jsx)(e.li,{children:\"\\u7B2C\\u4E8C\\u9636\\u6BB5\\u5229\\u7528\\u8FD9\\u4E9B\\u7279\\u5F81 ground truth \\u53BB\\u8BAD\\u7EC3\\u539F\\u6765\\u7684 U2Net \\u7ED3\\u6784\"}),`\n`]}),`\n`,(0,n.jsx)(e.p,{children:\"\\u9700\\u8981\\u6CE8\\u610F\\u7684\\u662F\\uFF0C\\u5728\\u63A8\\u7406\\u8FC7\\u7A0B\\u4E2D\\uFF0C\\u6211\\u4EEC\\u53EA\\u9700\\u8981\\u4E3B\\u5E72\\u90E8\\u5206\\uFF0C\\u7279\\u5F81\\u76D1\\u7763\\u6A21\\u5757\\u53EA\\u53C2\\u4E0E\\u8BAD\\u7EC3\\u3002\"}),`\n`,(0,n.jsxs)(e.h2,{id:\"\\u7ED3\\u8BED\",className:\"content-header\",children:[(0,n.jsx)(e.a,{\"aria-hidden\":\"true\",tabIndex:\"-1\",href:\"#\\u7ED3\\u8BED\",children:(0,n.jsx)(e.span,{className:\"icon icon-link\"})}),\"\\u7ED3\\u8BED\"]}),`\n`,(0,n.jsx)(e.p,{children:\"\\u901A\\u8FC7\\u672C\\u6587\\uFF0C\\u6211\\u4EEC\\u7B80\\u5355\\u56DE\\u987E\\u4E86\\u9AD8\\u7CBE\\u5EA6\\u56FE\\u50CF\\u5206\\u5272\\u76F8\\u5173\\u5DE5\\u4F5C\\uFF0C\\u5176\\u5728\\u8BA1\\u7B97\\u673A\\u89C6\\u89C9\\u9886\\u57DF\\u5177\\u6709\\u7740\\u5E7F\\u6CDB\\u7684\\u5E94\\u7528\\u524D\\u666F\\u3002\\u8FD9\\u4E9B\\u7B97\\u6CD5\\u7684\\u4E0D\\u65AD\\u53D1\\u5C55\\u548C\\u6539\\u8FDB\\u4F7F\\u6211\\u4EEC\\u80FD\\u591F\\u66F4\\u51C6\\u786E\\u5730\\u5206\\u79BB\\u56FE\\u50CF\\u4E2D\\u7684\\u4E0D\\u540C\\u5BF9\\u8C61\\u3001\\u533A\\u57DF\\u548C\\u7279\\u5F81\\u3002\"}),`\n`,(0,n.jsxs)(e.h2,{id:\"\\u53C2\\u8003\",className:\"content-header\",children:[(0,n.jsx)(e.a,{\"aria-hidden\":\"true\",tabIndex:\"-1\",href:\"#\\u53C2\\u8003\",children:(0,n.jsx)(e.span,{className:\"icon icon-link\"})}),\"\\u53C2\\u8003\"]}),`\n`,(0,n.jsxs)(e.ul,{children:[`\n`,(0,n.jsx)(e.li,{children:(0,n.jsx)(e.a,{href:\"https://github.com/xuebinqin/BASNet\",children:\"BASNet\"})}),`\n`,(0,n.jsx)(e.li,{children:(0,n.jsx)(e.a,{href:\"https://github.com/xuebinqin/U-2-Net\",children:\"U-2-Net\"})}),`\n`,(0,n.jsx)(e.li,{children:(0,n.jsx)(e.a,{href:\"https://github.com/xuebinqin/DIS\",children:\"DIS\"})}),`\n`]})]})}function o(i={}){let{wrapper:e}=i.components||{};return e?(0,n.jsx)(e,{...i,children:(0,n.jsx)(s,{...i})}):s(i)}return b(U);})();\n;return Component;"
+  },
+  "_id": "blog/DL/high-accuracy-segmentation.md",
+  "_raw": {
+    "sourceFilePath": "blog/DL/high-accuracy-segmentation.md",
+    "sourceFileName": "high-accuracy-segmentation.md",
+    "sourceFileDir": "blog/DL",
+    "contentType": "markdown",
+    "flattenedPath": "blog/DL/high-accuracy-segmentation"
+  },
+  "type": "Blog",
+  "readingTime": {
+    "text": "6 min read",
+    "minutes": 5.06,
+    "time": 303600,
+    "words": 1012
+  },
+  "slug": "high-accuracy-segmentation",
+  "path": "blog/DL/high-accuracy-segmentation",
+  "toc": [
+    {
+      "value": "前言",
+      "url": "#前言",
+      "depth": 2
+    },
+    {
+      "value": "BASNet",
+      "url": "#basnet",
+      "depth": 2
+    },
+    {
+      "value": "predict-refine 网络架构",
+      "url": "#predict-refine-网络架构",
+      "depth": 3
+    },
+    {
+      "value": "多层级的混合 loss",
+      "url": "#多层级的混合-loss",
+      "depth": 3
+    },
+    {
+      "value": "U2Net",
+      "url": "#u2net",
+      "depth": 2
+    },
+    {
+      "value": "ReSidual U-blocks",
+      "url": "#residual-u-blocks",
+      "depth": 3
+    },
+    {
+      "value": "网络架构",
+      "url": "#网络架构",
+      "depth": 3
+    },
+    {
+      "value": "Highly Accurate Dichotomous Image Segmentation（DIS）",
+      "url": "#highly-accurate-dichotomous-image-segmentationdis",
+      "depth": 2
+    },
+    {
+      "value": "IS-Net 网络架构",
+      "url": "#is-net-网络架构",
+      "depth": 3
+    },
+    {
+      "value": "结语",
+      "url": "#结语",
+      "depth": 2
+    },
+    {
+      "value": "参考",
+      "url": "#参考",
+      "depth": 2
+    }
+  ],
+  "structuredData": {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "高精度图像分割技术回顾",
+    "datePublished": "2023-11-06T00:00:00.000Z",
+    "dateModified": "2023-11-06T00:00:00.000Z",
+    "description": "回顾高精度图像分割算法发展：从 BASNet 到 U2Net，再到 DIS。探讨 Residual Refine Module 及多尺度融合技术。",
+    "url": "https://zhangjian94cn.github.io/blog/high-accuracy-segmentation"
+  }
+}

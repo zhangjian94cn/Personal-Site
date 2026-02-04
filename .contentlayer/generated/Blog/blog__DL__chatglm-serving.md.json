@@ -1,0 +1,41 @@
+{
+  "title": "ChatGLM Serving in Intel i5 CPU Demo",
+  "date": "2023-10-28T00:00:00.000Z",
+  "tags": [],
+  "draft": false,
+  "summary": "ChatGLM Serving in Intel i5 CPU Demo",
+  "authors": [
+    "default"
+  ],
+  "body": {
+    "raw": "\n部分时间开放测试\n\n[点击此链接访问 Demo](http://124.222.119.248:3000/)\n",
+    "code": "var Component=(()=>{var h=Object.create;var o=Object.defineProperty;var u=Object.getOwnPropertyDescriptor;var f=Object.getOwnPropertyNames;var x=Object.getPrototypeOf,p=Object.prototype.hasOwnProperty;var _=(t,e)=>()=>(e||t((e={exports:{}}).exports,e),e.exports),C=(t,e)=>{for(var r in e)o(t,r,{get:e[r],enumerable:!0})},i=(t,e,r,s)=>{if(e&&typeof e==\"object\"||typeof e==\"function\")for(let a of f(e))!p.call(t,a)&&a!==r&&o(t,a,{get:()=>e[a],enumerable:!(s=u(e,a))||s.enumerable});return t};var g=(t,e,r)=>(r=t!=null?h(x(t)):{},i(e||!t||!t.__esModule?o(r,\"default\",{value:t,enumerable:!0}):r,t)),j=t=>i(o({},\"__esModule\",{value:!0}),t);var m=_((v,c)=>{c.exports=_jsx_runtime});var M={};C(M,{default:()=>d,frontmatter:()=>D});var n=g(m()),D={title:\"ChatGLM Serving in Intel i5 CPU Demo\",date:\"2023-10-28\",tags:[],draft:!1,summary:\"ChatGLM Serving in Intel i5 CPU Demo\",authors:[\"default\"]};function l(t){let e={a:\"a\",p:\"p\",...t.components};return(0,n.jsxs)(n.Fragment,{children:[(0,n.jsx)(e.p,{children:\"\\u90E8\\u5206\\u65F6\\u95F4\\u5F00\\u653E\\u6D4B\\u8BD5\"}),`\n`,(0,n.jsx)(e.p,{children:(0,n.jsx)(e.a,{href:\"http://124.222.119.248:3000/\",children:\"\\u70B9\\u51FB\\u6B64\\u94FE\\u63A5\\u8BBF\\u95EE Demo\"})})]})}function d(t={}){let{wrapper:e}=t.components||{};return e?(0,n.jsx)(e,{...t,children:(0,n.jsx)(l,{...t})}):l(t)}return j(M);})();\n;return Component;"
+  },
+  "_id": "blog/DL/chatglm-serving.md",
+  "_raw": {
+    "sourceFilePath": "blog/DL/chatglm-serving.md",
+    "sourceFileName": "chatglm-serving.md",
+    "sourceFileDir": "blog/DL",
+    "contentType": "markdown",
+    "flattenedPath": "blog/DL/chatglm-serving"
+  },
+  "type": "Blog",
+  "readingTime": {
+    "text": "1 min read",
+    "minutes": 0.08,
+    "time": 4800,
+    "words": 16
+  },
+  "slug": "chatglm-serving",
+  "path": "blog/DL/chatglm-serving",
+  "toc": [],
+  "structuredData": {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "ChatGLM Serving in Intel i5 CPU Demo",
+    "datePublished": "2023-10-28T00:00:00.000Z",
+    "dateModified": "2023-10-28T00:00:00.000Z",
+    "description": "ChatGLM Serving in Intel i5 CPU Demo",
+    "url": "https://zhangjian94cn.github.io/blog/chatglm-serving"
+  }
+}

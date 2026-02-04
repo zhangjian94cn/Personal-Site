@@ -15,7 +15,7 @@ const computedFields: ComputedFields = {
   },
   slug: {
     type: 'string',
-    resolve: (doc) => doc._raw.flattenedPath.replace(/^.+?(\/)/, ''),
+    resolve: (doc) => doc._raw.sourceFileName.replace(/\.md$/, ''),
   },
   path: {
     type: 'string',
@@ -54,7 +54,7 @@ export const Blog = defineDocumentType(() => ({
         datePublished: doc.date,
         dateModified: doc.lastmod || doc.date,
         description: doc.summary,
-        url: `https://zhangjian94cn.github.io/blog/${doc._raw.flattenedPath.replace(/^.+?(\/)/, '')}`,
+        url: `https://zhangjian94cn.github.io/blog/${doc._raw.sourceFileName.replace(/\.md$/, '')}`,
       }),
     },
   },

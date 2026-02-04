@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import { allBlogs, allAuthors } from "contentlayer/generated";
 import { compareDesc } from "date-fns";
 import { useMDXComponent } from "next-contentlayer2/hooks";
@@ -80,4 +79,3 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     </PostLayout>
   );
 }
-
