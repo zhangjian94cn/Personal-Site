@@ -1,7 +1,7 @@
 ---
 title: "How to Encrypt Your Website (private)"
 date: "2022-12-19"
-tags: ["WEB"]
+tags: [web, encryption, Jekyll]
 draft: false
 summary: "How to Encrypt Your Website (private)"
 authors: ["default"]

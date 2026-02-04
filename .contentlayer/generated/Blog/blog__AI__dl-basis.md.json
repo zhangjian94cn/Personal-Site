@@ -1,0 +1,44 @@
+{
+  "title": "Deep Learning Basis",
+  "date": "2023-11-12T00:00:00.000Z",
+  "tags": [
+    "deep-learning",
+    "tutorial"
+  ],
+  "draft": false,
+  "summary": "Deep Learning Basis",
+  "authors": [
+    "default"
+  ],
+  "body": {
+    "raw": "",
+    "code": "var Component=(()=>{var d=Object.create;var o=Object.defineProperty;var l=Object.getOwnPropertyDescriptor;var x=Object.getOwnPropertyNames;var g=Object.getPrototypeOf,p=Object.prototype.hasOwnProperty;var _=(t,e)=>()=>(e||t((e={exports:{}}).exports,e),e.exports),D=(t,e)=>{for(var n in e)o(t,n,{get:e[n],enumerable:!0})},i=(t,e,n,s)=>{if(e&&typeof e==\"object\"||typeof e==\"function\")for(let a of x(e))!p.call(t,a)&&a!==n&&o(t,a,{get:()=>e[a],enumerable:!(s=l(e,a))||s.enumerable});return t};var j=(t,e,n)=>(n=t!=null?d(g(t)):{},i(e||!t||!t.__esModule?o(n,\"default\",{value:t,enumerable:!0}):n,t)),L=t=>i(o({},\"__esModule\",{value:!0}),t);var m=_((B,u)=>{u.exports=_jsx_runtime});var h={};D(h,{default:()=>c,frontmatter:()=>M});var r=j(m()),M={title:\"Deep Learning Basis\",date:\"2023-11-12\",tags:[\"deep-learning\",\"tutorial\"],draft:!1,summary:\"Deep Learning Basis\",authors:[\"default\"]};function f(t){return(0,r.jsx)(r.Fragment,{})}function c(t={}){let{wrapper:e}=t.components||{};return e?(0,r.jsx)(e,{...t,children:(0,r.jsx)(f,{...t})}):f(t)}return L(h);})();\n;return Component;"
+  },
+  "_id": "blog/AI/dl-basis.md",
+  "_raw": {
+    "sourceFilePath": "blog/AI/dl-basis.md",
+    "sourceFileName": "dl-basis.md",
+    "sourceFileDir": "blog/AI",
+    "contentType": "markdown",
+    "flattenedPath": "blog/AI/dl-basis"
+  },
+  "type": "Blog",
+  "readingTime": {
+    "text": "0 min read",
+    "minutes": 0,
+    "time": 0,
+    "words": 0
+  },
+  "slug": "dl-basis",
+  "path": "blog/AI/dl-basis",
+  "toc": [],
+  "structuredData": {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Deep Learning Basis",
+    "datePublished": "2023-11-12T00:00:00.000Z",
+    "dateModified": "2023-11-12T00:00:00.000Z",
+    "description": "Deep Learning Basis",
+    "url": "https://zhangjian94cn.github.io/blog/dl-basis"
+  }
+}
