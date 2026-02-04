@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { allBlogs, allAuthors } from "contentlayer/generated";
+import { compareDesc } from "date-fns";
 import { useMDXComponent } from "next-contentlayer2/hooks";
 import type { Metadata } from "next";
 import { siteConfig } from "@/lib/config";
@@ -61,8 +62,20 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     .map((author) => allAuthors.find((a) => a.slug === author))
     .filter((author): author is typeof allAuthors[0] => Boolean(author));
 
+  const sortedPosts = allBlogs
+    .filter((p) => !p.draft)
+    .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
+  const postIndex = sortedPosts.findIndex((p) => p.slug === slug);
+  const prevContent = sortedPosts[postIndex + 1] || null;
+  const nextContent = sortedPosts[postIndex - 1] || null;
+
   return (
-    <PostLayout content={post} authorDetails={authorDetails}>
+    <PostLayout
+      content={post}
+      authorDetails={authorDetails}
+      next={nextContent}
+      prev={prevContent}
+    >
       <MDXContent code={post.body.code} />
     </PostLayout>
   );

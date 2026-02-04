@@ -2,18 +2,18 @@ import type { MDXComponents } from 'mdx/types';
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
-    // Custom heading styles
-    h1: ({ children }) => (
-      <h1 className="text-3xl font-bold leading-tight text-gray-900 dark:text-gray-100 mt-10 mb-4 pb-2 border-b border-gray-200 dark:border-gray-700">{children}</h1>
+    // Custom heading styles - spread props to preserve id from rehype-slug
+    h1: ({ children, ...props }) => (
+      <h1 {...props} className="text-3xl font-bold leading-tight text-gray-900 dark:text-gray-100 mt-10 mb-4 pb-2 border-b border-gray-200 dark:border-gray-700">{children}</h1>
     ),
-    h2: ({ children }) => (
-      <h2 className="text-2xl font-bold leading-tight text-gray-900 dark:text-gray-100 mt-8 mb-4 pb-2 border-b border-gray-200 dark:border-gray-700">{children}</h2>
+    h2: ({ children, ...props }) => (
+      <h2 {...props} className="text-2xl font-bold leading-tight text-gray-900 dark:text-gray-100 mt-8 mb-4 pb-2 border-b border-gray-200 dark:border-gray-700">{children}</h2>
     ),
-    h3: ({ children }) => (
-      <h3 className="text-xl font-semibold leading-snug text-gray-900 dark:text-gray-100 mt-6 mb-3">{children}</h3>
+    h3: ({ children, ...props }) => (
+      <h3 {...props} className="text-xl font-semibold leading-snug text-gray-900 dark:text-gray-100 mt-6 mb-3">{children}</h3>
     ),
-    h4: ({ children }) => (
-      <h4 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mt-4 mb-2">{children}</h4>
+    h4: ({ children, ...props }) => (
+      <h4 {...props} className="text-lg font-semibold text-gray-900 dark:text-gray-100 mt-4 mb-2">{children}</h4>
     ),
     // Custom paragraph
     p: ({ children }) => (

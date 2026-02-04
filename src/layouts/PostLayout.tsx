@@ -6,8 +6,8 @@ import { TableOfContents } from "@/components/TableOfContents";
 interface PostLayoutProps {
   content: Blog;
   authorDetails: Authors[];
-  next?: { slug: string; title: string };
-  prev?: { slug: string; title: string };
+  next?: Blog | null;
+  prev?: Blog | null;
   children: ReactNode;
 }
 
@@ -21,100 +21,131 @@ export default function PostLayout({
   const { date, title, subtitle, tags, readingTime } = content;
 
   return (
-    <article className="min-h-screen">
-      {/* Header Section - Matching original Jekyll style */}
-      <header className="py-16 border-b border-gray-200 dark:border-gray-700">
-        <div className="container mx-auto max-w-4xl px-4">
-          {/* Tags above title */}
-          {tags && tags.length > 0 && (
-            <div className="flex flex-wrap gap-2 mb-4">
-              {tags.map((tag) => (
-                <Link
-                  key={tag}
-                  href={`/tags/${tag.toLowerCase()}`}
-                  className="text-sm font-medium text-primary-600 hover:text-primary-500 dark:text-primary-400 dark:hover:text-primary-300 uppercase"
-                >
-                  {tag}
-                </Link>
-              ))}
-            </div>
-          )}
-          
-          {/* Title */}
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 leading-tight">
-            {title}
-          </h1>
-          
-          {/* Subtitle */}
-          {subtitle && (
-            <h2 className="text-xl md:text-2xl text-gray-500 dark:text-gray-400 mt-3 font-normal">
-              {subtitle}
-            </h2>
-          )}
-
-          {/* Meta: Author and Date */}
-          <div className="mt-6 text-gray-500 dark:text-gray-400">
-            Posted by{" "}
-            {authorDetails.map((author, idx) => (
-              <span key={author.name}>
-                <span className="font-medium text-gray-700 dark:text-gray-300">
-                  {author.name}
-                </span>
-                {idx < authorDetails.length - 1 && ", "}
-              </span>
-            ))}{" "}
-            on{" "}
-            <time dateTime={date}>
-              {new Date(date).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </time>
-          </div>
-        </div>
-      </header>
-
-      {/* Main Content Area with Sidebar */}
-      <div className="container mx-auto max-w-6xl px-4 py-12">
-        <div className="flex flex-col lg:flex-row lg:gap-12">
-          {/* Main Content */}
-          <div className="flex-1 lg:max-w-3xl">
-            <div className="prose prose-lg dark:prose-invert max-w-none
-              prose-headings:font-bold prose-headings:text-gray-900 dark:prose-headings:text-gray-100
-              prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-p:leading-relaxed
-              prose-a:text-primary-600 hover:prose-a:text-primary-500 dark:prose-a:text-primary-400
-              prose-li:text-gray-700 dark:prose-li:text-gray-300
-              prose-blockquote:border-primary-500 prose-blockquote:bg-gray-50 dark:prose-blockquote:bg-gray-800/50 prose-blockquote:py-1 prose-blockquote:px-4 prose-blockquote:rounded-r-md
-              prose-code:bg-gray-100 dark:prose-code:bg-gray-800 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:before:content-none prose-code:after:content-none
-              prose-pre:bg-gray-900 dark:prose-pre:bg-gray-950 prose-pre:rounded-lg
-              prose-img:rounded-lg
-            ">
-              {children}
-            </div>
-
-            {/* Back to Blog Link */}
-            <div className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-700">
-              <Link
-                href="/blog"
-                className="inline-flex items-center text-primary-600 hover:text-primary-500 dark:text-primary-400 dark:hover:text-primary-300 font-medium"
-              >
-                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-                返回博客
-              </Link>
-            </div>
-          </div>
-
-          {/* Sidebar / TOC */}
-          <aside className="hidden lg:block lg:w-64 lg:flex-shrink-0">
-            <div className="sticky top-24">
+    <article className="min-h-screen bg-white dark:bg-gray-950">
+      <div className="container mx-auto max-w-7xl px-6 py-12 lg:px-8">
+        <div className="flex flex-col lg:flex-row lg:gap-16">
+           
+           {/* Sidebar / TOC (Desktop) - Left Side */}
+           <aside className="hidden lg:block lg:w-64 lg:flex-shrink-0">
+            <div className="sticky top-24 overflow-y-auto max-h-[calc(100vh-8rem)]">
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-900 dark:text-gray-100 mb-4">
+                On this page
+              </h3>
               {content.toc && content.toc.length > 0 && (
                 <TableOfContents toc={content.toc} />
               )}
             </div>
           </aside>
+
+          {/* Article Content & Header - Right Side */}
+          <main className="flex-1 min-w-0">
+            
+            {/* Header Section (Now inside Main) */}
+            <header className="mb-10 border-b border-gray-200 pb-10 dark:border-gray-800">
+               <div className="space-y-4">
+                 {/* Date & Reading Time */}
+                 <div className="flex items-center space-x-2 text-sm font-medium text-gray-500 dark:text-gray-400">
+                   <time dateTime={date}>
+                     {new Date(date).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+                   </time>
+                   <span>•</span>
+                   <span>{readingTime?.text}</span>
+                 </div>
+
+                 {/* Title */}
+                 <h1 className="text-4xl font-extrabold leading-tight tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl">
+                   {title}
+                 </h1>
+
+                 {/* Subtitle */}
+                 {subtitle && (
+                    <p className="text-xl text-gray-500 dark:text-gray-400">
+                      {subtitle}
+                    </p>
+                 )}
+
+                 {/* Author & Tags */}
+                 <div className="flex flex-col items-start gap-4 pt-4 sm:flex-row sm:justify-between sm:items-center">
+                    {/* Author */}
+                    <div className="flex items-center space-x-2">
+                      <span className="text-sm font-medium text-gray-500 dark:text-gray-400">By</span>
+                      {authorDetails.map((author, idx) => (
+                        <span key={author.name} className="flex items-center space-x-2">
+                           <span className="text-sm font-bold text-gray-900 dark:text-gray-100">{author.name}</span>
+                           {idx < authorDetails.length - 1 && <span>, </span>}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Tags */}
+                    {tags && tags.length > 0 && (
+                      <div className="flex flex-wrap gap-2">
+                        {tags.map((tag) => (
+                          <Link
+                            key={tag}
+                            href={`/tags/${tag.toLowerCase()}`}
+                            className="rounded-md bg-gray-100 px-2.5 py-1 text-xs font-semibold uppercase text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+                          >
+                            {tag}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                 </div>
+               </div>
+            </header>
+
+            {/* Content Display */}
+            <div className="prose prose-lg dark:prose-invert max-w-none
+              prose-headings:scroll-mt-20
+              prose-a:text-primary-600 hover:prose-a:text-primary-500 dark:prose-a:text-primary-400
+              prose-img:rounded-xl prose-img:shadow-lg
+            ">
+              {children}
+            </div>
+
+            {/* Post Navigation */}
+            <hr className="my-12 border-gray-200 dark:border-gray-800" />
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+              {prev && prev.slug && (
+                 <div className="flex flex-col items-start text-left">
+                   <span className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                     Previous Article
+                   </span>
+                   <Link 
+                     href={`/blog/${prev.slug}`}
+                     className="text-lg font-bold text-gray-900 hover:text-primary-600 dark:text-gray-100 dark:hover:text-primary-400"
+                   >
+                     &larr; {prev.title}
+                   </Link>
+                 </div>
+              ) || <div />} {/* Spacer if no prev */}
+              
+              {next && next.slug && (
+                <div className="flex flex-col items-end text-right">
+                  <span className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                    Next Article
+                  </span>
+                   <Link 
+                     href={`/blog/${next.slug}`}
+                     className="text-lg font-bold text-gray-900 hover:text-primary-600 dark:text-gray-100 dark:hover:text-primary-400"
+                   >
+                     {next.title} &rarr;
+                   </Link>
+                </div>
+              )}
+            </div>
+            
+             <div className="mt-16 text-center">
+              <Link
+                href="/blog"
+                className="inline-flex items-center rounded-md bg-gray-100 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700"
+              >
+                View All Articles
+              </Link>
+            </div>
+
+          </main>
         </div>
       </div>
     </article>

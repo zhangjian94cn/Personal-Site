@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { siteConfig } from '@/lib/config';
+import { Statistics } from './Statistics';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -7,7 +8,10 @@ export function Footer() {
   return (
     <footer>
       <div className="mt-16 flex flex-col items-center">
-        <div className="mb-3 flex space-x-4">
+        {/* 访客统计 */}
+        <Statistics />
+        
+        <div className="mb-3 mt-4 flex space-x-4">
           {siteConfig.links.github && (
             <a
               href={siteConfig.links.github}

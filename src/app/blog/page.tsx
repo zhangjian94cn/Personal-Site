@@ -1,11 +1,11 @@
-import Link from "next/link";
 import { allBlogs } from "contentlayer/generated";
 import { compareDesc } from "date-fns";
+import { PostCard } from "@/components/ui/PostCard";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "博客",
-  description: "AI 技术探索与生活分享",
+  title: "Blog",
+  description: "Writing on software design, company building, and the aerospace industry.",
 };
 
 export default function BlogPage() {
@@ -14,90 +14,22 @@ export default function BlogPage() {
     .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
 
   return (
-    <>
-      <div className="divide-y divide-gray-200 dark:divide-gray-700">
-        <div className="space-y-2 pb-8 pt-6 md:space-y-5">
-          <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-            全部文章
-          </h1>
-          <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
-            AI 技术探索与生活分享
+    <div className="py-12 sm:py-24">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl lg:mx-0">
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
+            All Articles
+          </h2>
+          <p className="mt-2 text-lg leading-8 text-gray-600 dark:text-gray-400">
+            A complete archive of my writing.
           </p>
         </div>
-
-        <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-          {posts.length === 0 && (
-            <li className="py-12">
-              <p className="text-gray-500 dark:text-gray-400">
-                暂无文章，敬请期待...
-              </p>
-            </li>
-          )}
-          {posts.map((post) => {
-            const { slug, date, title, summary, tags, readingTime } = post;
-            return (
-              <li key={slug} className="py-12">
-                <article>
-                  <div className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
-                    <dl>
-                      <dt className="sr-only">Published on</dt>
-                      <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                        <time dateTime={date}>
-                          {new Date(date).toLocaleDateString("zh-CN", {
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                          })}
-                        </time>
-                      </dd>
-                    </dl>
-                    <div className="space-y-5 xl:col-span-3">
-                      <div className="space-y-6">
-                        <div>
-                          <h2 className="text-2xl font-bold leading-8 tracking-tight">
-                            <Link
-                              href={`/blog/${slug}`}
-                              className="text-gray-900 dark:text-gray-100"
-                            >
-                              {title}
-                            </Link>
-                          </h2>
-                          <div className="flex flex-wrap items-center gap-2">
-                            {tags?.map((tag) => (
-                              <Link
-                                key={tag}
-                                href={`/tags/${tag.toLowerCase()}`}
-                                className="text-sm font-medium uppercase text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                              >
-                                {tag}
-                              </Link>
-                            ))}
-                            <span className="text-sm text-gray-500 dark:text-gray-400">
-                              · {readingTime?.text}
-                            </span>
-                          </div>
-                        </div>
-                        <div className="prose max-w-none text-gray-500 dark:text-gray-400">
-                          {summary}
-                        </div>
-                      </div>
-                      <div className="text-base font-medium leading-6">
-                        <Link
-                          href={`/blog/${slug}`}
-                          className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                          aria-label={`Read more: "${title}"`}
-                        >
-                          阅读更多 &rarr;
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </article>
-              </li>
-            );
-          })}
-        </ul>
+        <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 dark:border-gray-700 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+          {posts.map((post) => (
+            <PostCard key={post.slug} post={post} />
+          ))}
+        </div>
       </div>
-    </>
+    </div>
   );
 }

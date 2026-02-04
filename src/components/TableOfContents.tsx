@@ -57,6 +57,15 @@ export const TableOfContents = ({ toc }: TOCProps) => {
           >
             <a
               href={item.url}
+              onClick={(e) => {
+                e.preventDefault();
+                const element = document.getElementById(item.url.slice(1));
+                if (element) {
+                  element.scrollIntoView({ behavior: "smooth", block: "start" });
+                  // Optionally update URL hash without jump
+                  window.history.pushState(null, "", item.url);
+                }
+              }}
               className={clsx(
                 "block py-1 pl-4 -ml-px border-l-2 transition-colors duration-200",
                 activeId === item.url.slice(1)
