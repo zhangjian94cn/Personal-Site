@@ -28,7 +28,7 @@ var computedFields = {
 };
 var Blog = defineDocumentType(() => ({
   name: "Blog",
-  filePathPattern: "blog/**/*.mdx",
+  filePathPattern: "blog/**/*.md",
   contentType: "mdx",
   fields: {
     title: { type: "string", required: true },
@@ -60,7 +60,7 @@ var Blog = defineDocumentType(() => ({
 }));
 var Authors = defineDocumentType(() => ({
   name: "Authors",
-  filePathPattern: "authors/**/*.mdx",
+  filePathPattern: "authors/**/*.md",
   contentType: "mdx",
   fields: {
     name: { type: "string", required: true },
@@ -100,4 +100,4 @@ export {
   Blog,
   contentlayer_config_default as default
 };
-//# sourceMappingURL=compiled-contentlayer-config-DFNLUGGR.mjs.map
+//# sourceMappingURL=compiled-contentlayer-config-5DOZGQX6.mjs.map
