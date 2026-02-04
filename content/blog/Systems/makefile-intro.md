@@ -1,7 +1,7 @@
 ---
 title: "Makefile 入门指南"
 date: "2022-12-06"
-tags: [compilation, make, C++]
+tags: [C++]
 draft: false
 summary: "Makefile 基础教程：理解 targets、prerequisites 和 commands，掌握增量编译核心原理。"
 authors: ["default"]

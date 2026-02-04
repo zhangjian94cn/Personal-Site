@@ -1,7 +1,7 @@
 ---
 title: "欢迎来到我的博客"
 date: "2026-02-01"
-tags: [announcement, blog]
+tags: []
 draft: false
 summary: "个人博客正式上线！这里将分享 AI 技术探索、学习笔记与生活思考。"
 authors: ["default"]

@@ -1,7 +1,7 @@
 ---
 title: "TBB 入门教程"
 date: "2022-11-22"
-tags: [HPC, TBB, parallel-computing]
+tags: [HPC, C++]
 draft: false
 summary: "Intel oneTBB 入门：介绍 TBB 的优势、安装方法及简单的 parallel_for 使用示例。"
 authors: ["default"]

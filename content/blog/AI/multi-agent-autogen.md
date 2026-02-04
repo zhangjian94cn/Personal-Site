@@ -1,7 +1,7 @@
 ---
 title: "基于 AutoGen 的数智助手问答架构设计"
 date: "2025-02-05"
-tags: [AI, multi-agent, AutoGen, architecture]
+tags: [LLM, deep-learning]
 draft: false
 summary: "深入探讨基于 AutoGen 框架的多智能体对话系统架构设计，包括意图理解、任务规划及 Deepseek R1 融合方案。"
 authors: ["default"]

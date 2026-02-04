@@ -1,7 +1,7 @@
 ---
 title: "高精度图像分割技术回顾"
 date: "2023-11-06"
-tags: [deep-learning, computer-vision, segmentation]
+tags: [deep-learning]
 draft: false
 summary: "回顾高精度图像分割算法发展：从 BASNet 到 U2Net，再到 DIS。探讨 Residual Refine Module 及多尺度融合技术。"
 authors: ["default"]

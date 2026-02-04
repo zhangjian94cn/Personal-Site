@@ -1,7 +1,7 @@
 ---
 title: "AVX 指令入门"
 date: "2022-11-19"
-tags: [HPC, AVX, SIMD, optimization]
+tags: [HPC, C++]
 draft: false
 summary: "介绍 SIMD 向量化指令的基础概念，包括自动向量化与手动向量化的实现方式和性能对比。"
 authors: ["default"]

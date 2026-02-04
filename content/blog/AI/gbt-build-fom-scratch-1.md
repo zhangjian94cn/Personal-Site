@@ -1,7 +1,7 @@
 ---
 title: "Let's build GPT: from scratch, in code, spelled out (1)"
 date: "2023-01-20"
-tags: [LLM, GPT]
+tags: [LLM, deep-learning]
 draft: false
 summary: "a shocking turn of events a leaf has fallen from a treat in the local park Witnesses report that the leaf which was previously attached to a branch of"
 authors: ["default"]

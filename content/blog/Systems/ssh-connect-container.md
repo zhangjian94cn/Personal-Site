@@ -1,7 +1,7 @@
 ---
 title: "SSH Connect Docker Container"
 date: "2022-12-08"
-tags: [dev-tools, Docker, SSH]
+tags: [dev-tools]
 draft: false
 summary: "SSH Connect Docker Container"
 authors: ["default"]

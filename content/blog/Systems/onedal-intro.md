@@ -1,7 +1,7 @@
 ---
 title: "oneDAL 入门指南"
 date: "2022-12-14"
-tags: [machine-learning, oneDAL, Intel]
+tags: [Intel, deep-learning]
 draft: false
 subtitle: "getting started"
 summary: "Intel oneDAL 高性能数据分析库入门：介绍 oneDAL 的基本概念、安装方法及示例编译运行。"

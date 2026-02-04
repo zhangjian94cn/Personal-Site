@@ -1,11 +1,7 @@
 {
   "title": "How to Encrypt Your Website (private)",
   "date": "2022-12-19T00:00:00.000Z",
-  "tags": [
-    "web",
-    "encryption",
-    "Jekyll"
-  ],
+  "tags": [],
   "draft": false,
   "summary": "How to Encrypt Your Website (private)",
   "authors": [
@@ -13,7 +9,7 @@
   ],
   "body": {
     "raw": "\n简要介绍对静态网站独立网页加密的方法\n",
-    "code": "var Component=(()=>{var f=Object.create;var r=Object.defineProperty;var l=Object.getOwnPropertyDescriptor;var d=Object.getOwnPropertyNames;var x=Object.getPrototypeOf,y=Object.prototype.hasOwnProperty;var _=(t,e)=>()=>(e||t((e={exports:{}}).exports,e),e.exports),w=(t,e)=>{for(var n in e)r(t,n,{get:e[n],enumerable:!0})},s=(t,e,n,c)=>{if(e&&typeof e==\"object\"||typeof e==\"function\")for(let o of d(e))!y.call(t,o)&&o!==n&&r(t,o,{get:()=>e[o],enumerable:!(c=l(e,o))||c.enumerable});return t};var b=(t,e,n)=>(n=t!=null?f(x(t)):{},s(e||!t||!t.__esModule?r(n,\"default\",{value:t,enumerable:!0}):n,t)),h=t=>s(r({},\"__esModule\",{value:!0}),t);var u=_((C,i)=>{i.exports=_jsx_runtime});var M={};w(M,{default:()=>m,frontmatter:()=>j});var a=b(u()),j={title:\"How to Encrypt Your Website (private)\",date:\"2022-12-19\",tags:[\"web\",\"encryption\",\"Jekyll\"],draft:!1,summary:\"How to Encrypt Your Website (private)\",authors:[\"default\"]};function p(t){let e={p:\"p\",...t.components};return(0,a.jsx)(e.p,{children:\"\\u7B80\\u8981\\u4ECB\\u7ECD\\u5BF9\\u9759\\u6001\\u7F51\\u7AD9\\u72EC\\u7ACB\\u7F51\\u9875\\u52A0\\u5BC6\\u7684\\u65B9\\u6CD5\"})}function m(t={}){let{wrapper:e}=t.components||{};return e?(0,a.jsx)(e,{...t,children:(0,a.jsx)(p,{...t})}):p(t)}return h(M);})();\n;return Component;"
+    "code": "var Component=(()=>{var f=Object.create;var r=Object.defineProperty;var d=Object.getOwnPropertyDescriptor;var x=Object.getOwnPropertyNames;var l=Object.getPrototypeOf,_=Object.prototype.hasOwnProperty;var y=(t,e)=>()=>(e||t((e={exports:{}}).exports,e),e.exports),h=(t,e)=>{for(var n in e)r(t,n,{get:e[n],enumerable:!0})},c=(t,e,n,s)=>{if(e&&typeof e==\"object\"||typeof e==\"function\")for(let o of x(e))!_.call(t,o)&&o!==n&&r(t,o,{get:()=>e[o],enumerable:!(s=d(e,o))||s.enumerable});return t};var j=(t,e,n)=>(n=t!=null?f(l(t)):{},c(e||!t||!t.__esModule?r(n,\"default\",{value:t,enumerable:!0}):n,t)),w=t=>c(r({},\"__esModule\",{value:!0}),t);var i=y((C,u)=>{u.exports=_jsx_runtime});var b={};h(b,{default:()=>m,frontmatter:()=>M});var a=j(i()),M={title:\"How to Encrypt Your Website (private)\",date:\"2022-12-19\",tags:[],draft:!1,summary:\"How to Encrypt Your Website (private)\",authors:[\"default\"]};function p(t){let e={p:\"p\",...t.components};return(0,a.jsx)(e.p,{children:\"\\u7B80\\u8981\\u4ECB\\u7ECD\\u5BF9\\u9759\\u6001\\u7F51\\u7AD9\\u72EC\\u7ACB\\u7F51\\u9875\\u52A0\\u5BC6\\u7684\\u65B9\\u6CD5\"})}function m(t={}){let{wrapper:e}=t.components||{};return e?(0,a.jsx)(e,{...t,children:(0,a.jsx)(p,{...t})}):p(t)}return w(b);})();\n;return Component;"
   },
   "_id": "blog/Web/jekyll-staticrypt-protected-post.md",
   "_raw": {

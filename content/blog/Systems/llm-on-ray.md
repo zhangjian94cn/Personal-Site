@@ -1,7 +1,7 @@
 ---
 title: "Introducing Intel LLM-on-Ray: A New Era for Large Language Models"
 date: "2023-12-09"
-tags: [LLM, Ray, Intel, distributed-training]
+tags: [LLM, Intel]
 draft: false
 summary: "Pretrain, finetune and serve LLMs on Intel platforms with Ray distributed framework."
 authors: ["default"]

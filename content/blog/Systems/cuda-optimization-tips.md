@@ -1,7 +1,7 @@
 ---
 title: "CUDA 性能优化技巧"
 date: "2026-01-15"
-tags: [CUDA, HPC, optimization, GPU]
+tags: [HPC]
 draft: false
 summary: "深入探讨 CUDA 编程中的性能优化策略，包括内存访问模式、线程组织和性能分析工具。"
 authors: ["default"]

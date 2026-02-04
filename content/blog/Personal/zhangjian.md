@@ -1,7 +1,7 @@
 ---
 title: "My Interview Documentation"
 date: "2023-02-08"
-tags: [about, resume]
+tags: []
 draft: false
 summary: "My Interview Documentation"
 authors: ["default"]

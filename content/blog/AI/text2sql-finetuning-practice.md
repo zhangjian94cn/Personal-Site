@@ -1,7 +1,7 @@
 ---
 title: "江苏移动数智助手 Text2SQL 大模型微调实践"
 date: "2024-08-03"
-tags: [LLM, Text2SQL, fine-tuning, LoRA]
+tags: [LLM, deep-learning]
 draft: false
 summary: "随着人工智能技术的迅猛发展，企业在数据处理和分析方面的需求也日益增长。为了更高效地从海量数据中提取有用信息，我们在数智助手中进行了Text2SQL微调实践。"
 authors: ["default"]

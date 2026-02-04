@@ -1,7 +1,7 @@
 ---
 title: "TBB Sample 01"
 date: "2022-11-29"
-tags: [HPC, TBB, parallel-computing]
+tags: [HPC, C++]
 draft: false
 summary: "Count Strings"
 authors: ["default"]

@@ -1,7 +1,7 @@
 ---
 title: "Learn Makefiles (2)"
 date: "2022-12-13"
-tags: [compilation, make, C++]
+tags: [C++]
 draft: false
 summary: "Getting Advanced: Targets, Automatic Variables and Wildcards, Fancy Rules"
 authors: ["default"]

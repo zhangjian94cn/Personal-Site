@@ -1,7 +1,7 @@
 ---
 title: "强化学习基础（1）"
 date: "2023-03-14"
-tags: [reinforcement-learning, deep-learning, DQN]
+tags: [deep-learning]
 draft: false
 summary: "强化学习入门：介绍 Agent、Environment、Policy 等基本概念，以及 DQN、Policy Network 和 Actor-Critic 方法。"
 authors: ["default"]

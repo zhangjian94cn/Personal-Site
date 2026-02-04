@@ -3,7 +3,6 @@
   "date": "2023-10-28T00:00:00.000Z",
   "tags": [
     "LLM",
-    "ChatGLM",
     "Intel"
   ],
   "draft": false,
@@ -13,7 +12,7 @@
   ],
   "body": {
     "raw": "\n部分时间开放测试\n\n[点击此链接访问 Demo](http://124.222.119.248:3000/)\n",
-    "code": "var Component=(()=>{var d=Object.create;var o=Object.defineProperty;var u=Object.getOwnPropertyDescriptor;var f=Object.getOwnPropertyNames;var x=Object.getPrototypeOf,p=Object.prototype.hasOwnProperty;var C=(t,e)=>()=>(e||t((e={exports:{}}).exports,e),e.exports),M=(t,e)=>{for(var r in e)o(t,r,{get:e[r],enumerable:!0})},i=(t,e,r,s)=>{if(e&&typeof e==\"object\"||typeof e==\"function\")for(let a of f(e))!p.call(t,a)&&a!==r&&o(t,a,{get:()=>e[a],enumerable:!(s=u(e,a))||s.enumerable});return t};var _=(t,e,r)=>(r=t!=null?d(x(t)):{},i(e||!t||!t.__esModule?o(r,\"default\",{value:t,enumerable:!0}):r,t)),L=t=>i(o({},\"__esModule\",{value:!0}),t);var m=C((G,c)=>{c.exports=_jsx_runtime});var j={};M(j,{default:()=>h,frontmatter:()=>g});var n=_(m()),g={title:\"ChatGLM Serving in Intel i5 CPU Demo\",date:\"2023-10-28\",tags:[\"LLM\",\"ChatGLM\",\"Intel\"],draft:!1,summary:\"ChatGLM Serving in Intel i5 CPU Demo\",authors:[\"default\"]};function l(t){let e={a:\"a\",p:\"p\",...t.components};return(0,n.jsxs)(n.Fragment,{children:[(0,n.jsx)(e.p,{children:\"\\u90E8\\u5206\\u65F6\\u95F4\\u5F00\\u653E\\u6D4B\\u8BD5\"}),`\n`,(0,n.jsx)(e.p,{children:(0,n.jsx)(e.a,{href:\"http://124.222.119.248:3000/\",children:\"\\u70B9\\u51FB\\u6B64\\u94FE\\u63A5\\u8BBF\\u95EE Demo\"})})]})}function h(t={}){let{wrapper:e}=t.components||{};return e?(0,n.jsx)(e,{...t,children:(0,n.jsx)(l,{...t})}):l(t)}return L(j);})();\n;return Component;"
+    "code": "var Component=(()=>{var h=Object.create;var o=Object.defineProperty;var u=Object.getOwnPropertyDescriptor;var f=Object.getOwnPropertyNames;var x=Object.getPrototypeOf,p=Object.prototype.hasOwnProperty;var _=(t,e)=>()=>(e||t((e={exports:{}}).exports,e),e.exports),C=(t,e)=>{for(var r in e)o(t,r,{get:e[r],enumerable:!0})},i=(t,e,r,s)=>{if(e&&typeof e==\"object\"||typeof e==\"function\")for(let a of f(e))!p.call(t,a)&&a!==r&&o(t,a,{get:()=>e[a],enumerable:!(s=u(e,a))||s.enumerable});return t};var M=(t,e,r)=>(r=t!=null?h(x(t)):{},i(e||!t||!t.__esModule?o(r,\"default\",{value:t,enumerable:!0}):r,t)),g=t=>i(o({},\"__esModule\",{value:!0}),t);var m=_((I,c)=>{c.exports=_jsx_runtime});var D={};C(D,{default:()=>d,frontmatter:()=>j});var n=M(m()),j={title:\"ChatGLM Serving in Intel i5 CPU Demo\",date:\"2023-10-28\",tags:[\"LLM\",\"Intel\"],draft:!1,summary:\"ChatGLM Serving in Intel i5 CPU Demo\",authors:[\"default\"]};function l(t){let e={a:\"a\",p:\"p\",...t.components};return(0,n.jsxs)(n.Fragment,{children:[(0,n.jsx)(e.p,{children:\"\\u90E8\\u5206\\u65F6\\u95F4\\u5F00\\u653E\\u6D4B\\u8BD5\"}),`\n`,(0,n.jsx)(e.p,{children:(0,n.jsx)(e.a,{href:\"http://124.222.119.248:3000/\",children:\"\\u70B9\\u51FB\\u6B64\\u94FE\\u63A5\\u8BBF\\u95EE Demo\"})})]})}function d(t={}){let{wrapper:e}=t.components||{};return e?(0,n.jsx)(e,{...t,children:(0,n.jsx)(l,{...t})}):l(t)}return g(D);})();\n;return Component;"
   },
   "_id": "blog/AI/chatglm-serving.md",
   "_raw": {

@@ -1,7 +1,7 @@
 ---
 title: "ChatGLM Serving in Intel i5 CPU Demo"
 date: "2023-10-28"
-tags: [LLM, ChatGLM, Intel]
+tags: [LLM, Intel]
 draft: false
 summary: "ChatGLM Serving in Intel i5 CPU Demo"
 authors: ["default"]

@@ -72,7 +72,9 @@ export default function TagsPage() {
               <span className="opacity-80 text-xs bg-white/20 px-1.5 rounded ml-0.5">{allPosts.length}</span>
             </button>
             
-            {tags.map(({ tag, count }) => (
+            {tags
+              .filter(({ count }) => count >= 2)
+              .map(({ tag, count }) => (
               <button
                 key={tag}
                 onClick={() => setSelectedTag(tag === selectedTag ? null : tag)}
