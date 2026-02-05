@@ -8,7 +8,7 @@
  */
 
 import { allBlogs } from '../.contentlayer/generated/index.mjs';
-import { validateTags, normalizeTag, VALID_TAGS, getTagStats } from '../lib/tags';
+import { validateTags, normalizeTag, VALID_TAGS, getTagStats } from '../content/config/tags';
 import * as fs from 'fs';
 import * as path from 'path';
 

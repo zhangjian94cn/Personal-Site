@@ -7,11 +7,11 @@ const nextConfig: NextConfig = {
   
   // Enable static export for GitHub Pages
   // Uncomment when deploying to GitHub Pages:
-  // output: 'export',
+  output: 'export',
   
   // Image optimization (disable for static export)
   images: {
-    unoptimized: false, // Set to true for static export
+    unoptimized: true, // Set to true for static export
   },
   
   // Empty turbopack config to silence webpack warning

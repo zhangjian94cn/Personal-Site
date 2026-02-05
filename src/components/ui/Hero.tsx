@@ -1,5 +1,6 @@
 import { siteConfig } from '@/lib/config';
 import Link from 'next/link';
+import { HeroDecoration } from './HeroDecoration';
 
 export function Hero() {
   return (
@@ -32,6 +33,11 @@ export function Hero() {
             >
               Learn more <span aria-hidden="true">→</span>
             </Link>
+          </div>
+        </div>
+        <div className="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:ml-10 lg:mr-0 lg:mt-0 lg:max-w-none lg:flex-none xl:ml-32">
+          <div className="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none">
+             <HeroDecoration />
           </div>
         </div>
       </div>

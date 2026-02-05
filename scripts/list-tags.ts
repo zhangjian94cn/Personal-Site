@@ -6,7 +6,7 @@
  *   npm run list-tags
  */
 
-import { TAG_CATEGORIES, TAG_ALIASES } from '../lib/tags';
+import { TAG_CATEGORIES, TAG_ALIASES } from '../content/config/tags';
 
 console.log('📚 Available Blog Tags\n');
 console.log('═'.repeat(60));

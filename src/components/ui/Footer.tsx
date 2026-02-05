@@ -29,6 +29,19 @@ export function Footer() {
               </svg>
             </a>
           )}
+          {siteConfig.links.googleScholar && (
+            <a
+              href={siteConfig.links.googleScholar}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-500 hover:text-gray-600 dark:hover:text-gray-400"
+              aria-label="Google Scholar"
+            >
+              <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 9a8 8 0 0 1 7.162 4.44L24 9.5z" />
+              </svg>
+            </a>
+          )}
           <a
             href={`mailto:${siteConfig.author.email}`}
             className="text-gray-500 hover:text-gray-600 dark:hover:text-gray-400"

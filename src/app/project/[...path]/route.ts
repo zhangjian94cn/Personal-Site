@@ -2,17 +2,46 @@ import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
-// Serve static files from content/project directory
+// Helper to recursively get all files
+function getAllFiles(dirPath: string, arrayOfFiles: string[] = [], basePath: string = '') {
+  if (!fs.existsSync(dirPath)) return arrayOfFiles;
+  
+  const files = fs.readdirSync(dirPath);
+
+  files.forEach(function(file) {
+    if (fs.statSync(dirPath + "/" + file).isDirectory()) {
+      arrayOfFiles = getAllFiles(dirPath + "/" + file, arrayOfFiles, basePath + file + "/");
+    } else {
+      arrayOfFiles.push(path.join(basePath, "/", file));
+    }
+  });
+
+  return arrayOfFiles.map(f => f.replace(/^\//, '')); // Remove leading slash
+}
+
+// Generate static params for export
+export async function generateStaticParams() {
+  const projectsDir = path.join(process.cwd(), 'content', 'projects');
+  if (!fs.existsSync(projectsDir)) return [];
+  
+  const allFiles = getAllFiles(projectsDir);
+  
+  return allFiles.map((file) => ({
+    path: file.split(path.sep),
+  }));
+}
+
+// Serve static files from content/projects directory
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ path: string[] }> }
 ) {
   const { path: pathSegments } = await params;
-  const filePath = path.join(process.cwd(), 'content', 'project', ...pathSegments);
+  const filePath = path.join(process.cwd(), 'content', 'projects', ...pathSegments);
   
   // Security check: ensure we're not escaping the project directory
   const normalizedPath = path.normalize(filePath);
-  const projectDir = path.join(process.cwd(), 'content', 'project');
+  const projectDir = path.join(process.cwd(), 'content', 'projects');
   if (!normalizedPath.startsWith(projectDir)) {
     return new NextResponse('Forbidden', { status: 403 });
   }
