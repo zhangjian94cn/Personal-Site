@@ -118,6 +118,29 @@ export interface AboutContent {
   projects: Project[];
 }
 
+export interface PortfolioProject {
+  title: LocalizedString;
+  description: LocalizedString;
+  tags: string[];
+  status: string;
+  imgSrc?: string;
+  featured?: boolean;
+  blogSlug?: string;
+  externalLink?: string;
+  projectPagePath?: string;
+}
+
+export interface PortfolioContent {
+  projects: PortfolioProject[];
+}
+
+/**
+ * Load portfolio content
+ */
+export function loadPortfolioContent() {
+  return loadYaml<PortfolioContent>('portfolio.yml');
+}
+
 export interface LocaleStrings {
   common: {
     readMore: string;
