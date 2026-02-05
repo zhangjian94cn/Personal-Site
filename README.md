@@ -1,55 +1,76 @@
-# 个人博客系统 (Personal Blog Site)
+# Personal Blog Site
 
-一个基于 [Next.js](https://nextjs.org) 15、Tailwind CSS 和 TypeScript 构建的现代化个人博客网站。支持 Markdown/MDX 渲染、LaTeX 公式、国际化以及基于 YAML 的内容管理。
+[中文文档](README.zh-CN.md) | English
 
-## ✨ 特性
+A modern personal blog website built with [Next.js](https://nextjs.org) 15, Tailwind CSS, and TypeScript. Supports Markdown/MDX rendering, LaTeX formulas, i18n, and YAML-based content management.
 
-- **内容与代码分离**：所有内容集中在 `content/` 目录下，管理方便
-- **LaTeX 公式支持**：完美支持行内和块级数学公式渲染
-- **国际化 (i18n)**：内置中英文双语支持
-- **MDX 支持**：博客文章支持 Markdown 和 React 组件混排
-- **响应式设计**：基于 Tailwind CSS 的精美 UI
-- **GitHub 风格代码高亮**
+## ✨ Features
 
-## 🚀 快速开始
+- **Content-Code Separation**: All content in `content/` directory
+- **LaTeX Support**: Inline and block math formula rendering
+- **i18n**: Built-in Chinese/English bilingual support
+- **MDX Support**: Mix Markdown with React components
+- **Responsive Design**: Beautiful UI with Tailwind CSS
+- **Interactive Hero**: Golden Spiral animation with parallax effects
+- **GitHub-style Code Highlighting**
 
-1. **安装依赖**
+## 🚀 Quick Start
 
 ```bash
+# Install dependencies
 npm install
-```
 
-2. **启动开发服务器**
-
-```bash
+# Start development server
 npm run dev
 ```
 
-打开 [http://localhost:3000](http://localhost:3000) 即可预览。
+Open [http://localhost:3000](http://localhost:3000) to preview.
 
-## 📝 内容管理
+## 📝 Content Management
 
-详细内容管理指南请参阅 [CONTENT_GUIDE.md](CONTENT_GUIDE.md)。
+See [CONTENT_GUIDE.md](CONTENT_GUIDE.md) for detailed content management guide.
 
-- **站点配置**：编辑 `content/siteMetadata.yml`
-- **个人简介**：编辑 `content/about.yml`
-- **写博客**：在 `content/blog/` 目录下创建 `.mdx` 文件
+| Command             | Description                          |
+| ------------------- | ------------------------------------ |
+| `npm run new`       | Create a new blog post interactively |
+| `npm run stats`     | Display content statistics           |
+| `npm run publish`   | Publish a draft                      |
+| `npm run list-tags` | List all available tags              |
 
-## 🛠️ 技术栈
+## 🚀 Deployment
 
-- **框架**: Next.js 15 (App Router)
-- **语言**: TypeScript
-- **样式**: Tailwind CSS
-- **内容处理**: Contentlayer2, JS-YAML
-- **数学公式**: KaTeX, remark-math, rehype-katex
+### One-Click Deploy to GitHub Pages
 
-## 📦 部署
+```bash
+npm run deploy
+```
 
-本项目可以直接部署到 Vercel：
+This will:
 
-1. Fork 本仓库
-2. 在 Vercel 中导入项目
-3. 部署即可（Vercel 会自动检测 Next.js 配置）
+1. Build the project
+2. Push static files to `zhangjian94cn.github.io`
+
+### Manual Deploy
+
+```bash
+npm run build
+cd out && git add -A && git commit -m "Deploy" && git push -f origin main
+```
+
+### Deploy to Vercel
+
+1. Fork this repository
+2. Import project in Vercel
+3. Deploy (Vercel auto-detects Next.js config)
+
+## 🛠️ Tech Stack
+
+- **Framework**: Next.js 15 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Content**: Contentlayer2, JS-YAML
+- **Math**: KaTeX, remark-math, rehype-katex
+- **Animation**: Framer Motion
 
 ## 📄 License
 
