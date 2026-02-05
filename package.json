@@ -12,7 +12,8 @@
     "unpublish": "tsx scripts/publish.ts --unpublish",
     "stats": "tsx scripts/stats.ts",
     "list-tags": "tsx scripts/list-tags.ts",
-    "validate-tags": "tsx scripts/validate-tags.ts"
+    "validate-tags": "tsx scripts/validate-tags.ts",
+    "deploy": "bash scripts/deploy.sh"
   },
   "dependencies": {
     "@emotion/is-prop-valid": "^1.4.0",
