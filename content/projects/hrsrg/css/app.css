@@ -96,12 +96,20 @@ body {
 
 /* Resource Links (Paper, Dataset, Code) */
 .nav-pills {
-  display: flex;
+  display: flex !important;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 2rem;
   margin: 2.5rem 0;
   padding: 0;
   list-style: none;
+  float: none !important;
+}
+
+.nav-pills > li {
+  float: none !important;
+  display: block !important;
+  margin: 0 !important;
 }
 
 .nav-pills > li > a {
