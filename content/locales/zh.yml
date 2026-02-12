@@ -14,7 +14,14 @@ nav:
   blog: 博客
   tags: 标签
   portfolio: 作品
+  feed: 信息流
   about: 关于
+
+feed:
+  title: 信息流
+  description: 碎片化的思考与分享
+  loading: 加载中...
+  noContent: 暂无内容
 
 about:
   title: 关于我

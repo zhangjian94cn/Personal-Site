@@ -1,0 +1,26 @@
+- id: 1
+  content: "刚刚完成了个人网站的重构！使用了 Next.js 14 和 Tailwind CSS，感觉非常丝滑。🚀"
+  date: "2024-05-20T10:30:00Z"
+  type: "thought"
+  tags: ["Dev", "Nextjs"]
+
+- id: 2
+  content: "DeepSeek-V3 的发布让人眼前一亮，开源模型的进步速度简直令人惊叹。尝试用它写了一些代码，逻辑非常清晰。"
+  date: "2024-05-18T14:15:00Z"
+  type: "thought"
+  tags: ["AI", "LLM"]
+
+- id: 3
+  content: "分享一篇关于 Grid 布局的好文章，解决了长久以来的疑惑。"
+  link: "https://css-tricks.com/snippets/css/complete-guide-grid/"
+  linkTitle: "A Complete Guide to Grid"
+  date: "2024-05-15T09:00:00Z"
+  type: "link"
+  tags: ["CSS", "Frontend"]
+
+- id: 4
+  content: "周末去爬山拍的照片，大自然的鬼斧神工。"
+  images: ["/static/images/mountains.jpg"]
+  date: "2024-05-12T16:20:00Z"
+  type: "image"
+  tags: ["Life", "Photography"]

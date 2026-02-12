@@ -52,7 +52,7 @@ export default function PortfolioCard({
       onMouseLeave={handleMouseLeave}
       className={cn(
         "relative flex h-full overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900 shadow-sm transition-all duration-300 hover:shadow-lg dark:hover:shadow-primary-500/10",
-        featured ? "md:flex-row" : "flex-col"
+        featured ? "md:flex-row md:min-h-[320px]" : "flex-col"
       )}
     >
       {/* Spotlight Effect */}
