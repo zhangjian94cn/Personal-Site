@@ -16,6 +16,7 @@ export function Header() {
     { title: t('nav.blog'), href: '/blog' },
     { title: t('nav.tags'), href: '/tags' },
     { title: t('nav.portfolio'), href: '/portfolio' },
+    { title: t('nav.feed'), href: '/feed' },
     { title: t('nav.about'), href: '/about' },
   ];
 

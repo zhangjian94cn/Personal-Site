@@ -37,6 +37,7 @@
     "pliny": "^0.4.1",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "react-masonry-css": "^1.0.16",
     "reading-time": "^1.5.0",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-katex": "^7.0.1",
@@ -45,7 +46,8 @@
     "rehype-slug": "^6.0.0",
     "remark-gfm": "^4.0.1",
     "remark-math": "^6.0.0",
-    "tailwind-merge": "^3.4.0"
+    "tailwind-merge": "^3.4.0",
+    "xmldom": "^0.6.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -53,6 +55,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/xmldom": "^0.1.34",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "tailwindcss": "^4",

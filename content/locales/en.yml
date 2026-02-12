@@ -14,7 +14,14 @@ nav:
   blog: Blog
   tags: Tags
   portfolio: Portfolio
+  feed: Feed
   about: About
+
+feed:
+  title: Feed
+  description: Fragmented thoughts and sharing
+  loading: Loading...
+  noContent: No content yet
 
 about:
   title: About Me

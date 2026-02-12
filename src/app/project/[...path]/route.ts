@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
+// Force static generation for export
+export const dynamic = 'force-static';
+
 // Helper to recursively get all files
 function getAllFiles(dirPath: string, arrayOfFiles: string[] = [], basePath: string = '') {
   if (!fs.existsSync(dirPath)) return arrayOfFiles;

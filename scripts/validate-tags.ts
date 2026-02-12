@@ -7,8 +7,19 @@
  *   npm run validate-tags --fix    # Auto-fix tags using aliases
  */
 
-import { allBlogs } from '../.contentlayer/generated/index.mjs';
+import { allBlogs as allBlogsRaw } from '../.contentlayer/generated/index.mjs';
 import { validateTags, normalizeTag, VALID_TAGS, getTagStats } from '../content/config/tags';
+
+// Type assertion for dynamic import
+interface BlogPost {
+  title: string;
+  tags?: string[];
+  _raw: {
+    sourceFileName: string;
+    sourceFilePath: string;
+  };
+}
+const allBlogs = allBlogsRaw as BlogPost[];
 import * as fs from 'fs';
 import * as path from 'path';
 

@@ -1,0 +1,248 @@
+export interface FeedSource {
+  id: string;
+  route: string;
+  title: {
+    zh: string;
+    en: string;
+  };
+}
+
+export interface FeedItem {
+  id: string;
+  sourceId: string;
+  sourceTitle: string;
+  title: string;
+  link: string;
+  description?: string;
+  pubDate?: string;
+  category: string[];
+}
+
+const defaultRsshubBase = 'http://124.222.119.248:1200';
+
+export const rsshubBase = (process.env.NEXT_PUBLIC_RSSHUB_BASE ?? defaultRsshubBase).replace(/\/$/, '');
+
+export const feedSources: FeedSource[] = [
+  {
+    id: 'zhihu-hot',
+    route: '/zhihu/hot',
+    title: {
+      zh: '\u77e5\u4e4e\u70ed\u699c',
+      en: 'Zhihu Hot',
+    },
+  },
+  {
+    id: 'v2ex-hot',
+    route: '/v2ex/topics/hot',
+    title: {
+      zh: 'V2EX \u70ed\u95e8',
+      en: 'V2EX Hot',
+    },
+  },
+  {
+    id: '36kr-newsflash',
+    route: '/36kr/newsflashes',
+    title: {
+      zh: '36\u6c2a\u5feb\u8baf',
+      en: '36Kr Newsflash',
+    },
+  },
+];
+
+const stripHtml = (value: string) => value.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+
+const getFirstText = (element: Element, names: string[]) => {
+  for (const name of names) {
+    const node = element.getElementsByTagName(name)[0];
+    const text = node?.textContent?.trim();
+    if (text) {
+      return text;
+    }
+  }
+  return undefined;
+};
+
+const getAtomLink = (entry: Element) => {
+  const linkElements = Array.from(entry.getElementsByTagName('link'));
+
+  const alternateLink = linkElements.find((element) => element.getAttribute('rel') === 'alternate');
+  if (alternateLink) {
+    const href = alternateLink.getAttribute('href')?.trim();
+    if (href) {
+      return href;
+    }
+  }
+
+  for (const element of linkElements) {
+    const href = element.getAttribute('href')?.trim();
+    if (href) {
+      return href;
+    }
+  }
+
+  return getFirstText(entry, ['link', 'id'])?.trim();
+};
+
+const normalizeDate = (dateText?: string) => {
+  if (!dateText) {
+    return undefined;
+  }
+
+  const timestamp = Date.parse(dateText);
+  if (Number.isNaN(timestamp)) {
+    return undefined;
+  }
+
+  return new Date(timestamp).toISOString();
+};
+
+const parseCategory = (entry: Element, isAtom: boolean) => {
+  const categoryNodes = Array.from(entry.getElementsByTagName('category'));
+
+  const categories = categoryNodes
+    .map((node) => (isAtom ? node.getAttribute('term') : node.textContent)?.trim())
+    .filter((value): value is string => Boolean(value));
+
+  return Array.from(new Set(categories));
+};
+
+const normalizeLink = (link: string) => {
+  try {
+    return new URL(link).toString();
+  } catch {
+    return link;
+  }
+};
+
+const parseEntry = (
+  entry: Element,
+  source: FeedSource,
+  sourceTitle: string,
+  isAtom: boolean
+): FeedItem | undefined => {
+  const title = getFirstText(entry, ['title']);
+  if (!title) {
+    return undefined;
+  }
+
+  const rawLink = isAtom ? getAtomLink(entry) : getFirstText(entry, ['link', 'guid']);
+  if (!rawLink) {
+    return undefined;
+  }
+
+  const description = getFirstText(entry, ['description', 'content:encoded', 'summary', 'content']);
+
+  const item: FeedItem = {
+    id: `${source.id}-${rawLink}`,
+    sourceId: source.id,
+    sourceTitle,
+    title,
+    link: normalizeLink(rawLink),
+    category: parseCategory(entry, isAtom),
+  };
+
+  if (description) {
+    item.description = stripHtml(description);
+  }
+
+  const pubDate = normalizeDate(getFirstText(entry, ['pubDate', 'published', 'updated', 'dc:date']));
+  if (pubDate) {
+    item.pubDate = pubDate;
+  }
+
+  return item;
+};
+
+const parseFeed = (xml: string, source: FeedSource): FeedItem[] => {
+  let parser: DOMParser;
+  let document: Document;
+
+  if (typeof window === 'undefined') {
+    // Node.js environment
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const { DOMParser } = require('xmldom');
+    parser = new DOMParser();
+    document = parser.parseFromString(xml, 'text/xml');
+  } else {
+    // Browser environment
+    parser = new DOMParser();
+    document = parser.parseFromString(xml, 'text/xml');
+  }
+
+  const parserError = document.getElementsByTagName('parsererror')[0];
+  if (parserError) {
+    throw new Error(`Invalid XML response from ${source.route}`);
+  }
+
+  const channel = document.getElementsByTagName('channel')[0];
+  const feedRoot = document.getElementsByTagName('feed')[0];
+  const sourceTitle =
+    getFirstText(channel ?? feedRoot ?? document.documentElement, ['title']) ?? source.title.en;
+
+  const entries = Array.from(document.getElementsByTagName('item'));
+  const isAtom = entries.length === 0;
+  const nodes = isAtom ? Array.from(document.getElementsByTagName('entry')) : entries;
+
+  const parsedItems: FeedItem[] = [];
+  for (const entry of nodes) {
+    const item = parseEntry(entry, source, sourceTitle, isAtom);
+    if (item) {
+      parsedItems.push(item);
+    }
+  }
+
+  return parsedItems;
+};
+
+const sortByDate = (left: FeedItem, right: FeedItem) => {
+  const leftTime = left.pubDate ? Date.parse(left.pubDate) : 0;
+  const rightTime = right.pubDate ? Date.parse(right.pubDate) : 0;
+
+  if (leftTime === rightTime) {
+    return left.title.localeCompare(right.title);
+  }
+
+  return rightTime - leftTime;
+};
+
+export const fetchFeedStream = async (limit = 40): Promise<FeedItem[]> => {
+  const settled = await Promise.allSettled(
+    feedSources.map(async (source) => {
+      const response = await fetch(`${rsshubBase}${source.route}`);
+      if (!response.ok) {
+        throw new Error(`${source.route} returned HTTP ${response.status}`);
+      }
+
+      const xml = await response.text();
+      return parseFeed(xml, source);
+    })
+  );
+
+  const fulfilled: FeedItem[][] = [];
+  for (const result of settled) {
+    if (result.status === 'fulfilled') {
+      fulfilled.push(result.value);
+    }
+  }
+
+  if (fulfilled.length === 0) {
+    const failed = settled.find((result): result is PromiseRejectedResult => result.status === 'rejected');
+    const message =
+      failed?.reason instanceof Error ? failed.reason.message : 'Unable to load RSS feed stream.';
+    throw new Error(message);
+  }
+
+  const merged = fulfilled.flat().sort(sortByDate).slice(0, limit);
+
+  const visitedLinks = new Set<string>();
+  const uniqueItems: FeedItem[] = [];
+
+  for (const item of merged) {
+    if (!visitedLinks.has(item.link)) {
+      visitedLinks.add(item.link);
+      uniqueItems.push(item);
+    }
+  }
+
+  return uniqueItems;
+};
