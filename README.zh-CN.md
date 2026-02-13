@@ -100,3 +100,12 @@ cd out && git add -A && git commit -m "Deploy" && git push -f origin main
 ## 📄 开源协议
 
 MIT
+
+## Analytics (PostHog)
+
+宸叉敮鎸?PostHog 鍓嶇鍒嗘瀽锛岃閰嶇疆:
+
+1. `cp .env.example .env.local`
+2. 璁剧疆 `NEXT_PUBLIC_POSTHOG_KEY` 鍜?`NEXT_PUBLIC_POSTHOG_HOST`
+
+娉ㄦ剰锛氬綋绔欑偣鏄?HTTPS 鏃讹紝PostHog host 涔熷簲涓?HTTPS銆?
