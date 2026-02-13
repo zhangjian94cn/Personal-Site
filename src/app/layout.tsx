@@ -6,6 +6,7 @@ import { Header } from "@/components/ui/Header";
 import { Footer } from "@/components/ui/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { LanguageProvider } from "@/components/LanguageProvider";
+import { PostHogProvider } from "@/components/PostHogProvider";
 import { siteConfig } from "@/lib/config";
 
 const inter = Inter({
@@ -44,13 +45,15 @@ export default function RootLayout({
       <body className={`${inter.variable} font-sans antialiased bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100`}>
         <LanguageProvider>
           <ThemeProvider>
-            <div className="mx-auto max-w-3xl px-4 sm:px-6 xl:max-w-5xl xl:px-0">
-              <div className="flex h-screen flex-col justify-between">
-                <Header />
-                <main className="mb-auto">{children}</main>
-                <Footer />
+            <PostHogProvider>
+              <div className="mx-auto max-w-3xl px-4 sm:px-6 xl:max-w-5xl xl:px-0">
+                <div className="flex h-screen flex-col justify-between">
+                  <Header />
+                  <main className="mb-auto">{children}</main>
+                  <Footer />
+                </div>
               </div>
-            </div>
+            </PostHogProvider>
           </ThemeProvider>
         </LanguageProvider>
       </body>

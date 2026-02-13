@@ -26,6 +26,17 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) to preview.
 
+## Analytics (PostHog)
+
+This project now supports PostHog browser analytics.
+
+1. Copy env template: `cp .env.example .env.local`
+2. Set:
+   - `NEXT_PUBLIC_POSTHOG_KEY`
+   - `NEXT_PUBLIC_POSTHOG_HOST`
+
+Note: if your site runs on HTTPS, `NEXT_PUBLIC_POSTHOG_HOST` must also be HTTPS.
+
 ## 📝 Content Management
 
 See [CONTENT_GUIDE.md](CONTENT_GUIDE.md) for detailed content management guide.
