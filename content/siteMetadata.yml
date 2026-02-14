@@ -61,10 +61,10 @@ seo:
 
 # 评论系统 (可选)
 comments:
-  enabled: false
+  enabled: true
   provider: giscus # giscus | utterances | disqus
   giscus:
-    repo: ""
+    repo: "zhangjian94cn/Personal-Site"
     repositoryId: ""
     category: ""
     categoryId: ""

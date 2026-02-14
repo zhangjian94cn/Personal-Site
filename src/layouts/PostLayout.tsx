@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import Link from "next/link";
 import { Blog, Authors } from "contentlayer/generated";
 import { TableOfContents } from "@/components/TableOfContents";
+import GiscusComments from "@/components/comments/GiscusComments";
 
 interface PostLayoutProps {
   content: Blog;
@@ -103,6 +104,8 @@ export default function PostLayout({
             ">
               {children}
             </div>
+
+            <GiscusComments />
 
             {/* Post Navigation */}
             <hr className="my-12 border-gray-200 dark:border-gray-800" />

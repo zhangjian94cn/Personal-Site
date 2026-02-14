@@ -75,3 +75,22 @@ cd out && git add -A && git commit -m "Deploy" && git push -f origin main
 ## 📄 License
 
 MIT
+
+## Giscus Comments Setup
+
+The blog supports Giscus comments on post pages (`/blog/[slug]`).
+
+1. Enable **GitHub Discussions** in your repository.
+2. Visit https://giscus.app and generate settings for this repo.
+3. Fill `comments.giscus` in `content/siteMetadata.yml`:
+   - `repositoryId`
+   - `category`
+   - `categoryId`
+
+Optional (higher priority than YAML): set these environment variables at build time:
+
+- `NEXT_PUBLIC_GISCUS_REPO`
+- `NEXT_PUBLIC_GISCUS_REPO_ID`
+- `NEXT_PUBLIC_GISCUS_CATEGORY`
+- `NEXT_PUBLIC_GISCUS_CATEGORY_ID`
+
