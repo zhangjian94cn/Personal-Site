@@ -64,10 +64,10 @@ comments:
   enabled: true
   provider: giscus # giscus | utterances | disqus
   giscus:
-    repo: "zhangjian94cn/Personal-Site"
-    repositoryId: ""
-    category: ""
-    categoryId: ""
+    repo: "zhangjian94cn/discussion"
+    repositoryId: "R_kgDORQLX_Q"
+    category: "General"
+    categoryId: "DIC_kwDORQLX_c4C2axO"
 
 # 分析服务 (可选)
 analytics:
