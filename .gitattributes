@@ -1,2 +1,3 @@
 content/**/*.md text eol=lf
 content/**/*.mdx text eol=lf
+scripts/*.sh text eol=lf
