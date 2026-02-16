@@ -5,6 +5,8 @@ export interface FeedSource {
     zh: string;
     en: string;
   };
+  /** When set, fetch from this URL instead of rsshubBase */
+  baseUrl?: string;
 }
 
 export interface FeedItem {
@@ -19,8 +21,10 @@ export interface FeedItem {
 }
 
 const defaultRsshubBase = 'http://124.222.119.248:1200';
+const defaultWeweRssBase = 'http://124.222.119.248:14000';
 
 export const rsshubBase = (process.env.NEXT_PUBLIC_RSSHUB_BASE ?? defaultRsshubBase).replace(/\/$/, '');
+export const weweRssBase = (process.env.NEXT_PUBLIC_WEWE_RSS_BASE ?? defaultWeweRssBase).replace(/\/$/, '');
 
 export const feedSources: FeedSource[] = [
   {
@@ -45,6 +49,15 @@ export const feedSources: FeedSource[] = [
     title: {
       zh: '36\u6c2a\u5feb\u8baf',
       en: '36Kr Newsflash',
+    },
+  },
+  {
+    id: 'wechat-mp',
+    route: '/feeds/all.atom?limit=100',
+    baseUrl: weweRssBase,
+    title: {
+      zh: '\u5fae\u4fe1\u516c\u4f17\u53f7',
+      en: 'WeChat MP',
     },
   },
 ];
@@ -205,10 +218,11 @@ const sortByDate = (left: FeedItem, right: FeedItem) => {
   return rightTime - leftTime;
 };
 
-export const fetchFeedStream = async (limit = 40): Promise<FeedItem[]> => {
+export const fetchFeedStream = async (limit = 80): Promise<FeedItem[]> => {
   const settled = await Promise.allSettled(
     feedSources.map(async (source) => {
-      const response = await fetch(`${rsshubBase}${source.route}`);
+      const base = source.baseUrl ?? rsshubBase;
+      const response = await fetch(`${base}${source.route}`);
       if (!response.ok) {
         throw new Error(`${source.route} returned HTTP ${response.status}`);
       }
