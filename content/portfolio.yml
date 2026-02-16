@@ -9,18 +9,6 @@
 # 卡片点击行为优先级：blogSlug > externalLink > projectSlug
 
 projects:
-  - title:
-      zh: "Text2SQL 大模型微调"
-      en: "Text2SQL LLM Fine-tuning"
-    description:
-      zh: "基于 LoRA 微调 Qwen-7B 实现自然语言转 SQL，准确率达 98.56%"
-      en: "Fine-tuned Qwen-7B with LoRA for NL-to-SQL task, achieving 98.56% accuracy."
-    tags: ["LLM", "Fine-tuning", "LoRA"]
-    status: "completed"
-    featured: true
-    blogSlug: "text2sql-finetuning-practice"
-    # Placeholder for Text2SQL (can be replaced with real image later)
-    # imgSrc: "/static/images/text2sql-banner.png"
 
   - title:
       zh: "数智助手 RAG 系统"

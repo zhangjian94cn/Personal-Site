@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev --webpack",
-    "build": "next build --webpack",
+    "build": "tsx scripts/validate-content.ts && next build --webpack",
+    "validate": "tsx scripts/validate-content.ts",
     "start": "next start",
     "lint": "eslint",
     "new": "tsx scripts/new-post.ts",

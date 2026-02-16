@@ -3,6 +3,7 @@ title: "RAG 系统最佳实践"
 date: "2026-01-20"
 tags: [LLM, deep-learning]
 draft: false
+portfolio: true
 summary: "总结企业级 RAG 系统开发中的经验教训，包括文档分块、向量检索和回答生成优化。"
 authors: ["default"]
 ---

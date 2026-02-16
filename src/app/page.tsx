@@ -14,18 +14,24 @@ import { motion } from "framer-motion";
 export default function Home() {
   const { lang, t } = useLanguage();
 
-  const posts = allBlogs
+  const allPosts = allBlogs
     .filter((post) => !post.draft)
-    .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
-    .slice(0, 3); // Top 3 posts
+    .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
 
-  // Filter featured projects
-  const featuredProjects = (portfolioData as any).projects.filter((p: any) => p.featured).slice(0, 4);
+  // Featured posts first, then by date
+  const featuredPosts = allPosts.filter(p => p.featured);
+  const regularPosts = allPosts.filter(p => !p.featured);
+  const posts = [...featuredPosts, ...regularPosts].slice(0, 3);
+
+  // Filter featured projects (respect visible flag)
+  const featuredProjects = (portfolioData as any).projects
+    .filter((p: any) => p.featured && p.visible !== false)
+    .slice(0, 4);
 
   return (
     <>
       <Hero />
-      
+
       {/* Featured Projects Section */}
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12 md:py-20 border-b border-gray-200 dark:border-gray-800">
         <div className="mx-auto max-w-2xl text-center mb-12">
@@ -39,22 +45,22 @@ export default function Home() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {featuredProjects.map((project: any, index: number) => (
-             <div key={project.title.en} className={project.featured ? "md:col-span-2" : "md:col-span-1"}>
-                <PortfolioCard
-                  index={index}
-                  title={project.title[lang]}
-                  description={project.description[lang]}
-                  tags={project.tags}
-                  status={project.status}
-                  href={project.blogSlug ? `/blog/${project.blogSlug}` : (project.projectPagePath || project.externalLink)}
-                  isExternal={!!project.externalLink}
-                  featured={true} // Always show as featured style on Home
-                  imgSrc={project.imgSrc}
-                />
-             </div>
+            <div key={project.title.en} className={project.featured ? "md:col-span-2" : "md:col-span-1"}>
+              <PortfolioCard
+                index={index}
+                title={project.title[lang]}
+                description={project.description[lang]}
+                tags={project.tags}
+                status={project.status}
+                href={project.blogSlug ? `/blog/${project.blogSlug}` : (project.projectPagePath || project.externalLink)}
+                isExternal={!!project.externalLink}
+                featured={true} // Always show as featured style on Home
+                imgSrc={project.imgSrc}
+              />
+            </div>
           ))}
         </div>
-        
+
         <div className="mt-10 text-center">
           <Link
             href="/portfolio"
@@ -75,7 +81,7 @@ export default function Home() {
             Insights on Large Language Models, Engineering, and Continuous Learning.
           </p>
         </div>
-        
+
         <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-12 lg:mx-0 lg:max-w-none lg:grid-cols-3">
           {posts.map((post, idx) => (
             <motion.div
@@ -91,12 +97,12 @@ export default function Home() {
         </div>
 
         <div className="mt-16 text-center">
-           <Link
-              href="/blog"
-              className="inline-flex items-center justify-center rounded-full bg-white dark:bg-gray-800 px-6 py-2.5 text-sm font-semibold text-gray-900 dark:text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all"
-            >
-              Read More Article <span aria-hidden="true" className="ml-2">→</span>
-            </Link>
+          <Link
+            href="/blog"
+            className="inline-flex items-center justify-center rounded-full bg-white dark:bg-gray-800 px-6 py-2.5 text-sm font-semibold text-gray-900 dark:text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all"
+          >
+            Read More Article <span aria-hidden="true" className="ml-2">→</span>
+          </Link>
         </div>
       </div>
     </>

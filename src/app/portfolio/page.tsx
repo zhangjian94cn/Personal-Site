@@ -17,6 +17,7 @@ interface Project {
   projectSlug?: string;
   projectPagePath?: string;
   featured?: boolean;
+  visible?: boolean;
   imgSrc?: string;
 }
 
@@ -30,7 +31,7 @@ type Category = typeof CATEGORIES[number];
 
 const TAG_CATEGORY_MAP: Record<string, Category> = {
   "LLM": "AI/LLM",
-  "ChatGLM": "AI/LLM", 
+  "ChatGLM": "AI/LLM",
   "RAG": "AI/LLM",
   "Fine-tuning": "AI/LLM",
   "LangChain": "AI/LLM",
@@ -49,14 +50,15 @@ const TAG_CATEGORY_MAP: Record<string, Category> = {
 export default function PortfolioPage() {
   const { t, lang } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState<Category>("All");
-  
+
   const data = portfolioData as unknown as PortfolioData;
 
-  // Filter projects based on category
+  // Filter projects based on category (respect visible flag)
   const filteredProjects = useMemo(() => {
-    if (selectedCategory === "All") return data.projects;
-    
-    return data.projects.filter(project => {
+    const visibleProjects = data.projects.filter(p => p.visible !== false);
+    if (selectedCategory === "All") return visibleProjects;
+
+    return visibleProjects.filter(project => {
       // Check if any of the project's tags map to the selected category
       return project.tags.some(tag => TAG_CATEGORY_MAP[tag] === selectedCategory);
     });
@@ -75,7 +77,7 @@ export default function PortfolioPage() {
     <div className="min-h-screen py-12 md:py-20">
       {/* Hero Section */}
       <div className="mb-16 space-y-6 text-center">
-        <motion.h1 
+        <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -83,7 +85,7 @@ export default function PortfolioPage() {
         >
           {t('portfolio.title')}
         </motion.h1>
-        <motion.p 
+        <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
@@ -94,7 +96,7 @@ export default function PortfolioPage() {
       </div>
 
       {/* Category Tabs */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
@@ -105,11 +107,10 @@ export default function PortfolioPage() {
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`relative px-4 py-2 text-sm font-medium transition-colors rounded-lg ${
-                selectedCategory === category
-                  ? "text-gray-900 dark:text-white"
-                  : "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
-              }`}
+              className={`relative px-4 py-2 text-sm font-medium transition-colors rounded-lg ${selectedCategory === category
+                ? "text-gray-900 dark:text-white"
+                : "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                }`}
             >
               {selectedCategory === category && (
                 <motion.div
@@ -125,7 +126,7 @@ export default function PortfolioPage() {
       </motion.div>
 
       {/* Projects Grid */}
-      <motion.div 
+      <motion.div
         layout
         className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 auto-rows-fr"
       >
@@ -163,17 +164,17 @@ export default function PortfolioPage() {
           })}
         </AnimatePresence>
       </motion.div>
-      
+
       {filteredProjects.length === 0 && (
-         <div className="text-center py-20">
-            <p className="text-gray-500 dark:text-gray-400 text-lg">
-              No projects found in this category.
-            </p>
-         </div>
+        <div className="text-center py-20">
+          <p className="text-gray-500 dark:text-gray-400 text-lg">
+            No projects found in this category.
+          </p>
+        </div>
       )}
 
       {/* CTA */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}

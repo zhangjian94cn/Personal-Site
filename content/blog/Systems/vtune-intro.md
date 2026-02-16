@@ -1,7 +1,7 @@
 ---
 title: "Vtune Usage"
 date: "2022-11-21"
-tags: [Intel, HPC]
+tags: [HPC]
 draft: false
 summary: "Instructions Retired per Cycle, or IPC shows average number of retired instructions per cycle. Modern superscalar processors issue up to four instruct"
 authors: ["default"]
