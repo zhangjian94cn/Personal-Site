@@ -180,7 +180,7 @@ export interface UseFeedStreamResult {
 
 export function useFeedStream(initialPosts: FeedPost[] = []): UseFeedStreamResult {
     const [posts, setPosts] = useState<FeedPost[]>(initialPosts);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(initialPosts.length === 0);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
@@ -195,7 +195,13 @@ export function useFeedStream(initialPosts: FeedPost[] = []): UseFeedStreamResul
             })
             .catch((err) => {
                 if (!cancelled) {
-                    setError(err instanceof Error ? err.message : 'Failed to load feed.');
+                    // If we have build-time data, silently fall back
+                    // (e.g. CORS / mixed-content blocks client fetch)
+                    if (initialPosts.length > 0) {
+                        console.warn('[Feed] Client-side refresh failed, using build-time data:', err);
+                    } else {
+                        setError(err instanceof Error ? err.message : 'Failed to load feed.');
+                    }
                     setLoading(false);
                 }
             });

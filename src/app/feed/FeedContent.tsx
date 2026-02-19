@@ -7,9 +7,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Masonry from 'react-masonry-css';
 import { useFeedStream } from '@/hooks/useFeedStream';
 
-export default function FeedContent() {
+interface FeedContentProps {
+  initialPosts?: FeedPost[];
+}
+
+export default function FeedContent({ initialPosts = [] }: FeedContentProps) {
   const { t } = useLanguage();
-  const { posts, loading, error } = useFeedStream();
+  const { posts, loading, error } = useFeedStream(initialPosts);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedSource, setSelectedSource] = useState<string>('All');
 
@@ -39,6 +43,9 @@ export default function FeedContent() {
     700: 1
   };
 
+  // Show loading skeleton only when we have no data at all
+  const showSkeleton = loading && posts.length === 0;
+
   return (
     <div className="min-h-screen py-10">
       <div className="space-y-4 pb-8 pt-6 md:space-y-5 text-center">
@@ -60,7 +67,7 @@ export default function FeedContent() {
       </div>
 
       <div className="container mx-auto px-4">
-        {/* specific controls container */}
+        {/* Controls */}
         <div className="mb-10 flex flex-col items-center gap-6">
           {/* Search Input */}
           <div className="relative w-full max-w-md">
@@ -79,7 +86,7 @@ export default function FeedContent() {
           </div>
 
           {/* Source Filters */}
-          {!loading && (
+          {posts.length > 0 && (
             <div className="flex flex-wrap justify-center gap-2">
               {sources.map(source => (
                 <button
@@ -97,8 +104,8 @@ export default function FeedContent() {
           )}
         </div>
 
-        {/* Loading Skeleton */}
-        {loading && (
+        {/* Loading Skeleton — only shown when no initial data */}
+        {showSkeleton && (
           <div className="flex w-auto -ml-6">
             <div className="w-full pl-6 md:w-1/2">
               {[...Array(4)].map((_, i) => (
@@ -125,7 +132,6 @@ export default function FeedContent() {
                   <div className="space-y-2">
                     <div className="h-4 w-full rounded bg-gray-200 dark:bg-gray-700" />
                     <div className="h-4 w-2/3 rounded bg-gray-200 dark:bg-gray-700" />
-                    <div className="h-4 w-1/2 rounded bg-gray-200 dark:bg-gray-700" />
                   </div>
                   <div className="mt-4 h-14 w-full rounded-xl bg-gray-100 dark:bg-gray-900/50" />
                 </div>
@@ -134,20 +140,8 @@ export default function FeedContent() {
           </div>
         )}
 
-        {/* Error State */}
-        {error && !loading && (
-          <div className="text-center py-12">
-            <div className="inline-flex items-center gap-2 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600 dark:bg-red-900/20 dark:text-red-400">
-              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
-              </svg>
-              {error}
-            </div>
-          </div>
-        )}
-
         {/* Feed Grid */}
-        {!loading && !error && (
+        {!showSkeleton && (
           <>
             <Masonry
               breakpointCols={breakpointColumnsObj}
