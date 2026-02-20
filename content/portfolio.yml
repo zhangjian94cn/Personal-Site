@@ -11,16 +11,6 @@
 projects:
 
   - title:
-      zh: "数智助手 RAG 系统"
-      en: "AI Assistant RAG System"
-    description:
-      zh: "企业级检索增强生成系统，支持多轮对话和知识库管理"
-      en: "Enterprise RAG system supporting multi-turn dialogue and knowledge base management."
-    tags: ["RAG", "LangChain", "Vector DB"]
-    status: "completed"
-    blogSlug: "rag-best-practices"
-
-  - title:
       zh: "高精度图像分割"
       en: "High-Precision Image Segmentation"
     description:
