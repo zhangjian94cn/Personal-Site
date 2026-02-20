@@ -62,7 +62,7 @@ export default function FeedContent({ initialPosts = [] }: FeedContentProps) {
           transition={{ delay: 0.2 }}
           className="text-lg leading-7 text-gray-500 dark:text-gray-400 font-light"
         >
-          {t('feed.description')}
+          {t('feed.subtitle')}
         </motion.p>
       </div>
 
@@ -93,11 +93,11 @@ export default function FeedContent({ initialPosts = [] }: FeedContentProps) {
                   key={source}
                   onClick={() => setSelectedSource(source)}
                   className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${selectedSource === source
-                      ? 'bg-primary-500 text-white shadow-md'
-                      : 'bg-white text-gray-600 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
+                    ? 'bg-primary-500 text-white shadow-md'
+                    : 'bg-white text-gray-600 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
                     }`}
                 >
-                  {source === 'All' ? (t('common.allPosts') || 'All') : source}
+                  {source === 'All' ? (t('feed.allSources') || 'All') : source}
                 </button>
               ))}
             </div>
@@ -157,7 +157,7 @@ export default function FeedContent({ initialPosts = [] }: FeedContentProps) {
 
             {filteredPosts.length === 0 && (
               <div className="text-center text-gray-500 dark:text-gray-400 py-12">
-                {t('feed.noContent') || 'No posts found matching your criteria.'}
+                {t('feed.empty') || 'No posts found matching your criteria.'}
               </div>
             )}
           </>

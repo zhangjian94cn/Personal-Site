@@ -113,7 +113,7 @@ const parseFeed = (xml: string, source: FeedSource): FeedItemData[] => {
 const rsshubBase = (process.env.NEXT_PUBLIC_RSSHUB_BASE ?? 'http://124.222.119.248:1200').replace(/\/$/, '');
 const weweRssBase = (process.env.NEXT_PUBLIC_WEWE_RSS_BASE ?? 'http://124.222.119.248:14000').replace(/\/$/, '');
 
-async function fetchFeedStreamClient(limit = 80): Promise<FeedItemData[]> {
+async function fetchFeedStreamClient(limit = 300): Promise<FeedItemData[]> {
     const settled = await Promise.allSettled(
         feedSources.map(async (source) => {
             const base = source.baseUrl ?? rsshubBase;

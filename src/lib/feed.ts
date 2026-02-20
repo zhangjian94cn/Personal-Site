@@ -218,7 +218,7 @@ const sortByDate = (left: FeedItem, right: FeedItem) => {
   return rightTime - leftTime;
 };
 
-export const fetchFeedStream = async (limit = 80): Promise<FeedItem[]> => {
+export const fetchFeedStream = async (limit = 300): Promise<FeedItem[]> => {
   const settled = await Promise.allSettled(
     feedSources.map(async (source) => {
       const base = source.baseUrl ?? rsshubBase;
