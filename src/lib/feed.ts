@@ -219,49 +219,51 @@ const sortByDate = (left: FeedItem, right: FeedItem) => {
 };
 
 export const fetchFeedStream = async (limit = 300): Promise<FeedItem[]> => {
-  // During Next.js static export build, the local fetch to an HTTPS IP
-  // might fail SNI or certificate validation. We explicitly disable it for the build step.
-  const fetchOpts: RequestInit = {};
-  if (typeof process !== 'undefined' && process.env.NODE_ENV === 'production') {
-    // Note: Next.js 14+ uses Undici for global fetch. We can't easily pass an agent.
-    // However, if we're hitting the public HTTPS domain in GitHub Actions, it should work if DNS resolves.
-    // Just in case, we'll let it use the default fetch but add a catch for better logging.
-  }
+  const TIMEOUT_MS = 8_000;   // 8s per source
+  const MAX_RETRIES = 2;      // retry once on failure
+  const RETRY_DELAY_MS = 1_000;
 
-  const settled = await Promise.allSettled(
-    feedSources.map(async (source) => {
-      const base = source.baseUrl ?? rsshubBase;
+  const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
+
+  /** Fetch a single source with timeout + retry */
+  const fetchSource = async (source: FeedSource): Promise<FeedItem[]> => {
+    const base = source.baseUrl ?? rsshubBase;
+    const url = `${base}${source.route}`;
+
+    for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
 
       try {
-        const response = await fetch(`${base}${source.route}`, fetchOpts);
+        const response = await fetch(url, { signal: controller.signal });
         if (!response.ok) {
-          throw new Error(`${source.route} returned HTTP ${response.status}`);
+          throw new Error(`HTTP ${response.status}`);
         }
         const xml = await response.text();
-        return parseFeed(xml, source);
+        const items = parseFeed(xml, source);
+        console.log(`[Feed] ✅ ${source.id}: ${items.length} items (attempt ${attempt})`);
+        return items;
       } catch (err) {
-        console.error(`[Build Fetch Error] Failed to fetch ${source.id} from ${base}${source.route}:`, err);
-        throw err;
+        const reason = err instanceof Error ? err.message : String(err);
+        if (attempt < MAX_RETRIES) {
+          console.warn(`[Feed] ⚠️  ${source.id} attempt ${attempt} failed (${reason}), retrying in ${RETRY_DELAY_MS}ms...`);
+          await sleep(RETRY_DELAY_MS);
+        } else {
+          console.error(`[Feed] ❌ ${source.id} failed after ${MAX_RETRIES} attempts: ${reason}`);
+        }
+      } finally {
+        clearTimeout(timer);
       }
-    })
-  );
-
-  const fulfilled: FeedItem[][] = [];
-  for (const result of settled) {
-    if (result.status === 'fulfilled') {
-      fulfilled.push(result.value);
     }
-  }
 
-  if (fulfilled.length === 0) {
-    const failed = settled.find((result): result is PromiseRejectedResult => result.status === 'rejected');
-    const message =
-      failed?.reason instanceof Error ? failed.reason.message : 'Unable to load RSS feed stream.';
-    throw new Error(message);
-  }
+    return []; // all retries exhausted → return empty instead of throwing
+  };
 
-  const merged = fulfilled.flat().sort(sortByDate).slice(0, limit);
+  // Fetch all sources in parallel
+  const results = await Promise.all(feedSources.map(fetchSource));
+  const merged = results.flat().sort(sortByDate).slice(0, limit);
 
+  // Deduplicate by link
   const visitedLinks = new Set<string>();
   const uniqueItems: FeedItem[] = [];
 
@@ -272,5 +274,6 @@ export const fetchFeedStream = async (limit = 300): Promise<FeedItem[]> => {
     }
   }
 
+  console.log(`[Feed] 📊 Total: ${uniqueItems.length} unique items from ${feedSources.length} sources`);
   return uniqueItems;
 };
