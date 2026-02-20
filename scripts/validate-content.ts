@@ -88,6 +88,41 @@ function main() {
         }
     }
 
+    // 2.5 Frontmatter quality checks
+    for (const filePath of blogFiles) {
+        const raw = fs.readFileSync(filePath, 'utf-8');
+        const slug = fileToSlug(filePath);
+        const relPath = path.relative(ROOT, filePath);
+
+        // Check 1: CRLF line endings (break many YAML parsers)
+        if (raw.includes('\r\n')) {
+            console.error(`❌ ${relPath}: 包含 Windows 换行符 (CRLF)，会导致 YAML 解析失败`);
+            console.error(`   → 运行: sed -i '' 's/\\r$//' ${relPath}\n`);
+            hasErrors = true;
+        }
+
+        // Check 2: Duplicate frontmatter blocks (e.g. two --- ... --- sections)
+        const fmMatches = raw.match(/^---$/gm);
+        if (fmMatches && fmMatches.length > 2) {
+            console.error(`❌ ${relPath}: 检测到多个 frontmatter 块 (${fmMatches.length / 2} 组 ---)，Contentlayer 只会读取第一个`);
+            console.error(`   → 请合并为一个 frontmatter 块\n`);
+            hasErrors = true;
+        }
+
+        // Check 3: Empty title or summary on non-draft posts
+        const { data } = matter(raw);
+        if (data.draft !== true) {
+            if (!data.title || data.title.trim() === '') {
+                console.error(`❌ ${relPath}: 非草稿文章的 title 为空`);
+                hasErrors = true;
+            }
+            if (!data.summary || data.summary.trim() === '') {
+                console.warn(`⚠️  ${relPath}: summary 为空，Featured Post 显示时会是空白`);
+                hasWarnings = true;
+            }
+        }
+    }
+
     // 3. Check: all blogSlug references in portfolio.yml point to existing blog posts
     const referencedSlugs = new Set<string>();
     for (const project of portfolioData.projects) {
