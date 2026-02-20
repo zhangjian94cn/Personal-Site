@@ -225,12 +225,21 @@ export const fetchFeedStream = async (limit = 300): Promise<FeedItem[]> => {
 
   const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
 
-  /** Fetch a single source with timeout + retry */
+  /** Fetch a single source with timeout + retry + fallback URL */
   const fetchSource = async (source: FeedSource): Promise<FeedItem[]> => {
-    const base = source.baseUrl ?? rsshubBase;
-    const url = `${base}${source.route}`;
+    const primaryBase = source.baseUrl ?? rsshubBase;
+    // If the configured base differs from the hardcoded IP default, use the default as fallback
+    const fallbackBase = source.baseUrl
+      ? (source.baseUrl !== defaultWeweRssBase ? defaultWeweRssBase : undefined)
+      : (rsshubBase !== defaultRsshubBase ? defaultRsshubBase : undefined);
 
-    for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+    const urlsToTry = [
+      `${primaryBase}${source.route}`,
+      ...(fallbackBase ? [`${fallbackBase}${source.route}`] : []),
+    ];
+
+    for (let i = 0; i < urlsToTry.length; i++) {
+      const url = urlsToTry[i];
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
 
@@ -241,22 +250,21 @@ export const fetchFeedStream = async (limit = 300): Promise<FeedItem[]> => {
         }
         const xml = await response.text();
         const items = parseFeed(xml, source);
-        console.log(`[Feed] ✅ ${source.id}: ${items.length} items (attempt ${attempt})`);
+        console.log(`[Feed] ✅ ${source.id}: ${items.length} items (from ${url})`);
         return items;
       } catch (err) {
         const reason = err instanceof Error ? err.message : String(err);
-        if (attempt < MAX_RETRIES) {
-          console.warn(`[Feed] ⚠️  ${source.id} attempt ${attempt} failed (${reason}), retrying in ${RETRY_DELAY_MS}ms...`);
-          await sleep(RETRY_DELAY_MS);
+        if (i < urlsToTry.length - 1) {
+          console.warn(`[Feed] ⚠️  ${source.id} failed on ${url} (${reason}), trying fallback...`);
         } else {
-          console.error(`[Feed] ❌ ${source.id} failed after ${MAX_RETRIES} attempts: ${reason}`);
+          console.error(`[Feed] ❌ ${source.id} failed: ${reason}`);
         }
       } finally {
         clearTimeout(timer);
       }
     }
 
-    return []; // all retries exhausted → return empty instead of throwing
+    return []; // all URLs exhausted → return empty
   };
 
   // Fetch all sources in parallel
