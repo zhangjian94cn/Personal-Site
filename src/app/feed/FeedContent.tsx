@@ -143,20 +143,36 @@ export default function FeedContent({ initialPosts = [] }: FeedContentProps) {
         {/* Feed Grid */}
         {!showSkeleton && (
           <>
-            <Masonry
-              breakpointCols={breakpointColumnsObj}
-              className="flex w-auto -ml-6"
-              columnClassName="pl-6 bg-clip-padding"
-            >
-              {filteredPosts.map((post, index) => (
-                <div key={post.id} className="mb-6">
-                  <FeedItem post={post} index={index} isGrid={true} />
+            {error && (
+              <div className="mb-8 rounded-xl bg-red-50 p-4 text-sm text-red-800 dark:bg-red-900/30 dark:text-red-400 border border-red-200 dark:border-red-800">
+                <div className="flex">
+                  <svg className="mr-3 h-5 w-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                  </svg>
+                  <div>
+                    <span className="font-semibold">Error:</span> {error}
+                  </div>
                 </div>
-              ))}
-            </Masonry>
+              </div>
+            )}
 
-            {filteredPosts.length === 0 && (
-              <div className="text-center text-gray-500 dark:text-gray-400 py-12">
+            {filteredPosts.length > 0 ? (
+              <Masonry
+                breakpointCols={breakpointColumnsObj}
+                className="flex w-auto -ml-6"
+                columnClassName="pl-6 bg-clip-padding"
+              >
+                {filteredPosts.map((post, index) => (
+                  <div key={post.id} className="mb-6">
+                    <FeedItem post={post} index={index} isGrid={true} />
+                  </div>
+                ))}
+              </Masonry>
+            ) : (
+              <div className="text-center text-gray-500 dark:text-gray-400 py-12 flex flex-col items-center">
+                <svg className="mb-4 h-12 w-12 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                </svg>
                 {t('feed.empty') || 'No posts found matching your criteria.'}
               </div>
             )}

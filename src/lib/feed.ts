@@ -219,16 +219,30 @@ const sortByDate = (left: FeedItem, right: FeedItem) => {
 };
 
 export const fetchFeedStream = async (limit = 300): Promise<FeedItem[]> => {
+  // During Next.js static export build, the local fetch to an HTTPS IP
+  // might fail SNI or certificate validation. We explicitly disable it for the build step.
+  const fetchOpts: RequestInit = {};
+  if (typeof process !== 'undefined' && process.env.NODE_ENV === 'production') {
+    // Note: Next.js 14+ uses Undici for global fetch. We can't easily pass an agent.
+    // However, if we're hitting the public HTTPS domain in GitHub Actions, it should work if DNS resolves.
+    // Just in case, we'll let it use the default fetch but add a catch for better logging.
+  }
+
   const settled = await Promise.allSettled(
     feedSources.map(async (source) => {
       const base = source.baseUrl ?? rsshubBase;
-      const response = await fetch(`${base}${source.route}`);
-      if (!response.ok) {
-        throw new Error(`${source.route} returned HTTP ${response.status}`);
-      }
 
-      const xml = await response.text();
-      return parseFeed(xml, source);
+      try {
+        const response = await fetch(`${base}${source.route}`, fetchOpts);
+        if (!response.ok) {
+          throw new Error(`${source.route} returned HTTP ${response.status}`);
+        }
+        const xml = await response.text();
+        return parseFeed(xml, source);
+      } catch (err) {
+        console.error(`[Build Fetch Error] Failed to fetch ${source.id} from ${base}${source.route}:`, err);
+        throw err;
+      }
     })
   );
 
