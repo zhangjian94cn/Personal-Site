@@ -188,22 +188,44 @@ export function useFeedStream(initialPosts: FeedPost[] = []): UseFeedStreamResul
 
         fetchFeedStreamClient()
             .then((items) => {
-                if (!cancelled) {
-                    setPosts(items.map(toFeedPost));
-                    setLoading(false);
-                }
+                if (cancelled) return;
+
+                const clientPosts = items.map(toFeedPost);
+
+                // Determine which source IDs the client successfully fetched
+                const clientSourceIds = new Set(
+                    items.map((item) => item.sourceId),
+                );
+
+                // Keep build-time posts from sources that the client DIDN'T fetch
+                // (e.g. WeWe RSS blocked by CORS in browser)
+                const preservedInitial = initialPosts.filter(
+                    (post) => {
+                        // A build-time post's source can be identified by its first tag
+                        // (which is the sourceTitle). If any client post shares the same
+                        // first tag, that source was successfully re-fetched → drop the stale one.
+                        const sourceTag = post.tags?.[0];
+                        return sourceTag && !clientPosts.some((cp) => cp.tags?.[0] === sourceTag);
+                    },
+                );
+
+                // Merge: client-fetched (fresh) + preserved build-time, sorted by date
+                const merged = [...clientPosts, ...preservedInitial].sort(
+                    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+                );
+
+                setPosts(merged);
+                setLoading(false);
             })
             .catch((err) => {
-                if (!cancelled) {
-                    // If we have build-time data, silently fall back
-                    // (e.g. CORS / mixed-content blocks client fetch)
-                    if (initialPosts.length > 0) {
-                        console.warn('[Feed] Client-side refresh failed, using build-time data:', err);
-                    } else {
-                        setError(err instanceof Error ? err.message : 'Failed to load feed.');
-                    }
-                    setLoading(false);
+                if (cancelled) return;
+                // If we have build-time data, silently fall back
+                if (initialPosts.length > 0) {
+                    console.warn('[Feed] Client-side refresh failed, using build-time data:', err);
+                } else {
+                    setError(err instanceof Error ? err.message : 'Failed to load feed.');
                 }
+                setLoading(false);
             });
 
         return () => { cancelled = true; };
