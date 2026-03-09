@@ -46,7 +46,7 @@ export default function RootLayout({
         <LanguageProvider>
           <ThemeProvider>
             <PostHogProvider>
-              <div className="mx-auto max-w-3xl px-4 sm:px-6 xl:max-w-5xl xl:px-0">
+              <div className="mx-auto max-w-7xl px-4 sm:px-6 xl:px-8">
                 <div className="flex h-screen flex-col justify-between">
                   <Header />
                   <main className="mb-auto">{children}</main>
