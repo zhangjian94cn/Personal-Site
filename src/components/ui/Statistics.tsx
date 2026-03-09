@@ -16,7 +16,7 @@ export function Statistics() {
     const checkBusuanzi = setInterval(() => {
       const pvEl = document.getElementById('busuanzi_value_site_pv');
       const uvEl = document.getElementById('busuanzi_value_site_uv');
-      
+
       if (pvEl && uvEl && pvEl.innerText !== '-' && pvEl.innerText !== '') {
         const newPv = parseInt(pvEl.innerText, 10) || 0;
         const newUv = parseInt(uvEl.innerText, 10) || 0;
@@ -36,15 +36,15 @@ export function Statistics() {
         src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"
         strategy="lazyOnload"
       />
-      
-      {/* 隐藏原始不蒜子元素 */}
-      <span id="busuanzi_container_site_pv" style={{ display: 'none' }}>
+
+      {/* 隐藏原始不蒜子元素 — busuanzi 会覆盖 display:none，用 absolute+overflow 确保不可见 */}
+      <span id="busuanzi_container_site_pv" style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden' }}>
         <span id="busuanzi_value_site_pv">-</span>
       </span>
-      <span id="busuanzi_container_site_uv" style={{ display: 'none' }}>
+      <span id="busuanzi_container_site_uv" style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden' }}>
         <span id="busuanzi_value_site_uv">-</span>
       </span>
-      
+
       <div className="flex items-center justify-center gap-4">
         <span>
           访问量：{pvCount !== null ? `${pvCount.toLocaleString()}次` : '加载中...'}
