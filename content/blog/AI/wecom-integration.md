@@ -1,7 +1,7 @@
 ---
 title: "在微信里养一个 AI 同事，OpenClaw 企微全景推演"
 date: "2026-03-08"
-tags: [openclaw, wecom, self-hosted]
+tags: ["OpenClaw", "企业微信", "Self-Hosted"]
 draft: false
 summary: "OpenClaw 住在 Docker，你住在微信。两界何以相通？看懂网络架构的底层中枢，打通企微接入与 FRP 穿透的唯一解。"
 authors: [default]

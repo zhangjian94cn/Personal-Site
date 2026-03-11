@@ -1,7 +1,7 @@
 ---
 title: "装完OpenClaw不知道干嘛？用Obsidian迈出生产力接入的第一步"
 date: "2026-03-08"
-tags: [Obsidian, OpenClaw, "AI Agent", 本地化, Skills]
+tags: ["OpenClaw", "AI-Agent", "Obsidian"]
 draft: false
 summary: "OpenClaw装完一脸茫然？从记笔记这个最刚需的场景出发，用Obsidian打通你的第一条AI生产力管线。"
 authors: [default]

@@ -1,7 +1,7 @@
 ---
 title: "调教了一晚上，我的 OpenClaw 终于不再答非所问"
 date: "2026-03-08"
-tags: [openclaw, self-hosted, ai-agent]
+tags: ["OpenClaw", "Self-Hosted"]
 draft: false
 summary: "装完 OpenClaw 只是起点。模型换成阿里百炼、人格写进 IDENTITY.md、会话自动压缩、Skills 赋能文件操作和定时任务——一晚上的折腾，换来真正好用的 AI 助手。"
 authors: [default]

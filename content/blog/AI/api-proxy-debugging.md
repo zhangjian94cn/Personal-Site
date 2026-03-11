@@ -1,7 +1,7 @@
 ---
 title: "接入第三方 API 代理——一场 User-Agent 引发的深夜排错"
 date: "2026-02-21"
-tags: [openclaw, api-proxy, debugging]
+tags: ["OpenClaw", "DevOps"]
 draft: false
 summary: "OpenClaw 跑起来了，但第三方 API 死活不通。从 Cloudflare WAF 拦截到 Provider 归一化陷阱，三个坑，一个比一个深。"
 authors: [default]

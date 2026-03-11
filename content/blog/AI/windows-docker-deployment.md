@@ -1,7 +1,7 @@
 ---
 title: "OpenClaw 到底怎么装？写给 Windows 用户的折腾指南"
 date: "2026-02-20"
-tags: [openclaw, docker]
+tags: ["OpenClaw", "DevOps"]
 draft: false
 summary: "折腾了一整个周末，在 Windows 上把 OpenClaw 跑通了。分享从 Docker 源码构建到 Gateway 部署的完整踩坑过程。"
 authors: [default]

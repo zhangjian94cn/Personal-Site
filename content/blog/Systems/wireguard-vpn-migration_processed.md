@@ -1,7 +1,7 @@
 ---
 title: "三条隧道合并成一条 VPN：我是如何用 WireGuard 重构家庭服务器网络的"
 date: "2026-03-10"
-tags: ["WireGuard", "VPN", "网络架构", "家庭服务器"]
+tags: ["网络", "Self-Hosted"]
 draft: false
 summary: "家庭服务器跑了三条隧道（frpc、SSH 代理、SSH 中继），维护成本越来越高。用 WireGuard 一条 VPN 全部替代，20 分钟搞定。"
 authors: [default]

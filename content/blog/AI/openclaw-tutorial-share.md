@@ -1,7 +1,7 @@
 ---
 title: "还在自己研究OpenClaw？全网最全教程，从安装到实战，免费拿走"
 date: "2026-03-08"
-tags: ["OpenClaw", "AI工具", "教程", "超级个体", "免费资源"]
+tags: ["OpenClaw", "教程", "AI赋能"]
 draft: false
 summary: "全网最全的OpenClaw中文教程合集，15章正文+8附录，70+实战案例，完全免费开源。别再花冤枉钱买「腾讯版」「字节版」教程了。"
 authors: [default]

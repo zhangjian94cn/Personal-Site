@@ -1,7 +1,7 @@
 ---
 title: "OpenClaw 到底是什么？一个被吹上天的项目，我决定自己试试"
 date: "2026-02-20"
-tags: ["openclaw", "ai-agent", "self-hosted"]
+tags: ["OpenClaw", "AI-Agent", "Self-Hosted"]
 draft: false
 summary: "公众号刷屏、Mac Mini 卖断货、'草根造神运动'……OpenClaw 被说得一个比一个邪乎。但它到底是什么？为什么有人说它改变世界，有人说小白活不过一周？与其听别人说，不如自己部署一个看看。"
 authors: [default]

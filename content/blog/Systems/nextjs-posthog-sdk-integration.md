@@ -1,7 +1,7 @@
 ---
 title: "Next.js 网站接入 PostHog SDK —— 真正开始采集数据"
 date: "2026-02-18"
-tags: [posthog, nextjs, analytics]
+tags: ["数据分析", "DevOps"]
 draft: false
 summary: "PostHog 部署好了，下一步是让网站真正把数据发过来。这篇文章记录在 Next.js App Router 中集成 posthog-js 的完整过程。"
 authors: [default]

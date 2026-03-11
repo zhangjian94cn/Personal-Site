@@ -1,7 +1,7 @@
 ---
 title: "TBB Sample 01"
 date: "2022-11-29"
-tags: [HPC, C++]
+tags: ["HPC"]
 draft: false
 summary: "Count Strings"
 authors: ["default"]

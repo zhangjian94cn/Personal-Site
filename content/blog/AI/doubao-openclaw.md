@@ -1,7 +1,7 @@
 ---
 title: "豆包手机没有完成的事情，OpenClaw完成了"
 date: "2026-03-08"
-tags: [Agent, 大模型, OpenClaw, "AI 生活方式"]
+tags: ["OpenClaw", "LLM", "AI赋能"]
 draft: false
 summary: "豆包手机因隐私风波下架，而它的接力棒被大洋彼岸的 OpenClaw 接过，这标志着端侧 AI 真正重构人类生活方式的开端。"
 authors: [default]

@@ -1,7 +1,7 @@
 ---
 title: "为什么自建 PostHog？一个独立开发者的选型思路"
 date: "2026-02-17"
-tags: [posthog, analytics, self-hosted]
+tags: ["数据分析", "Self-Hosted"]
 draft: false
 summary: "个人网站需要数据观测吗？Google Analytics、Umami、Plausible、PostHog 怎么选？为什么我最终选择在家里的 Mac mini 上自建 PostHog？这篇文章聊聊寒假里折腾这件事的思考过程。"
 authors: ["default"]

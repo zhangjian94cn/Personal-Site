@@ -6,29 +6,17 @@
  */
 
 export const TAG_CATEGORIES = {
-  // AI & Machine Learning
-  AI: ['AI', 'LLM', 'ChatGLM', 'GPT', 'deep-learning', 'machine-learning', 'reinforcement-learning', 'computer-vision', 'DQN'],
-  
-  // Systems & Performance
-  SYSTEMS: ['HPC', 'CUDA', 'GPU', 'AVX', 'SIMD', 'TBB', 'parallel-computing', 'optimization', 'profiling'],
-  
-  // Development Tools
-  DEV: ['dev-tools', 'Docker', 'SSH', 'compilation', 'make', 'C++', 'Intel', 'VTune', 'oneDAL'],
-  
-  // Frameworks & Libraries
-  FRAMEWORKS: ['Ray', 'LangChain', 'AutoGen'],
-  
-  // Techniques & Methods
-  TECHNIQUES: ['Text2SQL', 'fine-tuning', 'LoRA', 'RAG', 'segmentation', 'SLAM', 'distributed-training'],
-  
-  // Web & Other
-  WEB: ['web', 'encryption', 'Jekyll'],
-  
-  // Meta
-  META: ['about', 'resume', 'announcement', 'blog', 'tutorial'],
-  
-  // Specific Technologies
-  TECH: ['vector-db', 'multi-agent', 'architecture'],
+  // AI方向
+  AI: ['OpenClaw', 'AI-Agent', 'LLM', 'Deep-Learning'],
+
+  // 应用场景
+  SCENARIOS: ['AI赋能', 'Obsidian', '企业微信'],
+
+  // Systems方向
+  SYSTEMS: ['HPC', 'DevOps', 'Self-Hosted', '网络', '数据分析'],
+
+  // 内容类型
+  CONTENT: ['教程'],
 } as const;
 
 // Flatten all valid tags
@@ -36,34 +24,48 @@ export const VALID_TAGS = Object.values(TAG_CATEGORIES).flat();
 
 // Tag aliases for convenience (e.g., Chinese -> English, shorthand -> full)
 export const TAG_ALIASES: Record<string, string> = {
-  // Chinese to English
-  '深度学习': 'deep-learning',
-  '机器学习': 'machine-learning',
-  '强化学习': 'reinforcement-learning',
-  '计算机视觉': 'computer-vision',
-  '图像分割': 'segmentation',
-  '性能优化': 'optimization',
-  '并行计算': 'parallel-computing',
-  '分布式训练': 'distributed-training',
-  '微调': 'fine-tuning',
-  '多智能体': 'multi-agent',
-  '架构设计': 'architecture',
-  '编译': 'compilation',
-  '公告': 'announcement',
-  '博客': 'blog',
-  
-  // Shorthand to full
-  'DL': 'deep-learning',
-  'ML': 'machine-learning',
-  'RL': 'reinforcement-learning',
-  'CV': 'computer-vision',
-  'Perf': 'optimization',
-  
-  // Common variations
-  'VectorDB': 'vector-db',
-  'Vector DB': 'vector-db',
-  'Multi-Agent': 'multi-agent',
-  'Distributed Training': 'distributed-training',
+  // AI方向别名
+  'openclaw': 'OpenClaw',
+  'AI Agent': 'AI-Agent',
+  'ai-agent': 'AI-Agent',
+  'Agent': 'AI-Agent',
+  'AI助手': 'AI-Agent',
+  'Skill': 'AI-Agent',
+  'Skills': 'AI-Agent',
+  'baoyu-skills': 'AI-Agent',
+  'Claude Code': 'AI-Agent',
+  '大模型': 'LLM',
+  'AI工具': 'LLM',
+  'deep-learning': 'Deep-Learning',
+  '深度学习': 'Deep-Learning',
+  '机器学习': 'Deep-Learning',
+  '强化学习': 'Deep-Learning',
+
+  // 应用场景别名
+  'AI 生活方式': 'AI赋能',
+  '超级个体': 'AI赋能',
+  '免费资源': 'AI赋能',
+  '信息图': 'AI赋能',
+  '小红书': 'AI赋能',
+  '本地化': 'Obsidian',
+  'wecom': '企业微信',
+
+  // Systems方向别名
+  'C++': 'HPC',
+  'Ray': 'HPC',
+  'docker': 'DevOps',
+  'dev-tools': 'DevOps',
+  'debugging': 'DevOps',
+  'api-proxy': 'DevOps',
+  'nextjs': 'DevOps',
+  'self-hosted': 'Self-Hosted',
+  '家庭服务器': 'Self-Hosted',
+  '私有部署': 'Self-Hosted',
+  'WireGuard': '网络',
+  'VPN': '网络',
+  '网络架构': '网络',
+  'posthog': '数据分析',
+  'analytics': '数据分析'
 };
 
 /**
@@ -79,23 +81,23 @@ export function normalizeTag(tag: string): string {
 export function validateTags(tags: string[]): { valid: boolean; errors: string[] } {
   const errors: string[] = [];
   const normalizedTags = tags.map(normalizeTag);
-  
+
   normalizedTags.forEach((tag, index) => {
     if (!VALID_TAGS.includes(tag as any)) {
       const originalTag = tags[index];
-      const suggestions = VALID_TAGS.filter(validTag => 
-        validTag.toLowerCase().includes(tag.toLowerCase()) || 
+      const suggestions = VALID_TAGS.filter(validTag =>
+        validTag.toLowerCase().includes(tag.toLowerCase()) ||
         tag.toLowerCase().includes(validTag.toLowerCase())
       );
-      
-      const suggestionText = suggestions.length > 0 
+
+      const suggestionText = suggestions.length > 0
         ? ` Did you mean: ${suggestions.join(', ')}?`
         : '';
-      
+
       errors.push(`Invalid tag "${originalTag}"${suggestionText}`);
     }
   });
-  
+
   return {
     valid: errors.length === 0,
     errors,

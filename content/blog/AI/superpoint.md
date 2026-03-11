@@ -1,7 +1,7 @@
 ---
 title: "SuperPoint Outline"
 date: "2022-05-07"
-tags: [deep-learning]
+tags: ["Deep-Learning"]
 draft: false
 summary: "SuperPoint Outline"
 authors: ["default"]

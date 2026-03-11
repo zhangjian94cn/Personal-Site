@@ -1,7 +1,7 @@
 ---
 title: "从部署到上线 —— Mac mini 自建 PostHog 全流程"
 date: "2026-02-18"
-tags: [posthog, docker, self-hosted]
+tags: ["数据分析", "Self-Hosted"]
 draft: false
 summary: "Mac mini 自建 PostHog 全流程：Docker 部署、资源优化、FRP 内网穿透、HTTPS 配置，以及一路踩过的坑和背后的根因分析。"
 authors: [default]
