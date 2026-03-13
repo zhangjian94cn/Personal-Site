@@ -145,7 +145,7 @@ POSTHOG_CELERY_MAX_MEMORY_PER_CHILD=400000
 
 优化后，整个技术栈稳定在 **7.5 GB 左右**，Mac mini 16 GB 绰绰有余。
 
-![PostHog 服务拓扑：运行中 vs 已禁用](/images/blog/deploy-posthog-on-macmini/services-topology.png)
+![PostHog 服务拓扑：运行中 vs 已禁用](https://assets.zhangjian94cn.top/images/blog/deploy-posthog-on-macmini/services-topology.png)
 
 ## 四、踩坑记录：那些文档里不会告诉你的事
 
@@ -328,7 +328,7 @@ server {
 - **`client_max_body_size`**：Session Replay 的录屏数据可能比较大，默认 1MB 不够用
 - **超时要给够**：ClickHouse 复杂查询可能需要几十秒
 
-![自建 PostHog 公网访问链路：浏览器 → 腾讯云 nginx/FRP → Mac mini](/images/blog/deploy-posthog-on-macmini/frp-nginx-architecture.png)
+![自建 PostHog 公网访问链路：浏览器 → 腾讯云 nginx/FRP → Mac mini](https://assets.zhangjian94cn.top/images/blog/deploy-posthog-on-macmini/frp-nginx-architecture.png)
 
 ## 六、HTTPS：不是可选的，是必须的
 

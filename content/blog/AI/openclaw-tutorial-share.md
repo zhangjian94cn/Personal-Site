@@ -11,7 +11,7 @@ authors: [default]
 
 小红书上有人在传"几乎跪着读完了阿里内部发布的OpenClaw手册"，B站上有博主在喊"字节真的把OpenClaw讲的好清晰啊"，飞书上也有人在说"建议大家都去飞书上学OpenClaw，真的能打破信息差"。
 
-![各平台上的传播截图](/images/blog/openclaw-tutorial-share/openclaw-share-social-proof.png)
+![各平台上的传播截图](https://assets.zhangjian94cn.top/images/blog/openclaw-tutorial-share/openclaw-share-social-proof.png)
 
 评论区的画风更离谱——"全文背诵"、"跪着读完"、"推荐所有人去看"。
 

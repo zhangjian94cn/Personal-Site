@@ -333,7 +333,7 @@ if (window.location.protocol === 'https:' && POSTHOG_HOST.startsWith('http://'))
 
 看到第一个真实事件出现在后台的那一刻，说实话比 `up.sh` 跑通的时候还让人高兴。因为这才是这一整套系统的终点——数据，终于开始流动了。
 
-![PostHog Events Activity](/images/blog/nextjs-posthog-sdk-integration/ph-activity.png)
+![PostHog Events Activity](https://assets.zhangjian94cn.top/images/blog/nextjs-posthog-sdk-integration/ph-activity.png)
 
 
 ## 写在最后

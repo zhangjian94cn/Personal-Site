@@ -1,7 +1,5 @@
 'use client';
 
-import Image from 'next/image';
-
 export default function WeChatPromo() {
     return (
         <section className="my-12 mx-auto max-w-2xl">
@@ -26,25 +24,25 @@ export default function WeChatPromo() {
 
                     {/* Promo Image — Light mode */}
                     <div className="block dark:hidden w-full max-w-sm">
-                        <Image
-                            src="/images/blog-promo/wechat-promo-light.png"
+                        <img
+                            src="https://assets.zhangjian94cn.top/images/blog-promo/wechat-promo-light.png"
                             alt="微信搜一搜 GeekZ 公众号"
                             width={800}
                             height={300}
                             className="rounded-xl"
-                            priority={false}
+                            loading="lazy"
                         />
                     </div>
 
                     {/* Promo Image — Dark mode */}
                     <div className="hidden dark:block w-full max-w-sm">
-                        <Image
-                            src="/images/blog-promo/wechat-promo-dark.png"
+                        <img
+                            src="https://assets.zhangjian94cn.top/images/blog-promo/wechat-promo-dark.png"
                             alt="微信搜一搜 GeekZ 公众号"
                             width={800}
                             height={300}
                             className="rounded-xl"
-                            priority={false}
+                            loading="lazy"
                         />
                     </div>
                 </div>
@@ -56,3 +54,4 @@ export default function WeChatPromo() {
         </section>
     );
 }
+

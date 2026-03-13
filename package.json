@@ -14,7 +14,7 @@
     "stats": "tsx scripts/stats.ts",
     "list-tags": "tsx scripts/list-tags.ts",
     "validate-tags": "tsx scripts/validate-tags.ts",
-    "deploy": "bash scripts/deploy.sh"
+    "deploy": "node scripts/deploy.js"
   },
   "dependencies": {
     "@emotion/is-prop-valid": "^1.4.0",

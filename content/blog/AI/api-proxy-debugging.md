@@ -247,7 +247,7 @@ listProfilesForProvider(store, "openai-codex");
 
 折腾了这一整圈，我把整条请求链路画了出来。每一层解决一类问题：
 
-![OpenClaw 四层 API 代理转发架构图](/images/blog/api-proxy-debugging/architecture-diagram.png)
+![OpenClaw 四层 API 代理转发架构图](https://assets.zhangjian94cn.top/images/blog/api-proxy-debugging/architecture-diagram.png)
 
 四层转发，四类问题。看起来很绕，但每一层都有它存在的理由。去掉任何一层，链路就断了。
 
