@@ -4,7 +4,7 @@
 # 个人简介
 bio:
   zh: |
-    **Hi，我是章坚。** 目前任职于**江苏移动**人工智能团队。
+    **Hi，我是章坚。** 目前任职于**某运营商**人工智能团队。
 
     作为**灵犀助手**等核心应用负责人，我聚焦于 AI 技术架构与业务流程智能化，构建统一的 AI 助理入口和多智能体协同体系。围绕高频业务场景（营销、客户洞察、业务办理等），我牵头推进智能体落地并深度嵌入一线流程，持续推动 AI 从"工具可用"向"业务可依赖"的组织级能力演进。
 
@@ -18,7 +18,7 @@ bio:
     在南大 ViSG 实验室求学期间，我在[周博](https://ese.nju.edu.cn/zy/list.htm)、[于博](https://ese.nju.edu.cn/yy/list.htm)及[都教授](https://ese.nju.edu.cn/dsd/list.htm)的悉心指导下，完成了"高精度语义地图重建"项目，重点研究基于激光雷达的位姿估计、场景重建与理解。此外，我早期也曾在网易游戏和 D5 Render 实习，积累了图形渲染的一线工程经验。
 
   en: |
-    **Hi, I'm Zhang Jian.** Currently serving as an Explorer of Technical Architecture and Product in the AI Era at **Jiangsu Mobile**'s AI team.
+    **Hi, I'm Zhang Jian.** Currently serving as an Explorer of Technical Architecture and Product in the AI Era at **a major telecom operator**'s AI team.
 
     As the lead of core applications like **Lingxi Assistant**, I focus on AI architecture and business process intelligence, building a unified AI entry and a multi-agent collaboration system. Leading the deployment of agents in high-frequency scenarios (marketing, customer insights, etc.), I drive the deep embedding of AI into frontline workflows, evolving AI from a "usable tool" to a "reliable organizational capability".
 
@@ -51,8 +51,8 @@ interests:
 # 工作经历
 experiences:
   - company:
-      zh: 江苏移动
-      en: Jiangsu Mobile
+      zh: 某运营商
+      en: A Major Telecom Operator
     role:
       zh: 人工智能团队
       en: Artificial Intelligence Team
