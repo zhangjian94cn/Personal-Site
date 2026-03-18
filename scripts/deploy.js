@@ -2,6 +2,11 @@
 /**
  * Cross-platform deploy script for GitHub Pages
  * Works on Windows, macOS, and Linux
+ *
+ * Optimizations:
+ * - Always uses a fresh .git to prevent history bloat (force push anyway)
+ * - Cleans out/ before build to prevent stale files
+ * - Reports build size and push timing
  */
 
 const { execSync, spawnSync } = require('child_process');
@@ -44,17 +49,33 @@ function run(command, options = {}) {
   }
 }
 
+function getDirectorySize(dirPath) {
+  try {
+    const output = execSync(`du -sh "${dirPath}" 2>/dev/null`, { encoding: 'utf8' }).trim();
+    return output.split('\t')[0];
+  } catch {
+    return 'unknown';
+  }
+}
+
 async function main() {
+  const startTime = Date.now();
   const projectRoot = process.cwd();
   const outPath = path.join(projectRoot, OUT_DIR);
 
   log('🔨 Starting build process...', 'green');
   
-  // Step 1: Build contentlayer first
+  // Step 1: Clean out/ to prevent stale files (preserve nothing)
+  if (fs.existsSync(outPath)) {
+    log('\n🧹 Cleaning previous build output...', 'yellow');
+    fs.rmSync(outPath, { recursive: true, force: true });
+  }
+
+  // Step 2: Build contentlayer first
   log('\n📄 Building Contentlayer...', 'yellow');
   run('npx contentlayer2 build');
   
-  // Step 2: Build Next.js
+  // Step 3: Build Next.js
   log('\n📦 Building Next.js static export...', 'yellow');
   run('npm run build');
   
@@ -64,19 +85,24 @@ async function main() {
     process.exit(1);
   }
   
+  // Report build size
+  const buildSize = getDirectorySize(outPath);
+  log(`\n📊 Build output size: ${buildSize}`, 'green');
+  
   log('\n🚀 Preparing deployment...', 'yellow');
   
-  // Step 3: Initialize git in out directory
+  // Step 4: Always initialize a fresh git repo (we force push anyway,
+  // so there's no benefit to keeping history — it only bloats .git/)
   process.chdir(outPath);
   
   const gitDir = path.join(outPath, '.git');
-  if (!fs.existsSync(gitDir)) {
-    log('Initializing git repository...', 'cyan');
-    run('git init');
-    run(`git remote add origin ${DEPLOY_REPO}`);
+  if (fs.existsSync(gitDir)) {
+    fs.rmSync(gitDir, { recursive: true, force: true });
   }
+  run('git init');
+  run(`git remote add origin ${DEPLOY_REPO}`);
   
-  // Step 4: Add and commit
+  // Step 5: Add and commit
   run('git add -A');
   
   const date = new Date().toISOString().replace('T', ' ').substring(0, 19);
@@ -86,13 +112,17 @@ async function main() {
     log('No changes to commit', 'yellow');
   }
   
-  // Step 5: Push to remote
+  // Step 6: Push to remote
   log('\n📤 Pushing to GitHub Pages...', 'yellow');
+  const pushStart = Date.now();
   run(`git branch -M ${DEPLOY_BRANCH}`);
   run(`git push -f origin ${DEPLOY_BRANCH}`);
+  const pushTime = ((Date.now() - pushStart) / 1000).toFixed(1);
   
-  log('\n✅ Deployment complete!', 'green');
-  log('🌐 Visit: https://zhangjian94cn.github.io/', 'green');
+  const totalTime = ((Date.now() - startTime) / 1000).toFixed(1);
+  log(`\n✅ Deployment complete!`, 'green');
+  log(`📊 Push: ${pushTime}s | Total: ${totalTime}s | Size: ${buildSize}`, 'green');
+  log('🌐 Visit: https://zhangjian94cn.top/', 'green');
 }
 
 main().catch((error) => {
