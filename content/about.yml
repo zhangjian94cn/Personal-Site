@@ -100,7 +100,7 @@ publications:
     authors: "Jian Zhang*, Jinchi Huang*, Bowen Cai*, Mingming Gong, Chaohui Wang, Jiaming Wang, Hongchen Luo, Rongfei Jia, Binqiang Zhao, Xing Tang, Huan Fu#"
     links:
       - name: Project
-        url: https://zhangjian94cn.github.io/project/hrsrg/index.html
+        url: https://assets.zhangjian94cn.top/project/hrsrg/index.html
 
   - title: "Ray Priors through Reprojection: Improving Neural Radiance Fields for Novel View Extrapolation"
     venue: "CVPR, 2022"

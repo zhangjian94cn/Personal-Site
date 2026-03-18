@@ -14,7 +14,7 @@ siteRepo: https://github.com/zhangjian94cn/personal-site
 profile:
   name: Zhang Jian
   name_zh: 章坚
-  avatar: /images/avatar.png
+  avatar: https://assets.zhangjian94cn.top/images/avatar.png
   occupation: Explorer of Technical Architecture and Product in the AI Era
   occupation_zh: AI时代的技术架构与产品探索者
   company: Jiangsu Mobile

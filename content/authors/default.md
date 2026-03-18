@@ -1,6 +1,6 @@
 ---
 name: Zhang Jian
-avatar: /static/images/avatar.png
+avatar: https://assets.zhangjian94cn.top/images/avatar.png
 occupation: Explorer of Technical Architecture and Product in the AI Era
 email: jianzhang@smail.nju.edu.cn
 github: https://github.com/zhangjian94cn
