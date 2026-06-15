@@ -43,6 +43,8 @@ Loop Engineering 要改的就是这件事。
 
 也就是说，人的工作从"亲自 prompt agent"，变成"设计会 prompt agent 的系统"。
 
+![从人盯着 AI，到系统自己跑 loop](https://assets.zhangjian94cn.top/images/blog/loop-engineering/loop-engineering-control-loop.png)
+
 ## 一个 Loop 需要哪些东西
 
 Addy 把这个系统拆成了六个构件。这个拆法比很多"AI 工作流技巧"更有价值，因为它不是在讲某个工具怎么用，而是在回答一个更根本的问题：一个能长期自己跑的 agent 系统，到底缺什么。
@@ -110,6 +112,8 @@ Skill 的价值，就是把这些约定写成项目知识。`SKILL.md` 里记构
 
 想象一个每天早上自动运转的代码仓库 loop：
 
+![自动化 loop 在清晨唤醒代码仓库，完成发现、分派、验证和记录](https://assets.zhangjian94cn.top/images/blog/loop-engineering/loop-engineering-autonomous-repo.png)
+
 早上 9 点，automation 被触发。它先读昨天的 CI 失败、最近的提交、还开着的 issue，以及线上错误摘要。
 
 然后调用一个 triage skill。这个 skill 不直接改代码，它只负责判断：哪些问题值得处理，哪些只是噪音，哪些需要人来拍板。判断结果写进状态文件，或者同步到 Linear board。
@@ -158,6 +162,8 @@ Skill 的价值，就是把这些约定写成项目知识。`SKILL.md` 里记构
 执行者负责提出修改。验证者负责核查是否真的满足条件。验证者可以是测试套件、CI、lint，也可以是一个独立上下文的 sub-agent。关键是：**不要让写代码的那个 agent 自己定义什么叫赢。**
 
 这是 loop 能不能让你走开的分界线。
+
+![验证门决定 agent loop 是继续、通过，还是停下来交给人](https://assets.zhangjian94cn.top/images/blog/loop-engineering/loop-engineering-verification-gate.png)
 
 ## Loop 不是逃离工程，而是把工程放进系统
 
