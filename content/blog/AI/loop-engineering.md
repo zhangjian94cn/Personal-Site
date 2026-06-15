@@ -1,168 +1,225 @@
 ---
 title: "别再盯着 AI 干活了"
-date: "2026-06-14"
+date: "2026-06-15"
 tags: [AI-Agent, LLM, AI赋能]
 draft: false
-summary: "从最近硅谷热议的 Loop Engineering 说起：AI agent 真正的提效，不是你盯着它每一步跑，而是把任务设计成目标、验证、反馈、记忆和停止条件组成的工作循环。"
+summary: "从 Addy Osmani 的 Loop Engineering 说起：AI agent 真正的提效，不是你盯着它每一步跑，而是把任务设计成能发现、分派、验证、记忆和继续推进的工作循环。"
 authors: [default]
 ---
 
 ![从 prompt 到 loop：别再盯着 AI 干活了](https://assets.zhangjian94cn.top/images/blog/loop-engineering/loop-engineering-cover.png)
 
-现在用 AI 干活，最累的场景可能不是自己写代码。是你坐在屏幕前，盯着 AI 干活。
+现在用 AI 干活，累的往往不是自己写代码。
 
-它在终端里跑命令，你盯着。它说测试通过了，你不放心，又手动跑一遍。它跑偏了，你赶紧拉回来。折腾一圈下来，表面上是 AI 在干活，实际上你一直在旁边当监工。
+是你坐在屏幕前，盯着 AI 写代码。
 
-这也是为什么最近硅谷那边开始频繁讨论一个词：Loop Engineering。
+它在终端里跑命令，你盯着。它说测试通过了，你不放心，又手动跑一遍。它跑偏了，你赶紧拉回来。它卡住了，你重新解释背景。折腾一圈下来，表面上 AI 在干活，实际上你一直没走开。
 
-Anthropic Claude Code 负责人 Boris Cherny 有句话很出圈："我不再直接 prompt Claude。我在写 loops，让 loops 去 prompt Claude。**我的工作变成了写 loops。**"
+这也是为什么最近 AI 工程圈开始频繁讨论一个词：**Loop Engineering**。
 
-我当时看到这句话，脑子里蹦出来的不是"又来了一个 buzzword"。而是我每天盯着 AI 干活那个很具体的疲惫感——
+Anthropic Claude Code 负责人 Boris Cherny 的说法很典型：他已经不再把工作理解成一轮轮给 Claude 下指令，而是在写 loops，让 loops 去驱动 Claude。
 
-**我仍然是那个 feedback loop。**
+这句话听起来像新概念，但它击中的其实是一种很具体的疲惫：
 
-## 你累，是因为真正的控制回路还是你自己
+**我还是那个控制回路本身。**
 
-用 Addy Osmani 在《Loop Engineering》里的描述：过去两年我们的使用方式，是你打一句、读回复、打下一句——**agent 是个工具，你全程捏着它**。他说这个阶段快结束了。
+## 你累，是因为你自己在AI的loop中
 
-为什么？
+Addy Osmani 在《Loop Engineering》里讲得很直接。
 
-因为这种模式下，所有关键判断都在你脑子里。什么叫完成，在你脑子里。什么叫失败，在你脑子里。什么时候该停，在你脑子里。
+过去两年，我们跟 coding agent 协作的方式基本是一样的：写一句 prompt，等它返回结果；读一遍，补下一句；它做错了，你纠正；它做好了，你验证。
 
-AI 看起来是在自动干活，但你永远是那个控制回路里缺不了的螺丝。它每走一步，你得判断一步。它说做完了，你还得亲自验证一遍。
+Agent 看起来是工具，但你其实一直没松手。
 
-Loop Engineering 的想法很直接：**把你从"那个手动 prompt agent 的人"替换掉。** 你不再每次打指令，你设计一个系统替你打——它找到活、分派出去、检查结果、记录下来、决定下一步。
+问题就在这里。
 
-## 一个 Loop 长什么样：六件套
+什么叫完成，在你脑子里。什么叫不对，也在你脑子里。继续还是停，还是你来判断。
 
-那这个系统到底是什么？就是一堆 prompt 循环跑吗？
+AI 确实自动生成了很多代码，但维持这套系统运转的人，仍然是你。你不只是在发指令，你是在承担发现、分派、判断、验收、记录和推进的整条回路。
 
-不是。Addy 把这套东西拆成了六个构件，我现在给 agent 派活也按这个框架来：
+Loop Engineering 要改的就是这件事。
 
-**① Automations（自动化触发器）**
+它不是写更长的 prompt，也不是让 agent 多跑几轮。它是把压在你身上的这条控制回路，拆成一套可以自己跑的系统：自己发现工作，分派给 agent，检查结果，记录状态，再决定下一步。
 
-loop 的心跳。不是每次你手工敲一条指令启动，而是定时触发——每天早上 9 点扫一遍 CI 失败、自动分派修复任务，修完回收结果。Claude Code 里用 `/loop` 设置定时任务，`/goal` 更激进——一直跑到你的验证条件为真才停，而且**每轮判断由一个独立小模型完成**，不是执行者自评。
+也就是说，人的工作从"亲自 prompt agent"，变成"设计会 prompt agent 的系统"。
 
-**② Worktrees（工作区隔离）**
+## 一个 Loop 需要哪些东西
 
-每个 agent 在独立的 git 分支和目录里工作，互不踩脚。两个 agent 同时改代码，一个修 bug 一个重构，各自在隔离 checkout 里跑，不会出现"我改的文件被他覆盖了"。Claude Code 用 `git worktree --worktree` 实现，Codex 每个 thread 自带隔离。
+Addy 把这个系统拆成了六个构件。这个拆法比很多"AI 工作流技巧"更有价值，因为它不是在讲某个工具怎么用，而是在回答一个更根本的问题：一个能长期自己跑的 agent 系统，到底缺什么。
 
-**③ Skills（项目知识固化）**
+**1. Automations：让 loop 有心跳**
 
-把项目约定、构建步骤、"上次踩过的坑"写成 `SKILL.md` 文件。agent 每次启动自动加载，不用每轮重新解释"我们怎么跑测试"、"为什么不要动支付模块"。Addy 原话说：**没有 skill，loop 每轮从零推导你的项目；有了 skill，它会累积。**
+自动化负责定时唤醒系统。比如每天早上扫描 CI 失败、打开的 issue、昨天的提交，找出值得处理的问题。
 
-**④ Plugins & Connectors（外部连接器）**
+没有自动化，所谓 loop 只是你手动触发的一次任务。有了它，系统才会周期性地醒来，自己发现活儿在哪。
 
-让 agent 不只是"告诉你修好了"，而是自己开 PR、关联 Linear ticket、等 CI 绿了自动 ping 频道通知你。MCP 协议让 Claude Code 和 Codex 共用同一套连接器——读 issue tracker、查数据库、调 staging API、发 Slack 消息。
+**2. Worktrees：让并行工作互不踩脚**
 
-**⑤ Sub-agents（独立执行 / 验收者）**
+一旦多个 agent 同时干活，文件冲突马上就是现实问题。
 
-写代码的人不能给自己的作业打分。一个 agent 探索，一个实现，一个按照 spec 验收。Addy 说得很直白：**"A verifier you actually trust is the only reason you can walk away."** 你能放心走开，靠的就是一个你信得过的验收者。这一条很关键，后面单独展开。
+一个 agent 修 bug，另一个做重构，都在同一个工作区里改文件——乱是迟早的事。Git worktree 的价值就在这里：每个 agent 在独立目录和独立分支里工作，最后再合并结果。
 
-**⑥ State / Memory（外部记忆）**
+Codex 把 worktree 放进了 thread 里，Claude Code 也可以通过 `git worktree`、`--worktree` 或 subagent 隔离做到类似效果。
 
-一个 markdown 文件、Linear board 或 GitHub issue，活在对话之外，记录"做过了什么"和"下一步是什么"。Agent 会忘——每一次新的对话，上下文清零。但文件不会。Addy 原话：**"The agent forgets. The repo doesn't."**
+**3. Skills：把项目知识写在系统外面**
 
-这六个东西拼在一起，就是一套完整的六件套：
+Agent 启动时并不天然理解你的项目。它不知道怎么跑测试，不知道哪些模块不能碰，也不知道以前踩过哪些坑。
 
-| 构件 | 在 Loop 中的角色 | Claude Code | Codex |
-|------|-----------------|-------------|-------|
-| Automations | 定时发现 + 分派任务 | `/loop`, `/goal`, cron, hooks | Automations tab, `/goal` |
-| Worktrees | 并行 agent 文件隔离 | `git worktree`, `--worktree` | 内置 per-thread |
-| Skills | 项目知识固化复用 | `SKILL.md`，`$name` 调用 | `SKILL.md`，隐式匹配 |
-| Plugins/Connectors | 对接外部工具系统 | MCP servers + plugins | MCP + plugins |
-| Sub-agents | maker/checker 分离 | `.claude/agents/`，agent teams | `.codex/agents/` TOML |
-| Memory | 跨对话状态记录 | `AGENTS.md`, progress files | Markdown / Linear connector |
+Skill 的价值，就是把这些约定写成项目知识。`SKILL.md` 里记构建命令、目录边界、测试规则、历史决策。这样 agent 每次进入项目，不用重新猜。
+
+没有 skills，loop 每跑一轮都要重新理解项目。有了 skills，项目经验才真正被复用起来。
+
+**4. Plugins / Connectors：让 loop 碰到真实世界**
+
+一个只能读写本地文件的 loop，能力很有限。
+
+连接器让 agent 能碰到真实的工作环境：issue tracker、GitHub、Linear、Slack、数据库、staging API。这样它不只是告诉你"我修好了"，还能开 PR、更新 ticket、等 CI 过了再通知相关人。
+
+这也是 loop 从"本地脚本"变成"工作系统"的关键一步。
+
+**5. Sub-agents：不要让执行者给自己打分**
+
+一个 agent 负责写，一个 agent 负责查——这个分工很重要。
+
+模型很容易对自己的输出过于宽容。它写了代码，如果也让它自己判断"是不是做好了"，结果往往会偏乐观。更可靠的结构是：执行者负责生成方案，验证者只负责挑战方案，必要时再把失败反馈回去。
+
+**6. Memory：把状态放到对话之外**
+
+长期运行的 agent 系统不能只靠聊天上下文。
+
+今天做了什么、哪个方案失败了、哪些测试已经过了、下一步该看哪里——这些状态必须写到外面去：Markdown 文件、Linear board、GitHub issue 都可以。
+
+模型会忘，文件不会。loop 能不能连续跑下去，很多时候取决于有没有一个靠得住的外部状态。
+
+这六件东西合在一起，就是一套 loop 的基本骨架：
+
+| 构件 | 作用 | 常见形态 |
+|------|------|----------|
+| Automations | 定时发现和触发任务 | cron、hooks、`/loop` |
+| Worktrees | 隔离并行 agent 的工作区 | git worktree、per-thread checkout |
+| Skills | 固化项目知识和规则 | `SKILL.md`、项目 playbook |
+| Connectors | 连接真实工具系统 | GitHub、Linear、Slack、数据库、MCP |
+| Sub-agents | 分离执行者和验证者 | maker / checker、review agent |
+| Memory | 记录跨轮状态 | Markdown、issue、board、progress file |
 
 ![六件套驱动闭环：Automations 为心跳，Skills 为记忆，Sub-agents 分离 maker 与 checker](https://assets.zhangjian94cn.top/images/blog/loop-engineering/minimal-agent-loop.png)
 
-## 把六件套落到一个任务里
+## 把它拼起来，一个 loop 长这样
 
-光有概念不够，拿一个具体的任务看看。
+单独看六件套还是有点抽象。拼起来，就很清楚了。
 
-让 AI 写一个用户注册接口。差的方式是："帮我写一个注册接口，要能处理邮箱重复。"AI 写完跑了个测试，告诉你过了。但你打开一看——它的测试只测了"正常注册成功"，根本没测"邮箱重复时返回 409"。它为了通过，只写了最简单的 happy path。**让同一个模型给自己的作业打分，它永远下手太轻。**
+想象一个每天早上自动运转的代码仓库 loop：
 
-好的方式不是写更长的 prompt，而是把任务本身写成一个可以循环的形状：
+早上 9 点，automation 被触发。它先读昨天的 CI 失败、最近的提交、还开着的 issue，以及线上错误摘要。
+
+然后调用一个 triage skill。这个 skill 不直接改代码，它只负责判断：哪些问题值得处理，哪些只是噪音，哪些需要人来拍板。判断结果写进状态文件，或者同步到 Linear board。
+
+对于确定可以处理的问题，系统创建一个独立 worktree，把任务交给实现 agent。这个 agent 只在隔离目录里改代码，按项目 skills 里记录的规则跑测试。
+
+做完之后，不直接宣布胜利。另一个 verifier agent 来验收——读 diff、对测试结果、查任务要求，确认它真的满足了条件。如果没通过，verifier 把失败原因写回状态文件，再进入下一轮修复。
+
+通过的话，connector 负责开 PR、关联 issue、更新 ticket，必要时发一条通知。处理不了的问题进入 triage 收件箱，等人来决定。
+
+第二天早上，loop 再次醒来。不是从零开始，而是先读昨天留下的状态：哪些完成了，哪些失败过，哪些还在等人。
+
+这就是 Addy 文章里真正有价值的地方。他不是在说"AI 可以帮你写更多代码"，而是在说：
+
+**你盯着屏幕完成的那些控制动作——** 发现、分派、验证、记录、继续推进——**可以被拆成系统里的几个稳定部件。**
+
+人当然还在。
+
+但人不再是每一步都必须在线的监工。
+
+## 真正要设计的，是验证和停止条件
+
+很多人一听 loop，就以为重点是"让 agent 自动多跑几轮"。
+
+不是。
+
+如果没有清楚的验证条件，多跑几轮只会放大错误。agent 会不断修补自己上一轮的输出，看起来很忙，但未必更接近正确结果。
+
+所以一个可靠的 loop，必须先回答这些问题：
 
 ```text
-目标：实现 POST /api/auth/register，含邮箱校验、密码强度、邮箱重复检测。
-范围：只能改 src/auth/register.ts、register.test.ts，不碰登录和 token 逻辑。
-验证：跑 pnpm test src/auth/register.test.ts。测试必须覆盖以下场景：
-      - 正常注册成功（201）
-      - 邮箱格式非法（400 + INVALID_EMAIL）
-      - 邮箱已被注册（409 + EMAIL_EXISTS）
-      - 密码不足 8 位（400 + WEAK_PASSWORD）
-反馈：如果任一场景未通过，先列出场景名、实际返回值 vs 期望值、修复假设。
-记忆：把"已验证通过的场景"写进 TASKS.md，下一轮先读。
-预算：最多 4 轮；同一场景第 4 轮后仍失败，停止并列出已尝试方案。
+目标：这轮到底要完成什么？
+边界：哪些文件、模块、接口不能碰？
+验证：通过什么命令、测试、检查或评审规则才算完成？
+反馈：失败时要记录什么事实，而不是只说"没通过"？
+记忆：哪些结论要写到外部状态，供下一轮读取？
+停止：最多跑几轮？什么情况必须停下来交给人？
 ```
 
-提前把测试场景列死在任务描述里，AI 就不能只写一个最简单的正常流程蒙混过关——它必须把边界情况和异常分支都覆盖到。
+这段模板看起来普通，但它比"帮我修一下这个 bug"有用得多。
 
-这里要说清楚一件事：六件套不是六样都塞进这段任务描述里的。Automations、Worktrees、Plugins 是**跑 loop 的基础设施**——定时触发、隔离工作区、对接外部系统，它们在任务之外搭好。真正能写进这一段任务描述里的，是另外几件：Skills（项目约定，比如"不碰登录和 token"）、验证、反馈、记忆、预算。上面这段文字，就是这几件落到一行代码任务里的样子。
+因为它把原本藏在你脑子里的判断条件写出来了。agent 不是在猜什么叫完成，而是在对照一组外部的规则去工作。
 
-## 最关键的一刀：做的和验的必须分开
+也正因为如此，做和验要分开。
 
-六件套里，Sub-agents 这一条我想单独拎出来讲，因为大多数跑不起来的 loop，都是栽在这里。
+执行者负责提出修改。验证者负责核查是否真的满足条件。验证者可以是测试套件、CI、lint，也可以是一个独立上下文的 sub-agent。关键是：**不要让写代码的那个 agent 自己定义什么叫赢。**
 
-回到刚才那个注册接口。为什么 AI 会只写 happy path？因为是它自己决定"怎么算做完"的。而让执行者定义验收标准，就跟让学生给自己的试卷打分一样——它总能给出一个让自己满意的分数。
+这是 loop 能不能让你走开的分界线。
 
-所以那段任务描述里，验证条件是提前写死在外面的——四个测试场景，每个都有明确的期望返回值。这一步不是细节，是整个 loop 能不能信得过的关键。
+## Loop 不是逃离工程，而是把工程放进系统
 
-Anthropic 在讲 agent workflow 时把这个叫 evaluator-optimizer 模式——一个负责生成，另一个负责判断。放到日常工作里不需要搞得很复杂：用测试当验收者，用 CI 当验收者，用一个独立上下文的 subagent 当验收者。关键只有一条：**做的和验的，必须是不同的 agent。不要让执行者自己宣布胜利。**
+Addy 在文章后半段提醒了三件事。我觉得比"六件套"本身还重要。
 
-## 拆开一个真实的 loop：DST 自动抓到一个时序 Bug
+**一是，验证仍然是你的责任。**
 
-说了这么多构件，拿一个真实案例拆开看看，一个 loop 到底是怎么跑完一圈的。
+一个无人值守的 loop，也可能无人值守地犯错。sub-agent、测试、CI 都能降低风险，但它们不能替你承担最终判断。系统说"完成了"，那只是一个声明；工程师要确认它为什么算完成。
 
-Datadog 的工程师用 AI agent 写了一个兼容 Redis 协议的 Rust 实现，叫 redis-rust。他们配了一套叫 DST（确定性模拟测试）的验证套件——它会注入各种故障，再检查数据有没有丢、状态有没有乱。有一次，这套件抓到了一个非常隐蔽的 bug。
+**二是，理解债会增长得更快。**
 
-**先是触发。** DST 注入磁盘故障——写入进行到一半，IO 中断。agent 观察输出，发现数据丢了。
+loop 跑得顺的时候，会产生大量你没亲手写过的代码。速度越快，你与系统真实状态之间的理解差距也可能越大。如果你完全不读、不审、不追问，项目会越来越不像你真正掌握的东西。
 
-**接着诊断。** agent 读 DST 的失败报告：内存里的截断操作发生在了磁盘同步之前。换句话说，代码先在内存里"以为"写好了，磁盘上还没落盘——这时候 crash，数据就没了。
+**三是，危险的不是自动化，而是认知放弃。**
 
-**然后修复并验证。** agent 改成 Copy-on-Write：磁盘确认写入成功之前，不动内存里的原数据。改完重跑 DST——同样的故障注入，数据没丢。
+当 loop 能自己运转时，人很容易退化成只按"通过"的人。看到 PR、测试绿灯、摘要，就默认接受。但 loop 设计得再好，也替代不了工程判断。它只是把判断提前写进了规则、验证和状态里。
 
-**最后记录并停止。** agent 把根因、修复策略、验证结果写进变更日志，然后停。
+换句话说，loop 不是让你不用当工程师。
 
-这件事真正有意思的地方，是 Datadog 工程师自己那句话："DST 指出来之后显而易见，但代码 review 几乎不可能发现。"因为这个 bug 的触发条件需要精确的时序——IO 中断和内存操作之间那几十毫秒的窗口。人眼逐行看 diff，看不到时序 bug。但 DST 不需要盯着看，它 5 秒跑完，给一个 pass 或 fail。agent 拿到 fail，就知道要修。
+它是让你把工程师的判断，提前沉淀到系统里。
 
-这才是 loop 真正的价值：**用一个便宜、自动化、可重复的检查，替代人坐在屏幕前逐行判断。**
+## 从今天开始，先做一个小 loop
 
-## 别光跑，还得会停
+如果你现在也在用 Claude Code、Codex、Cursor 或类似工具，不用一上来就搭一套很复杂的自动化平台。
 
-Firecrawl 的工程师在分享 loop 设计经验时，强调了三个非协商的硬守卫：
+可以先从一个小 loop 开始。
 
-1. **硬迭代上限**。不是"差不多就停"，是一个确切的数字，比如 5 轮。
-2. **空转检测**。如果连续两轮改动没有产生任何有意义的变化，直接停。
-3. **花费上限**。token 或金额封顶。Uber 今年已经把工程师的 AI 工具月费卡在 $1,500/人——不是没钱，是一个季度就烧完了全年预算。
+找一个重复出现、验证成本低的任务：修一个固定失败的测试、归类一批 CI 失败、升级一个依赖、给一组 issue 打标签、为某个模块补全缺失的测试。
 
-没有这三条，你跑的不是 loop，是一张无限额发票。
+然后只做五件事：
 
-## 说到底，loop 跑不跑，看验证成本
+1. 写一个外部状态文件，比如 `TASKS.md` 或 `progress.md`。
+2. 把任务目标、边界、验证命令和停止条件写清楚。
+3. 让实现 agent 只负责改动，不负责宣布最终通过。
+4. 让测试、CI 或另一个 agent 做验收。
+5. 每轮把事实写回状态文件，而不是只留在聊天记录里。
 
-绕了一圈，Loop Engineering 指向的问题其实很简单：**Loop 能不能跑，不取决于任务有多难、模型有多强，取决于你的验证成本有多低。**
+当这个小 loop 跑稳了，再加自动化触发，再加 worktree 隔离，再接 GitHub、Linear、Slack 这些外部工具。
 
-如果验证是免费的——CI 绿灯、lint 零报错、测试全绿——你就可以放心让 loop 跑，哪怕任务很难。Blake Crosley 在《Loops Win Where Verification Is Cheap》中举了几个典型例子：修 flaky test（验证就是"测试套件变绿"）、给 PR 做 rebase（验证就是"CI 重新通过"）、依赖版本升级（验证就是"所有测试 + changelog 兼容性检查通过"）——这些都可以无人值守，因为验证成本几乎为零。
+顺序不要反。
 
-但如果验证是昂贵的——需要人逐行读 diff、需要产品判断、需要架构决策——loop 再聪明，你也不敢走开。Blake 给了一条很实用的判断标准：**如果你的任务验证成本跟"从手机上看一眼报告就能决定过不过"是一个级别，那它适合无人 loop。如果需要开电脑、打开 IDE、逐行看，那你就还得坐在屏幕前。**
-
-所以真正要练的不是写 prompt。是把任务改造成**可验证的形状**。一个任务，你能不能拆到"验证是机器可判定的"这个粒度？能拆到，loop 就好使。拆不到，你就得继续盯着。
-
-![验证成本越低，越适合无人值守——从人工盯屏到自动验证的迁移地图](https://assets.zhangjian94cn.top/images/blog/loop-engineering/verification-cost-ladder.png)
+先把验证做可靠，再扩大自动化的范围。
 
 ## 最后
 
-Loop Engineering 这个词会不会变成 buzzword，我不确定。但它指向的那个疲惫感是真的。
+Loop Engineering 这个词会不会只是一阵风，我不确定。
 
-Addy 在文末给了一句话，我觉得不需要再加工：**"Build the loop like someone who intends to stay the engineer, not just the person who presses go."**
+但它指向的变化是真实的：AI 编程的杠杆点，正在从 prompt 上移到 system design。
 
-设计 loop 时要像一个打算继续当工程师的人——你要理解每一步在做什么、为什么要这样检查、为什么这里要停下来。Loop 不是你偷懒的方式，是你把判断力从人脑挪到系统里的方式。
+以前你要学会怎么跟 agent 对话。现在你要学会怎么设计一个系统，让 agent 知道该做什么、怎么验证、失败后如何反馈、什么时候继续、什么时候停。
 
-你不盯着它，不是因为信任它。
+Addy 文末那句短句很准：**"Build the loop. Stay the engineer."**
 
-是因为边界已经设定好了。它跑不出去。
+可以构建 loop。
 
-参考说明：本文核心框架和六件套构件体系参考自 Addy Osmani《Loop Engineering》（2026-06-07）；Datadog redis-rust 的 DST bug 案例引自其官方技术博客《Harness-first agents》；三个硬守卫和 Uber 预算数据参考自 Firecrawl blog；验证成本阶梯的观点来自 Blake Crosley《Loops Win Where Verification Is Cheap》。Boris Cherny 和 Peter Steinberger 的发言源自 Addy Osmani 文章的引用和讨论。
+但不要退出工程。
 
-你现在用 AI agent 干活，会不会也盯着它盯得很累？有没有试过把验证拆出来让它自己跑？欢迎评论区聊聊。
+你不盯着它，不是因为你盲目信任它。
+
+是因为目标、边界、验证、记忆和停止条件都已经写进系统里了。
+
+你知道它什么时候该跑，也知道什么条件下它必须停。
+
+> [!CITE]
+> 本文核心框架参考 Addy Osmani《Loop Engineering》（2026-06-07），并结合 Claude Code、Codex、Skills、worktree、sub-agent 和外部状态文件等实际 agent 工作流做中文解读和改写。本文不是原文全文翻译。
