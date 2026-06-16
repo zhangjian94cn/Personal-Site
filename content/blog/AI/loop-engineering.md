@@ -1,5 +1,5 @@
 ---
-title: "别再盯着 AI 干活了"
+title: "用了 AI 反而更累？你需要的是 Loop Engineering"
 date: "2026-06-15"
 tags: [AI-Agent, LLM, AI赋能]
 draft: false
@@ -7,7 +7,7 @@ summary: "从 Addy Osmani 的 Loop Engineering 说起：AI agent 真正的提效
 authors: [default]
 ---
 
-![从 prompt 到 loop：别再盯着 AI 干活了](https://assets.zhangjian94cn.top/images/blog/loop-engineering/loop-engineering-cover.png)
+![从 prompt 到 loop：用了 AI 反而更累？你需要的是 Loop Engineering](https://assets.zhangjian94cn.top/images/blog/loop-engineering/loop-engineering-cover.png)
 
 现在用 AI 干活，累的往往不是自己写代码。
 
@@ -103,8 +103,6 @@ Skill 的价值，就是把这些约定写成项目知识。`SKILL.md` 里记构
 | Connectors | 连接真实工具系统 | GitHub、Linear、Slack、数据库、MCP |
 | Sub-agents | 分离执行者和验证者 | maker / checker、review agent |
 | Memory | 记录跨轮状态 | Markdown、issue、board、progress file |
-
-![六件套驱动闭环：Automations 为心跳，Skills 为记忆，Sub-agents 分离 maker 与 checker](https://assets.zhangjian94cn.top/images/blog/loop-engineering/minimal-agent-loop.png)
 
 ## 把它拼起来，一个 loop 长这样
 
