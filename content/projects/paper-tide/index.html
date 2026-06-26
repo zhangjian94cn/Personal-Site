@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>纸潮 / Paper Tide</title>
+    <meta
+      name="description"
+      content="纸潮 / Paper Tide：对 WBproject 的编辑式重构案例页，展示项目亮点、技术栈和多端界面预览。"
+    />
+    <style>
+      :root {
+        --paper: #f5eedf;
+        --paper-deep: #ead8be;
+        --ink: #211913;
+        --ink-soft: rgba(33, 25, 19, 0.72);
+        --frame: rgba(88, 63, 37, 0.14);
+        --card: rgba(255, 252, 246, 0.82);
+        --accent: #8c5f35;
+        --accent-deep: #503523;
+        --shadow: 0 24px 60px rgba(72, 45, 24, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at top left, rgba(255, 248, 235, 0.95), transparent 28%),
+          radial-gradient(circle at 90% 20%, rgba(230, 197, 152, 0.34), transparent 24%),
+          linear-gradient(180deg, #fbf4e8 0%, #f1e6d6 100%);
+        font-family: "Avenir Next", "PingFang SC", "Helvetica Neue", sans-serif;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.36;
+        background-image:
+          linear-gradient(rgba(120, 90, 52, 0.06) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(120, 90, 52, 0.06) 1px, transparent 1px);
+        background-size: 28px 28px;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .page {
+        position: relative;
+        z-index: 1;
+        width: min(1160px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 24px 0 80px;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 20px;
+        color: var(--ink-soft);
+        font-size: 14px;
+      }
+
+      .topbar a {
+        text-decoration: none;
+      }
+
+      .topbar a:hover {
+        color: var(--ink);
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(85, 58, 31, 0.14);
+        background: rgba(255, 252, 245, 0.74);
+        backdrop-filter: blur(10px);
+        font-size: 13px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.4fr) minmax(300px, 0.8fr);
+        gap: 24px;
+        margin-bottom: 24px;
+      }
+
+      .panel {
+        border: 1px solid var(--frame);
+        border-radius: 34px;
+        background: var(--card);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(12px);
+      }
+
+      .hero-copy {
+        padding: 34px;
+      }
+
+      .eyebrow {
+        margin: 0 0 18px;
+        color: rgba(90, 63, 34, 0.72);
+        font-size: 13px;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin: 0;
+        font-family: "Baskerville", "Georgia", "Songti SC", serif;
+        letter-spacing: -0.02em;
+      }
+
+      .hero-title {
+        font-size: clamp(44px, 7vw, 76px);
+        line-height: 0.95;
+        margin-bottom: 18px;
+      }
+
+      .hero-subtitle {
+        max-width: 680px;
+        margin: 0 0 18px;
+        color: var(--ink-soft);
+        font-size: clamp(18px, 2vw, 22px);
+        line-height: 1.68;
+      }
+
+      .hero-note {
+        margin: 0 0 26px;
+        max-width: 680px;
+        color: rgba(71, 52, 34, 0.84);
+        font-size: 15px;
+        line-height: 1.7;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        padding: 0 18px;
+        border-radius: 999px;
+        border: 1px solid rgba(80, 53, 35, 0.15);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      code {
+        padding: 0.15em 0.45em;
+        border-radius: 999px;
+        background: rgba(242, 232, 214, 0.78);
+        font-family: "SFMono-Regular", "Menlo", monospace;
+        font-size: 0.92em;
+      }
+
+      .button-primary {
+        background: linear-gradient(135deg, #3e2c1f 0%, #6b4b31 100%);
+        color: #fff8ed;
+      }
+
+      .button-secondary {
+        background: rgba(255, 250, 242, 0.82);
+        color: var(--accent-deep);
+      }
+
+      .hero-art {
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        justify-content: space-between;
+        background:
+          linear-gradient(180deg, rgba(240, 219, 189, 0.52) 0%, rgba(255, 251, 244, 0.82) 100%);
+      }
+
+      .hero-art img {
+        width: 100%;
+        display: block;
+        border-radius: 24px;
+        border: 1px solid rgba(103, 73, 46, 0.12);
+      }
+
+      .hero-art p {
+        margin: 0;
+        color: rgba(72, 50, 28, 0.78);
+        font-size: 15px;
+        line-height: 1.7;
+      }
+
+      .facts {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+
+      .fact {
+        padding: 20px;
+      }
+
+      .fact-label {
+        margin-bottom: 8px;
+        color: rgba(90, 63, 34, 0.72);
+        font-size: 12px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .fact-value {
+        font-size: 18px;
+        line-height: 1.5;
+      }
+
+      .content-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+        gap: 24px;
+        align-items: start;
+      }
+
+      .section {
+        padding: 30px;
+      }
+
+      .section + .section {
+        margin-top: 24px;
+      }
+
+      .section-kicker {
+        margin: 0 0 14px;
+        color: rgba(90, 63, 34, 0.72);
+        font-size: 12px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+      }
+
+      .section-title {
+        font-size: clamp(30px, 4vw, 42px);
+        line-height: 1.05;
+        margin-bottom: 18px;
+      }
+
+      .section-body {
+        color: var(--ink-soft);
+        font-size: 16px;
+        line-height: 1.8;
+      }
+
+      .highlight-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 24px;
+      }
+
+      .highlight-item {
+        padding: 18px;
+        border-radius: 24px;
+        border: 1px solid rgba(85, 58, 31, 0.12);
+        background: rgba(255, 253, 249, 0.78);
+      }
+
+      .highlight-item strong {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 18px;
+        font-family: "Baskerville", "Georgia", "Songti SC", serif;
+      }
+
+      .stack {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .stack span {
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: rgba(246, 235, 216, 0.88);
+        border: 1px solid rgba(90, 63, 34, 0.12);
+        font-size: 14px;
+      }
+
+      .note-card {
+        padding: 22px;
+        border-radius: 28px;
+        background: linear-gradient(180deg, rgba(242, 226, 202, 0.82), rgba(255, 252, 245, 0.9));
+        border: 1px solid rgba(85, 58, 31, 0.12);
+        color: rgba(66, 47, 29, 0.86);
+      }
+
+      .gallery {
+        display: grid;
+        gap: 18px;
+      }
+
+      .gallery figure {
+        margin: 0;
+        border-radius: 28px;
+        overflow: hidden;
+        border: 1px solid rgba(85, 58, 31, 0.12);
+        background: rgba(255, 252, 246, 0.82);
+      }
+
+      .gallery img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      .gallery figcaption {
+        padding: 16px 18px 18px;
+        color: rgba(72, 52, 33, 0.78);
+        font-size: 14px;
+        line-height: 1.7;
+      }
+
+      .gallery-split {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 320px;
+        gap: 18px;
+      }
+
+      .footer {
+        margin-top: 24px;
+        padding: 28px 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      .footer p {
+        margin: 0;
+        color: var(--ink-soft);
+        line-height: 1.8;
+      }
+
+      @media (max-width: 980px) {
+        .hero,
+        .content-grid,
+        .facts,
+        .gallery-split,
+        .highlight-list,
+        .footer {
+          grid-template-columns: 1fr;
+        }
+
+        .footer {
+          display: grid;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .page {
+          width: min(100vw - 18px, 100%);
+          padding: 14px 0 46px;
+        }
+
+        .topbar {
+          display: grid;
+          gap: 8px;
+        }
+
+        .hero-copy,
+        .hero-art,
+        .section,
+        .footer {
+          padding: 22px 18px;
+          border-radius: 26px;
+        }
+
+        .panel,
+        .gallery figure {
+          border-radius: 26px;
+        }
+
+        .hero-title {
+          font-size: 42px;
+        }
+
+        .hero-actions {
+          display: grid;
+        }
+
+        .button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <div class="topbar">
+        <a href="/portfolio">← Back to portfolio</a>
+        <span>Static case study on zhangjian94cn.top</span>
+      </div>
+
+      <section class="hero">
+        <article class="panel hero-copy">
+          <div class="badge">Portfolio Case · 2026</div>
+          <p class="eyebrow">Editorial Remake of WBproject</p>
+          <h1 class="hero-title">纸潮<br />Paper Tide</h1>
+          <p class="hero-subtitle">
+            把轻量发帖、配图、点赞、收藏、评论和图片预览这条原始交互链，改写成更像线上杂志的一期纸页。
+          </p>
+          <p class="hero-note">
+            这个页面承载的是静态作品集案例，不在主站托管 <code>paper-tide</code> 的 Hono 后端。当前站点展示为静态作品页，
+            完整源码、可写交互和本地开发流程请前往 GitHub 仓库查看。
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="https://github.com/zhangjian94cn/paper-tide" target="_blank" rel="noreferrer">
+              查看 GitHub 仓库
+            </a>
+            <a class="button button-secondary" href="/portfolio">
+              返回作品集列表
+            </a>
+          </div>
+        </article>
+
+        <aside class="panel hero-art">
+          <img src="./img/hero-art.png" alt="Paper Tide hero artwork" />
+          <p>
+            「纸潮」是对现有社交壳层的一次视觉与节奏重构：不追求大而全，而是强化读写氛围、版面秩序和轻量互动的停留感。
+          </p>
+        </aside>
+      </section>
+
+      <section class="facts">
+        <div class="panel fact">
+          <div class="fact-label">Project Type</div>
+          <div class="fact-value">Portfolio case study<br />with static showcase</div>
+        </div>
+        <div class="panel fact">
+          <div class="fact-label">Baseline</div>
+          <div class="fact-value">WBproject parity for posting, image and social interactions</div>
+        </div>
+        <div class="panel fact">
+          <div class="fact-label">Frontend</div>
+          <div class="fact-value">Vue 3 + Vite + Pinia + TypeScript</div>
+        </div>
+        <div class="panel fact">
+          <div class="fact-label">Backend</div>
+          <div class="fact-value">Hono + in-memory state for lightweight local demo</div>
+        </div>
+      </section>
+
+      <section class="content-grid">
+        <div>
+          <article class="panel section">
+            <p class="section-kicker">Project Overview</p>
+            <h2 class="section-title">把“发一条动态”改成“编一页纸”</h2>
+            <div class="section-body">
+              <code>paper-tide</code> 延续了 WBproject 的核心能力边界，但前端视觉语言彻底换了一套：保留轻量提交与互动路径，转而用更克制的留白、纸张色阶、杂志式标题和双栏封面把内容重新编排。结果不是简单换皮，而是把产品重心从“动作”拉回到“阅读感”和“留档感”。
+            </div>
+
+            <div class="highlight-list">
+              <div class="highlight-item">
+                <strong>封面式 Hero</strong>
+                用双栏开篇把产品定位和内容价值放在首屏，替代原项目更直给的社区列表感。
+              </div>
+              <div class="highlight-item">
+                <strong>投稿台</strong>
+                保留发帖、上传与压缩流程，但通过更安静的版面让输入区像一期刊物的编辑桌。
+              </div>
+              <div class="highlight-item">
+                <strong>归档目录</strong>
+                仍然是单列可读流，却被包装成更像杂志目录的阅读层，不牺牲原有的点赞、收藏和评论入口。
+              </div>
+              <div class="highlight-item">
+                <strong>响应式节奏</strong>
+                窄屏下把双栏折叠成纵向编排，仍然保留封面感、编辑区和归档流的阅读顺序。
+              </div>
+            </div>
+          </article>
+
+          <article class="panel section">
+            <p class="section-kicker">Screens</p>
+            <h2 class="section-title">桌面与移动端静态预览</h2>
+            <div class="gallery">
+              <figure>
+                <img src="./img/cover-desktop.png" alt="Paper Tide desktop cover and submission desk" />
+                <figcaption>
+                  桌面端首屏把双栏封面和投稿台放进同一版面，强调它既是一个能写的轻应用，也是一个被设计过的阅读容器。
+                </figcaption>
+              </figure>
+
+              <div class="gallery-split">
+                <figure>
+                  <img src="./img/archive-desktop.png" alt="Paper Tide desktop archive feed" />
+                  <figcaption>
+                    提交按钮、上传区和归档目录被连成一条连续叙事线，视觉上更像一期内容正在被编辑、归档和收藏。
+                  </figcaption>
+                </figure>
+
+                <figure>
+                  <img src="./img/mobile-preview.png" alt="Paper Tide mobile responsive preview" />
+                  <figcaption>
+                    移动端收窄后，首屏和投稿台仍保持层级清晰，没有横向溢出，也没有把视觉语言简化成普通表单。
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div>
+          <article class="panel section">
+            <p class="section-kicker">Tech Stack</p>
+            <h2 class="section-title">技术栈与交付边界</h2>
+            <div class="section-body">
+              前端用 Vue 3 + Vite + Pinia 承担界面、状态和图片压缩体验；后端用 Hono 提供轻量接口与内存态存储。这个作品集接入阶段只保留静态案例页，不在当前主域名里开放发帖、评论等写操作。
+            </div>
+            <div class="stack">
+              <span>Vue 3</span>
+              <span>TypeScript</span>
+              <span>Vite</span>
+              <span>Pinia</span>
+              <span>Hono</span>
+              <span>Vitest</span>
+              <span>Responsive UI</span>
+              <span>Image Compression</span>
+            </div>
+          </article>
+
+          <article class="panel section">
+            <p class="section-kicker">Why It Matters</p>
+            <h2 class="section-title">这次接入在主站上的定位</h2>
+            <div class="note-card">
+              当前站点展示的是一个混合形态的作品集案例页：
+              <br />
+              1. 用静态说明解释产品与设计取向。
+              <br />
+              2. 用桌面和移动端截图证明真实界面状态。
+              <br />
+              3. 用 GitHub 链接承接完整源码与后端运行方式。
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <footer class="panel footer">
+        <p>
+          作品集入口位于 <code>/portfolio</code>，本页是挂在 <code>/project/paper-tide/index.html</code> 下的站内静态案例。完整源码与本地可运行 demo 继续维护在 GitHub 仓库中。
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="https://github.com/zhangjian94cn/paper-tide" target="_blank" rel="noreferrer">
+            Open Source
+          </a>
+          <a class="button button-secondary" href="/portfolio">
+            Back to Portfolio
+          </a>
+        </div>
+      </footer>
+    </main>
+  </body>
+</html>

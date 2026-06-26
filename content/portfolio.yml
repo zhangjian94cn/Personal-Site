@@ -3,12 +3,26 @@
 #
 # 每个项目支持以下链接类型（可同时存在多个）：
 #   - blogSlug: 关联的博客文章 slug（如 "text2sql-finetuning-practice"）
+#   - projectPagePath: 站内静态项目页路径（如 "/project/hrsrg/index.html"）
 #   - externalLink: 外部链接（如 GitHub、Demo 页面）
 #   - projectSlug: 独立的项目详情页 slug（预留，暂不实现）
 #
-# 卡片点击行为优先级：blogSlug > externalLink > projectSlug
+# 卡片点击行为优先级：blogSlug > projectPagePath > externalLink > projectSlug
 
 projects:
+
+  - title:
+      zh: "纸潮 / Paper Tide"
+      en: "Paper Tide"
+    description:
+      zh: "对 WBproject 的编辑式重构，用 Vue + Hono 保留轻量发帖、配图与互动流程，并换成更像线上杂志的纸刊界面。"
+      en: "An editorial remake of WBproject that keeps lightweight posting, image, and interaction flows while reframing the product as an online magazine."
+    tags: ["Vue", "Vite", "Hono", "Pinia"]
+    status: "completed"
+    projectPagePath: "/project/paper-tide/index.html"
+    imgSrc: "/project/paper-tide/img/cover-desktop.png"
+    featured: false
+    visible: true
 
   - title:
       zh: "高精度图像分割"

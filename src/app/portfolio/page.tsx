@@ -26,7 +26,7 @@ interface PortfolioData {
 }
 
 // Category mapping logic
-const CATEGORIES = ["All", "AI/LLM", "Systems", "CV"] as const;
+const CATEGORIES = ["All", "AI/LLM", "Systems", "CV", "Web/Product"] as const;
 type Category = typeof CATEGORIES[number];
 
 const TAG_CATEGORY_MAP: Record<string, Category> = {
@@ -44,7 +44,11 @@ const TAG_CATEGORY_MAP: Record<string, Category> = {
   "NeRF": "CV",
   "3D": "CV",
   "Neural Rendering": "CV",
-  "PyTorch": "AI/LLM"
+  "PyTorch": "AI/LLM",
+  "Vue": "Web/Product",
+  "Vite": "Web/Product",
+  "Hono": "Web/Product",
+  "Pinia": "Web/Product"
 };
 
 export default function PortfolioPage() {
