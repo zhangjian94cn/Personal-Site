@@ -406,8 +406,7 @@
         width: 100%;
       }
 
-      .laptop-screen::after,
-      .phone-screen::after {
+      .laptop-screen::after {
         content: "";
         position: absolute;
         inset: 0;
@@ -426,31 +425,63 @@
         gap: 12px;
         min-height: 58px;
         padding: 12px 22px 12px 14px;
-        border: 1px solid rgba(120, 96, 66, 0.14);
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.72);
         border-radius: 24px;
-        background: rgba(255, 255, 255, 0.76);
-        box-shadow: 0 18px 42px rgba(74, 54, 34, 0.16);
-        backdrop-filter: blur(18px);
+        color: rgba(30, 29, 34, 0.88);
+        background:
+          radial-gradient(circle at 18% 12%, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0) 34%),
+          linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(248, 249, 255, 0.5) 48%, rgba(255, 255, 255, 0.68));
+        box-shadow:
+          0 26px 60px rgba(43, 34, 74, 0.16),
+          0 10px 24px rgba(74, 54, 34, 0.12),
+          inset 0 1px 0 rgba(255, 255, 255, 0.9),
+          inset 0 -1px 0 rgba(255, 255, 255, 0.35);
+        -webkit-backdrop-filter: blur(24px) saturate(1.55) brightness(1.04);
+        backdrop-filter: blur(24px) saturate(1.55) brightness(1.04);
         font-size: clamp(18px, 2vw, 28px);
         font-weight: 800;
+        line-height: 1;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.32);
         white-space: nowrap;
       }
 
+      .floating-badge::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background:
+          linear-gradient(100deg, rgba(255, 255, 255, 0.38), rgba(255, 255, 255, 0) 38%),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(215, 218, 235, 0.1));
+        opacity: 0.75;
+      }
+
       .badge-icon {
+        position: relative;
+        z-index: 1;
         display: grid;
         flex: none;
         width: 42px;
         height: 42px;
         place-items: center;
-        border: 1px solid rgba(120, 86, 44, 0.2);
+        border: 1px solid rgba(128, 112, 84, 0.18);
         border-radius: 13px;
-        color: #6b4a32;
-        background: linear-gradient(155deg, #fff7e8, #ffe9c6);
+        color: rgba(99, 70, 46, 0.84);
+        background:
+          linear-gradient(145deg, rgba(255, 249, 237, 0.82), rgba(255, 229, 190, 0.48)),
+          rgba(255, 255, 255, 0.42);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.78),
+          0 6px 14px rgba(70, 48, 28, 0.08);
+        -webkit-backdrop-filter: blur(10px) saturate(1.35);
+        backdrop-filter: blur(10px) saturate(1.35);
       }
 
       .badge-icon svg {
         width: 22px;
         height: 22px;
+        opacity: 0.88;
       }
 
       .desktop-badge-a {
@@ -465,82 +496,31 @@
 
       .phone-cluster {
         position: relative;
-        display: flex;
-        align-items: flex-end;
-        justify-content: center;
-        gap: clamp(22px, 4vw, 72px);
-        min-height: 760px;
-        padding: 20px 0 8px;
+        width: min(1120px, 96%);
+        margin: 0 auto;
+        padding: 4px 0 8px;
       }
 
-      .device-phone {
-        position: relative;
-        width: min(300px, 28vw);
-        min-width: 210px;
-        padding: 13px;
-        border-radius: 52px;
-        background:
-          linear-gradient(90deg, #090807 0%, #514a43 7%, #15120f 17%, #11100e 84%, #5c5148 96%, #0b0907 100%);
-        box-shadow:
-          0 2px 5px rgba(0, 0, 0, 0.32),
-          0 34px 60px rgba(38, 28, 20, 0.32),
-          inset 0 0 0 1px rgba(255, 255, 255, 0.18);
-      }
-
-      .device-phone::before {
-        content: "";
-        position: absolute;
-        top: 25px;
-        left: 50%;
-        z-index: 3;
-        width: 86px;
-        height: 24px;
-        border-radius: 999px;
-        background: #050505;
-        transform: translateX(-50%);
-      }
-
-      .phone-frame {
-        position: relative;
-      }
-
-      .phone-screen {
-        position: relative;
-        overflow: hidden;
-        border-radius: 38px;
-        background: #f8efe4;
-      }
-
-      .phone-screen img {
+      .phone-trio-svg {
         display: block;
         width: 100%;
-      }
-
-      .phone-home {
-        transform: translateY(28px);
-      }
-
-      .phone-submit {
-        transform: translateY(-18px);
-      }
-
-      .phone-archive {
-        transform: translateY(48px);
+        height: auto;
+        overflow: visible;
       }
 
       .mobile-badge-a {
-        left: 30%;
-        top: 42%;
+        left: 27%;
+        top: 27%;
       }
 
       .mobile-badge-b {
-        right: 7%;
-        top: 39%;
+        right: -1%;
+        top: 30%;
       }
 
       .mobile-badge-c {
-        left: 52%;
-        bottom: 18%;
+        right: 23%;
+        bottom: 7%;
       }
 
       .footer {
@@ -572,14 +552,7 @@
         }
 
         .phone-cluster {
-          min-height: 660px;
-          gap: 14px;
-        }
-
-        .device-phone {
-          width: min(250px, 31vw);
-          min-width: 0;
-          border-radius: 44px;
+          width: 100%;
         }
 
         .floating-badge {
@@ -659,21 +632,7 @@
         }
 
         .phone-cluster {
-          min-height: 0;
           padding: 8px 0 18px;
-          flex-direction: column;
-          align-items: center;
-        }
-
-        .device-phone {
-          width: min(280px, 86vw);
-          transform: none;
-        }
-
-        .phone-home,
-        .phone-submit,
-        .phone-archive {
-          transform: none;
         }
 
         .floating-badge {
@@ -835,21 +794,80 @@
             <p>移动端用三台手机分别展示首屏、投稿台和归档流，强调它是移动设备上的产品界面，而不是网页窗口截图。</p>
           </div>
           <div class="phone-cluster">
-            <div class="device-phone phone-frame phone-home">
-              <div class="phone-screen">
-                <img src="./img/mobile-home.png" alt="Paper Tide mobile home view" />
-              </div>
-            </div>
-            <div class="device-phone phone-frame phone-submit">
-              <div class="phone-screen">
-                <img src="./img/mobile-submit.png" alt="Paper Tide mobile submission desk view" />
-              </div>
-            </div>
-            <div class="device-phone phone-frame phone-archive">
-              <div class="phone-screen">
-                <img src="./img/mobile-archive.png" alt="Paper Tide mobile archive feed view" />
-              </div>
-            </div>
+            <svg class="phone-trio-svg" viewBox="0 0 1200 820" role="img" aria-label="Paper Tide mobile home, submit desk and archive screens">
+              <defs>
+                <filter id="pt-trio-shadow" x="-12%" y="-10%" width="124%" height="130%">
+                  <feDropShadow dx="0" dy="28" stdDeviation="22" flood-color="#2b2118" flood-opacity="0.22" />
+                  <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000000" flood-opacity="0.18" />
+                </filter>
+                <linearGradient id="pt-phone-body" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#6e6a64" />
+                  <stop offset="0.1" stop-color="#171513" />
+                  <stop offset="0.5" stop-color="#060504" />
+                  <stop offset="0.88" stop-color="#25211d" />
+                  <stop offset="1" stop-color="#7b7168" />
+                </linearGradient>
+                <linearGradient id="pt-side-button" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#3d3834" />
+                  <stop offset="0.5" stop-color="#100f0e" />
+                  <stop offset="1" stop-color="#4d463f" />
+                </linearGradient>
+                <linearGradient id="pt-screen-glass" x1="0" y1="0" x2="0.9" y2="0.85">
+                  <stop offset="0" stop-color="#ffffff" stop-opacity="0.22" />
+                  <stop offset="0.2" stop-color="#ffffff" stop-opacity="0" />
+                  <stop offset="0.72" stop-color="#ffffff" stop-opacity="0" />
+                  <stop offset="1" stop-color="#ffffff" stop-opacity="0.08" />
+                </linearGradient>
+                <clipPath id="pt-screen-left">
+                  <rect x="112" y="113" width="280" height="606" rx="42" />
+                </clipPath>
+                <clipPath id="pt-screen-center">
+                  <rect x="442" y="113" width="280" height="606" rx="42" />
+                </clipPath>
+                <clipPath id="pt-screen-right">
+                  <rect x="772" y="113" width="280" height="606" rx="42" />
+                </clipPath>
+              </defs>
+              <ellipse cx="600" cy="758" rx="520" ry="34" fill="#000000" opacity="0.16" />
+              <g transform="translate(102 96)" filter="url(#pt-trio-shadow)">
+                <rect x="-3" y="160" width="3" height="46" rx="1.5" fill="url(#pt-side-button)" />
+                <rect x="-3" y="222" width="3" height="74" rx="1.5" fill="url(#pt-side-button)" />
+                <rect x="302" y="250" width="3" height="88" rx="1.5" fill="url(#pt-side-button)" />
+                <rect width="300" height="640" rx="52" fill="url(#pt-phone-body)" />
+                <rect x="5" y="5" width="290" height="630" rx="48" fill="#000000" />
+                <rect x="10" y="17" width="280" height="606" rx="42" fill="#fbf4e8" />
+              </g>
+              <image href="./img/mobile-home.png" x="112" y="113" width="280" height="606" preserveAspectRatio="xMidYMid slice" clip-path="url(#pt-screen-left)" />
+              <rect x="112" y="113" width="280" height="606" rx="42" fill="url(#pt-screen-glass)" />
+              <rect x="112" y="113" width="280" height="606" rx="42" fill="none" stroke="#ffffff" stroke-opacity="0.13" />
+              <rect x="210" y="119" width="84" height="26" rx="13" fill="#000000" />
+
+              <g transform="translate(762 96)" filter="url(#pt-trio-shadow)">
+                <rect x="-3" y="160" width="3" height="46" rx="1.5" fill="url(#pt-side-button)" />
+                <rect x="-3" y="222" width="3" height="74" rx="1.5" fill="url(#pt-side-button)" />
+                <rect x="302" y="250" width="3" height="88" rx="1.5" fill="url(#pt-side-button)" />
+                <rect width="300" height="640" rx="52" fill="url(#pt-phone-body)" />
+                <rect x="5" y="5" width="290" height="630" rx="48" fill="#000000" />
+                <rect x="10" y="17" width="280" height="606" rx="42" fill="#fbf4e8" />
+              </g>
+              <image href="./img/mobile-archive.png" x="772" y="113" width="280" height="606" preserveAspectRatio="xMidYMid slice" clip-path="url(#pt-screen-right)" />
+              <rect x="772" y="113" width="280" height="606" rx="42" fill="url(#pt-screen-glass)" />
+              <rect x="772" y="113" width="280" height="606" rx="42" fill="none" stroke="#ffffff" stroke-opacity="0.13" />
+              <rect x="870" y="119" width="84" height="26" rx="13" fill="#000000" />
+
+              <g transform="translate(432 96)" filter="url(#pt-trio-shadow)">
+                <rect x="-3" y="160" width="3" height="46" rx="1.5" fill="url(#pt-side-button)" />
+                <rect x="-3" y="222" width="3" height="74" rx="1.5" fill="url(#pt-side-button)" />
+                <rect x="302" y="250" width="3" height="88" rx="1.5" fill="url(#pt-side-button)" />
+                <rect width="300" height="640" rx="52" fill="url(#pt-phone-body)" />
+                <rect x="5" y="5" width="290" height="630" rx="48" fill="#000000" />
+                <rect x="10" y="17" width="280" height="606" rx="42" fill="#fbf4e8" />
+              </g>
+              <image href="./img/mobile-submit.png" x="442" y="113" width="280" height="606" preserveAspectRatio="xMidYMid slice" clip-path="url(#pt-screen-center)" />
+              <rect x="442" y="113" width="280" height="606" rx="42" fill="url(#pt-screen-glass)" />
+              <rect x="442" y="113" width="280" height="606" rx="42" fill="none" stroke="#ffffff" stroke-opacity="0.13" />
+              <rect x="540" y="119" width="84" height="26" rx="13" fill="#000000" />
+            </svg>
           </div>
           <span class="floating-badge mobile-badge-a">
             <span class="badge-icon">

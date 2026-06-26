@@ -68,8 +68,8 @@ test('paper-tide case page uses static-export-safe portfolio links and phone pre
     portfolioHrefMatches.every((href) => href === '/portfolio.html'),
     `expected all portfolio links to use /portfolio.html, got ${portfolioHrefMatches.join(', ')}`
   );
-  assert.match(html, /class="[^"]*\bphone-frame\b/);
-  assert.match(html, /class="[^"]*\bphone-screen\b/);
+  assert.match(html, /class="[^"]*\bphone-trio-svg\b/);
+  assert.match(html, /aria-label="Paper Tide mobile home, submit desk and archive screens"/);
   assert.match(html, /src="\.\/img\/mobile-preview\.png"/);
 });
 
@@ -79,13 +79,17 @@ test('paper-tide case page uses a promo-board composition instead of loose scree
   assert.match(html, /class="[^"]*promo-board/);
   assert.match(html, /class="[^"]*laptop-frame/);
   assert.match(html, /class="[^"]*phone-cluster/);
-  assert.match(html, /class="[^"]*device-phone/);
+  assert.match(html, /class="[^"]*phone-trio-svg/);
   assert.match(html, /class="[^"]*floating-badge/);
+  assert.match(html, /x="112" y="113" width="280" height="606" preserveAspectRatio="xMidYMid slice"/);
+  assert.match(html, /x="442" y="113" width="280" height="606" preserveAspectRatio="xMidYMid slice"/);
+  assert.match(html, /x="772" y="113" width="280" height="606" preserveAspectRatio="xMidYMid slice"/);
   assert.match(html, /src="\.\/img\/promo-hero-board\.png"/);
   assert.match(html, /src="\.\/img\/desktop-product\.png"/);
-  assert.match(html, /src="\.\/img\/mobile-home\.png"/);
-  assert.match(html, /src="\.\/img\/mobile-submit\.png"/);
-  assert.match(html, /src="\.\/img\/mobile-archive\.png"/);
+  assert.match(html, /href="\.\/img\/mobile-home\.png"/);
+  assert.match(html, /href="\.\/img\/mobile-submit\.png"/);
+  assert.match(html, /href="\.\/img\/mobile-archive\.png"/);
+  assert.doesNotMatch(html, /translateY\(/);
   assert.doesNotMatch(html, /src="\.\/img\/cover-desktop\.png"/);
   assert.doesNotMatch(html, /src="\.\/img\/archive-desktop\.png"/);
   assert.doesNotMatch(html, /overflow-x:\s*hidden/);
