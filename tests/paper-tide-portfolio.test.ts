@@ -78,6 +78,7 @@ test('paper-tide case page uses a promo-board composition instead of loose scree
 
   assert.match(html, /class="[^"]*promo-board/);
   assert.match(html, /class="[^"]*laptop-frame/);
+  assert.match(html, /class="[^"]*laptop-device-svg/);
   assert.match(html, /class="[^"]*phone-cluster/);
   assert.match(html, /class="[^"]*phone-trio-svg/);
   assert.match(html, /class="[^"]*floating-badge/);
@@ -85,7 +86,15 @@ test('paper-tide case page uses a promo-board composition instead of loose scree
   assert.match(html, /x="442" y="113" width="280" height="606" preserveAspectRatio="xMidYMid slice"/);
   assert.match(html, /x="772" y="113" width="280" height="606" preserveAspectRatio="xMidYMid slice"/);
   assert.match(html, /src="\.\/img\/promo-hero-board\.png"/);
-  assert.match(html, /src="\.\/img\/desktop-product\.png"/);
+  assert.match(html, /<svg class="laptop-device-svg" viewBox="35 140 530 320"/);
+  assert.match(html, /<image href="\.\/img\/desktop-product\.png" x="101" y="169\.5" width="398" height="248"/);
+  assert.match(html, /id="screen--paper-tide-desktop"/);
+  assert.match(html, /clip-path="url\(#screenClip--paper-tide-desktop\)"/);
+  assert.doesNotMatch(html, /src="\.\/img\/desktop-showcase\.svg"/);
+  assert.doesNotMatch(html, /data="\.\/img\/desktop-showcase\.svg"/);
+  assert.doesNotMatch(html, /src="\.\/img\/desktop-product\.png"/);
+  assert.doesNotMatch(html, /laptop-frame::/);
+  assert.doesNotMatch(html, /laptop-screen/);
   assert.match(html, /href="\.\/img\/mobile-home\.png"/);
   assert.match(html, /href="\.\/img\/mobile-submit\.png"/);
   assert.match(html, /href="\.\/img\/mobile-archive\.png"/);

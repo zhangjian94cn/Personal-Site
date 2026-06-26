@@ -359,62 +359,18 @@
 
       .laptop-frame {
         position: relative;
-        width: min(980px, 92%);
+        z-index: 2;
+        width: min(1180px, 96%);
         margin: 0 auto;
-        padding: 26px 26px 112px;
-        border-radius: 40px;
-        background:
-          linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent 20%),
-          linear-gradient(135deg, #2c2b28 0%, #11110f 58%, #38352f 100%);
-        box-shadow:
-          0 2px 4px rgba(0, 0, 0, 0.34),
-          0 38px 90px rgba(31, 24, 18, 0.3);
+        filter: drop-shadow(0 34px 70px rgba(50, 38, 24, 0.26));
       }
 
-      .laptop-frame::before {
-        content: "";
-        position: absolute;
-        left: -70px;
-        right: -70px;
-        bottom: -8px;
-        height: 118px;
-        clip-path: polygon(8% 0, 92% 0, 100% 78%, 95% 100%, 5% 100%, 0 78%);
-        background: linear-gradient(90deg, #75736d, #55534f 50%, #8a867e);
-      }
-
-      .laptop-frame::after {
-        content: "";
-        position: absolute;
-        left: 39%;
-        right: 39%;
-        bottom: 38px;
-        height: 28px;
-        clip-path: polygon(0 0, 100% 0, 86% 100%, 14% 100%);
-        background: rgba(55, 53, 49, 0.58);
-      }
-
-      .laptop-screen {
-        position: relative;
-        z-index: 1;
-        overflow: hidden;
-        border-radius: 18px;
-        background: #fbf4e8;
-      }
-
-      .laptop-screen img {
+      .laptop-device-svg {
         display: block;
         width: 100%;
-      }
-
-      .laptop-screen::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        z-index: 2;
-        pointer-events: none;
-        border-radius: inherit;
-        box-shadow: inset 0 0 0 1px rgba(20, 14, 8, 0.16);
-        background: linear-gradient(118deg, rgba(255, 255, 255, 0.16), transparent 26%);
+        aspect-ratio: 530 / 320;
+        height: auto;
+        overflow: visible;
       }
 
       .floating-badge {
@@ -485,12 +441,12 @@
       }
 
       .desktop-badge-a {
-        left: 6%;
+        left: 0;
         top: 30%;
       }
 
       .desktop-badge-b {
-        right: 5%;
+        right: 0;
         top: 40%;
       }
 
@@ -547,8 +503,6 @@
 
         .laptop-frame {
           width: 100%;
-          padding: 18px 18px 82px;
-          border-radius: 30px;
         }
 
         .phone-cluster {
@@ -612,23 +566,6 @@
 
         .laptop-frame {
           width: 100%;
-          padding: 12px 12px 56px;
-          border-radius: 22px;
-        }
-
-        .laptop-frame::before {
-          left: -20px;
-          right: -20px;
-          height: 58px;
-        }
-
-        .laptop-frame::after {
-          bottom: 18px;
-          height: 14px;
-        }
-
-        .laptop-screen {
-          border-radius: 12px;
         }
 
         .phone-cluster {
@@ -770,9 +707,98 @@
             <p>桌面端只展示应用本体，不暴露本地地址栏、收藏栏或浏览器侧边栏。</p>
           </div>
           <div class="laptop-frame">
-            <div class="laptop-screen">
-              <img src="./img/desktop-product.png" alt="Paper Tide desktop product surface without browser chrome" />
-            </div>
+            <!-- Reusable laptop SVG frame from project-promo-materials, with the product screenshot composited into its screen slot. -->
+            <svg class="laptop-device-svg" viewBox="35 140 530 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Paper Tide desktop product surface inside a laptop frame">
+              <defs>
+                <filter id="floorShadow--paper-tide-desktop" x="-10%" y="-50%" width="120%" height="220%">
+                  <feGaussianBlur in="SourceAlpha" stdDeviation="7" result="blur" />
+                  <feOffset in="blur" dx="0" dy="8" result="offset" />
+                  <feFlood flood-color="#000000" flood-opacity="0.18" result="color" />
+                  <feComposite in="color" in2="offset" operator="in" />
+                </filter>
+
+                <linearGradient id="baseUnderside--paper-tide-desktop" gradientUnits="userSpaceOnUse" x1="300" y1="443.5131" x2="300" y2="450.6771">
+                  <stop offset="0.3564" stop-color="#808185" />
+                  <stop offset="0.5045" stop-color="#78797D" />
+                  <stop offset="0.5443" stop-color="#7A7B7F" />
+                  <stop offset="1" stop-color="#0D0C11" />
+                </linearGradient>
+
+                <linearGradient id="lidOuter--paper-tide-desktop" gradientUnits="userSpaceOnUse" x1="300" y1="149.5" x2="300" y2="439.701">
+                  <stop offset="0.0002" stop-color="#363636" />
+                  <stop offset="0.0092" stop-color="#3A3A3A" />
+                  <stop offset="0.0982" stop-color="#404040" />
+                  <stop offset="0.1199" stop-color="#7D7D7D" />
+                  <stop offset="0.1519" stop-color="#404040" />
+                  <stop offset="0.2384" stop-color="#383838" />
+                  <stop offset="0.4063" stop-color="#404040" />
+                  <stop offset="0.4336" stop-color="#797979" />
+                  <stop offset="0.4621" stop-color="#404040" />
+                  <stop offset="0.5727" stop-color="#404040" />
+                  <stop offset="0.5998" stop-color="#626262" />
+                  <stop offset="0.6294" stop-color="#404040" />
+                  <stop offset="0.6916" stop-color="#404040" />
+                  <stop offset="0.7905" stop-color="#3D3D3D" />
+                  <stop offset="0.9015" stop-color="#404040" />
+                  <stop offset="0.9334" stop-color="#7E7E7E" />
+                  <stop offset="0.9577" stop-color="#474747" />
+                </linearGradient>
+
+                <linearGradient id="baseTop--paper-tide-desktop" gradientUnits="userSpaceOnUse" x1="40" y1="438.5" x2="560" y2="438.5">
+                  <stop offset="0" stop-color="#49484D" />
+                  <stop offset="0.0121" stop-color="#D3D4D9" />
+                  <stop offset="0.0282" stop-color="#D0D1D6" />
+                  <stop offset="0.0804" stop-color="#8C8D92" />
+                  <stop offset="0.0918" stop-color="#85868B" />
+                  <stop offset="0.5113" stop-color="#CBCCD2" />
+                  <stop offset="0.9264" stop-color="#85868B" />
+                  <stop offset="0.937" stop-color="#8B8C91" />
+                  <stop offset="0.979" stop-color="#D0D1D6" />
+                  <stop offset="0.994" stop-color="#D3D4D9" />
+                  <stop offset="1" stop-color="#454449" />
+                </linearGradient>
+
+                <linearGradient id="thumbGroove--paper-tide-desktop" gradientUnits="userSpaceOnUse" x1="258" y1="437" x2="342" y2="437">
+                  <stop offset="0" stop-color="#161617" />
+                  <stop offset="0.0581" stop-color="#84848A" />
+                  <stop offset="0.3011" stop-color="#8F8F96" />
+                  <stop offset="0.524" stop-color="#ADADB5" />
+                  <stop offset="0.7161" stop-color="#8A8B91" />
+                  <stop offset="0.9495" stop-color="#7B7C81" />
+                  <stop offset="1" stop-color="#0D0C11" />
+                </linearGradient>
+
+                <linearGradient id="leftBezelGlare--paper-tide-desktop" gradientUnits="userSpaceOnUse" x1="83.5892" y1="157.5892" x2="174.6575" y2="248.6575">
+                  <stop offset="0.0005" stop-color="#9E9E9E" />
+                  <stop offset="1" stop-color="#1D1D1B" />
+                </linearGradient>
+
+                <linearGradient id="screenGlare--paper-tide-desktop" x1="0" y1="0" x2="0.7" y2="0.8">
+                  <stop offset="0" stop-color="#ffffff" stop-opacity="0.16" />
+                  <stop offset="0.28" stop-color="#ffffff" stop-opacity="0" />
+                  <stop offset="1" stop-color="#ffffff" stop-opacity="0" />
+                </linearGradient>
+
+                <clipPath id="screenClip--paper-tide-desktop">
+                  <rect id="screen--paper-tide-desktop" x="101" y="169.5" width="398" height="248" rx="0" />
+                </clipPath>
+              </defs>
+
+              <ellipse cx="300" cy="450" rx="250" ry="8" fill="#000000" opacity="0.2" filter="url(#floorShadow--paper-tide-desktop)" />
+              <path fill="url(#baseUnderside--paper-tide-desktop)" d="M560,443.5c0,0-16,7-40,7s-416,0-440,0s-40-7-40-7l260-2L560,443.5z" />
+              <path fill="url(#lidOuter--paper-tide-desktop)" d="M511,433.5H89v-274c0-5.523,4.477-10,10-10h402c5.523,0,10,4.477,10,10V433.5z" />
+              <path fill="#000000" d="M90.5,433.5v-274c0-4.687,3.813-8.5,8.5-8.5h402c4.687,0,8.5,3.813,8.5,8.5v274H90.5z" />
+              <path fill="url(#leftBezelGlare--paper-tide-desktop)" d="M274,152.5l-182,209v-202c0-3.86,3.14-7,7-7H274z" opacity="0.72" />
+              <rect x="101" y="169.5" width="398" height="248" fill="#f8f2e8" />
+              <image href="./img/desktop-product.png" x="101" y="169.5" width="398" height="248" preserveAspectRatio="xMidYMid slice" clip-path="url(#screenClip--paper-tide-desktop)" />
+              <rect x="101" y="169.5" width="398" height="248" fill="url(#screenGlare--paper-tide-desktop)" />
+              <rect x="101" y="169.5" width="398" height="248" fill="none" stroke="#ffffff" stroke-opacity="0.18" stroke-width="0.5" />
+              <circle fill="#232323" cx="300" cy="160.5" r="3" />
+              <circle fill="#0a0b12" cx="300" cy="160.5" r="1.2" opacity="0.65" />
+              <line fill="none" stroke="#000000" stroke-width="0.5" stroke-miterlimit="10" x1="509.5" y1="424.5" x2="90.5" y2="424.5" />
+              <rect x="40" y="433.5" fill="url(#baseTop--paper-tide-desktop)" width="520" height="10" />
+              <path fill="url(#thumbGroove--paper-tide-desktop)" d="M335,440.5h-70c-3.866,0-7-3.134-7-7h84C342,437.366,338.866,440.5,335,440.5z" />
+            </svg>
           </div>
           <span class="floating-badge desktop-badge-a">
             <span class="badge-icon">
