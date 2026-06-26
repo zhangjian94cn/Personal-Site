@@ -50,3 +50,17 @@ test('paper-tide static project page exists with its core assets and repository 
   assert.match(html, /静态作品页/);
   assert.match(html, /完整源码/);
 });
+
+test('paper-tide case page uses static-export-safe portfolio links and phone preview framing', () => {
+  const html = readFile('content/projects/paper-tide/index.html');
+  const portfolioHrefMatches = Array.from(html.matchAll(/href="([^"]*portfolio[^"]*)"/g), (match) => match[1]);
+
+  assert.ok(portfolioHrefMatches.length >= 3, 'expected portfolio links in topbar, hero, and footer');
+  assert.ok(
+    portfolioHrefMatches.every((href) => href === '/portfolio.html'),
+    `expected all portfolio links to use /portfolio.html, got ${portfolioHrefMatches.join(', ')}`
+  );
+  assert.match(html, /class="phone-frame"/);
+  assert.match(html, /class="phone-screen"/);
+  assert.match(html, /src="\.\/img\/mobile-preview\.png"/);
+});
