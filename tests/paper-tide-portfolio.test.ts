@@ -48,11 +48,12 @@ test('paper-tide static project page exists with its core assets and repository 
   assert.ok(fs.existsSync(path.join(projectDir, 'img/mobile-preview.png')));
   assert.ok(fs.existsSync(path.join(projectDir, 'img/promo-hero-board.png')));
   assert.ok(fs.existsSync(path.join(projectDir, 'img/desktop-product.png')));
-  assert.ok(fs.existsSync(path.join(projectDir, 'img/desktop-showcase.png')));
   assert.ok(fs.existsSync(path.join(projectDir, 'img/mobile-home.png')));
   assert.ok(fs.existsSync(path.join(projectDir, 'img/mobile-submit.png')));
   assert.ok(fs.existsSync(path.join(projectDir, 'img/mobile-archive.png')));
-  assert.ok(fs.existsSync(path.join(projectDir, 'img/mobile-launch-board.png')));
+  // The redundant baked boards were deduped off the page and deleted.
+  assert.ok(!fs.existsSync(path.join(projectDir, 'img/desktop-showcase.png')));
+  assert.ok(!fs.existsSync(path.join(projectDir, 'img/mobile-launch-board.png')));
   assert.match(html, /https:\/\/github\.com\/zhangjian94cn\/paper-tide/);
   assert.match(html, /静态作品页/);
   assert.match(html, /完整源码/);
@@ -82,13 +83,23 @@ test('paper-tide case page uses a promo-board composition instead of loose scree
   assert.match(html, /class="[^"]*floating-badge/);
   assert.match(html, /src="\.\/img\/promo-hero-board\.png"/);
   assert.match(html, /src="\.\/img\/desktop-product\.png"/);
-  assert.match(html, /src="\.\/img\/desktop-showcase\.png"/);
   assert.match(html, /src="\.\/img\/mobile-home\.png"/);
   assert.match(html, /src="\.\/img\/mobile-submit\.png"/);
   assert.match(html, /src="\.\/img\/mobile-archive\.png"/);
-  assert.match(html, /src="\.\/img\/mobile-launch-board\.png"/);
   assert.doesNotMatch(html, /src="\.\/img\/cover-desktop\.png"/);
   assert.doesNotMatch(html, /src="\.\/img\/archive-desktop\.png"/);
   assert.doesNotMatch(html, /overflow-x:\s*hidden/);
   assert.match(html, /overflow-wrap:\s*anywhere/);
+
+  // Floating badges must use inline SVG icons, never raw unicode/emoji glyphs
+  // (which render as tofu boxes in headless Chrome).
+  assert.match(html, /class="badge-icon"/);
+  assert.match(html, /<svg /);
+  assert.doesNotMatch(html, /data-icon=/);
+
+  // The redundant baked-board figures were removed; each showcase keeps only
+  // one representation (the live device mockup).
+  assert.doesNotMatch(html, /rendered-board/);
+  assert.doesNotMatch(html, /src="\.\/img\/desktop-showcase\.png"/);
+  assert.doesNotMatch(html, /src="\.\/img\/mobile-launch-board\.png"/);
 });

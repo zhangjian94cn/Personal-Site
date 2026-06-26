@@ -186,8 +186,7 @@
         box-shadow: 0 34px 80px rgba(41, 31, 21, 0.16);
       }
 
-      .hero-board img,
-      .board-image {
+      .hero-board img {
         display: block;
         width: 100%;
         height: auto;
@@ -324,9 +323,10 @@
         border: 1px solid rgba(87, 70, 48, 0.12);
         border-radius: 34px;
         background:
-          radial-gradient(circle at 32% 12%, rgba(212, 255, 240, 0.74), transparent 36%),
-          radial-gradient(circle at 85% 78%, rgba(238, 221, 255, 0.55), transparent 32%),
-          linear-gradient(135deg, #eefbff, #fff6e7);
+          radial-gradient(circle at 30% 8%, rgba(206, 255, 236, 0.72), transparent 40%),
+          radial-gradient(circle at 86% 82%, rgba(255, 224, 182, 0.62), transparent 38%),
+          radial-gradient(140% 120% at 50% 120%, rgba(64, 46, 30, 0.1), transparent 55%),
+          linear-gradient(135deg, #f0fbf6, #fff4e4);
         box-shadow: 0 28px 80px rgba(49, 36, 24, 0.12);
       }
 
@@ -366,7 +366,9 @@
         background:
           linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent 20%),
           linear-gradient(135deg, #2c2b28 0%, #11110f 58%, #38352f 100%);
-        box-shadow: 0 30px 80px rgba(31, 24, 18, 0.22);
+        box-shadow:
+          0 2px 4px rgba(0, 0, 0, 0.34),
+          0 38px 90px rgba(31, 24, 18, 0.3);
       }
 
       .laptop-frame::before {
@@ -404,6 +406,18 @@
         width: 100%;
       }
 
+      .laptop-screen::after,
+      .phone-screen::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+        border-radius: inherit;
+        box-shadow: inset 0 0 0 1px rgba(20, 14, 8, 0.16);
+        background: linear-gradient(118deg, rgba(255, 255, 255, 0.16), transparent 26%);
+      }
+
       .floating-badge {
         position: absolute;
         z-index: 5;
@@ -422,17 +436,21 @@
         white-space: nowrap;
       }
 
-      .floating-badge::before {
-        content: attr(data-icon);
+      .badge-icon {
         display: grid;
+        flex: none;
         width: 42px;
         height: 42px;
         place-items: center;
         border: 1px solid rgba(120, 86, 44, 0.2);
         border-radius: 13px;
         color: #6b4a32;
-        background: #fff4df;
-        font-size: 20px;
+        background: linear-gradient(155deg, #fff7e8, #ffe9c6);
+      }
+
+      .badge-icon svg {
+        width: 22px;
+        height: 22px;
       }
 
       .desktop-badge-a {
@@ -464,7 +482,8 @@
         background:
           linear-gradient(90deg, #090807 0%, #514a43 7%, #15120f 17%, #11100e 84%, #5c5148 96%, #0b0907 100%);
         box-shadow:
-          0 28px 54px rgba(38, 28, 20, 0.28),
+          0 2px 5px rgba(0, 0, 0, 0.32),
+          0 34px 60px rgba(38, 28, 20, 0.32),
           inset 0 0 0 1px rgba(255, 255, 255, 0.18);
       }
 
@@ -486,6 +505,7 @@
       }
 
       .phone-screen {
+        position: relative;
         overflow: hidden;
         border-radius: 38px;
         background: #f8efe4;
@@ -521,16 +541,6 @@
       .mobile-badge-c {
         left: 52%;
         bottom: 18%;
-      }
-
-      .rendered-board {
-        margin-top: 26px;
-        padding: 16px;
-        background: rgba(255, 255, 255, 0.56);
-      }
-
-      .rendered-board img {
-        border-radius: 24px;
       }
 
       .footer {
@@ -578,9 +588,14 @@
           padding: 8px 14px 8px 10px;
         }
 
-        .floating-badge::before {
+        .badge-icon {
           width: 32px;
           height: 32px;
+        }
+
+        .badge-icon svg {
+          width: 18px;
+          height: 18px;
         }
       }
 
@@ -800,11 +815,18 @@
               <img src="./img/desktop-product.png" alt="Paper Tide desktop product surface without browser chrome" />
             </div>
           </div>
-          <span class="floating-badge desktop-badge-a" data-icon="◎">Archive Flow</span>
-          <span class="floating-badge desktop-badge-b" data-icon="V">Vue 3 + Pinia</span>
-          <figure class="promo-board rendered-board">
-            <img class="board-image" src="./img/desktop-showcase.png" alt="Rendered Paper Tide desktop promotional board" />
-          </figure>
+          <span class="floating-badge desktop-badge-a">
+            <span class="badge-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="4" rx="1" /><path d="M5 8v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8" /><path d="M10 12h4" /></svg>
+            </span>
+            Archive Flow
+          </span>
+          <span class="floating-badge desktop-badge-b">
+            <span class="badge-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h5l4 7 4-7h5l-9 16Z" /></svg>
+            </span>
+            Vue 3 + Pinia
+          </span>
         </article>
 
         <article class="promo-board showcase">
@@ -829,12 +851,24 @@
               </div>
             </div>
           </div>
-          <span class="floating-badge mobile-badge-a" data-icon="01">Issue Cover</span>
-          <span class="floating-badge mobile-badge-b" data-icon="◎">Saved Archive</span>
-          <span class="floating-badge mobile-badge-c" data-icon="+">Submit Desk</span>
-          <figure class="promo-board rendered-board">
-            <img class="board-image" src="./img/mobile-launch-board.png" alt="Rendered Paper Tide mobile launch promotional board" />
-          </figure>
+          <span class="floating-badge mobile-badge-a">
+            <span class="badge-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2" /><path d="M9 8h6M9 12h6M9 16h4" /></svg>
+            </span>
+            Issue Cover
+          </span>
+          <span class="floating-badge mobile-badge-b">
+            <span class="badge-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h10a1 1 0 0 1 1 1v15l-6-4-6 4V5a1 1 0 0 1 1-1Z" /></svg>
+            </span>
+            Saved Archive
+          </span>
+          <span class="floating-badge mobile-badge-c">
+            <span class="badge-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+            </span>
+            Submit Desk
+          </span>
         </article>
 
         <img src="./img/mobile-preview.png" alt="Paper Tide mobile responsive preview source" hidden />
