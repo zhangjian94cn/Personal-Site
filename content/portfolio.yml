@@ -20,7 +20,7 @@ projects:
     tags: ["Vue", "Vite", "Hono", "Pinia"]
     status: "completed"
     projectPagePath: "/project/paper-tide/index.html"
-    imgSrc: "/project/paper-tide/img/cover-desktop.png"
+    imgSrc: "/project/paper-tide/img/promo-hero-board.png"
     featured: false
     visible: true
 

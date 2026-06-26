@@ -35,7 +35,7 @@ test('portfolio.yml includes the paper-tide project entry wired to the static pr
   assert.equal(project?.featured, false);
   assert.equal(project?.visible, true);
   assert.equal(project?.projectPagePath, '/project/paper-tide/index.html');
-  assert.equal(project?.imgSrc, '/project/paper-tide/img/cover-desktop.png');
+  assert.equal(project?.imgSrc, '/project/paper-tide/img/promo-hero-board.png');
 });
 
 test('paper-tide static project page exists with its core assets and repository link', () => {
@@ -46,6 +46,13 @@ test('paper-tide static project page exists with its core assets and repository 
   assert.ok(fs.existsSync(path.join(projectDir, 'img/cover-desktop.png')));
   assert.ok(fs.existsSync(path.join(projectDir, 'img/archive-desktop.png')));
   assert.ok(fs.existsSync(path.join(projectDir, 'img/mobile-preview.png')));
+  assert.ok(fs.existsSync(path.join(projectDir, 'img/promo-hero-board.png')));
+  assert.ok(fs.existsSync(path.join(projectDir, 'img/desktop-product.png')));
+  assert.ok(fs.existsSync(path.join(projectDir, 'img/desktop-showcase.png')));
+  assert.ok(fs.existsSync(path.join(projectDir, 'img/mobile-home.png')));
+  assert.ok(fs.existsSync(path.join(projectDir, 'img/mobile-submit.png')));
+  assert.ok(fs.existsSync(path.join(projectDir, 'img/mobile-archive.png')));
+  assert.ok(fs.existsSync(path.join(projectDir, 'img/mobile-launch-board.png')));
   assert.match(html, /https:\/\/github\.com\/zhangjian94cn\/paper-tide/);
   assert.match(html, /静态作品页/);
   assert.match(html, /完整源码/);
@@ -60,7 +67,28 @@ test('paper-tide case page uses static-export-safe portfolio links and phone pre
     portfolioHrefMatches.every((href) => href === '/portfolio.html'),
     `expected all portfolio links to use /portfolio.html, got ${portfolioHrefMatches.join(', ')}`
   );
-  assert.match(html, /class="phone-frame"/);
-  assert.match(html, /class="phone-screen"/);
+  assert.match(html, /class="[^"]*\bphone-frame\b/);
+  assert.match(html, /class="[^"]*\bphone-screen\b/);
   assert.match(html, /src="\.\/img\/mobile-preview\.png"/);
+});
+
+test('paper-tide case page uses a promo-board composition instead of loose screenshot cards', () => {
+  const html = readFile('content/projects/paper-tide/index.html');
+
+  assert.match(html, /class="[^"]*promo-board/);
+  assert.match(html, /class="[^"]*laptop-frame/);
+  assert.match(html, /class="[^"]*phone-cluster/);
+  assert.match(html, /class="[^"]*device-phone/);
+  assert.match(html, /class="[^"]*floating-badge/);
+  assert.match(html, /src="\.\/img\/promo-hero-board\.png"/);
+  assert.match(html, /src="\.\/img\/desktop-product\.png"/);
+  assert.match(html, /src="\.\/img\/desktop-showcase\.png"/);
+  assert.match(html, /src="\.\/img\/mobile-home\.png"/);
+  assert.match(html, /src="\.\/img\/mobile-submit\.png"/);
+  assert.match(html, /src="\.\/img\/mobile-archive\.png"/);
+  assert.match(html, /src="\.\/img\/mobile-launch-board\.png"/);
+  assert.doesNotMatch(html, /src="\.\/img\/cover-desktop\.png"/);
+  assert.doesNotMatch(html, /src="\.\/img\/archive-desktop\.png"/);
+  assert.doesNotMatch(html, /overflow-x:\s*hidden/);
+  assert.match(html, /overflow-wrap:\s*anywhere/);
 });
