@@ -12,6 +12,19 @@
 projects:
 
   - title:
+      zh: "水墨莲花"
+      en: "Ink Lotus"
+    description:
+      zh: "以 3D Gaussian Splatting 重构一幅莲花水墨，让同源点云在浏览器中呼吸、化墨、回应触碰，并重新归形。"
+      en: "A lotus ink painting reconstructed with 3D Gaussian Splatting, where same-source particles breathe, dissolve, respond to touch, and reform in real time."
+    tags: ["3D", "Neural Rendering", "AI"]
+    status: "completed"
+    projectPagePath: "/project/ink-splat-lotus/index.html"
+    imgSrc: "/project/ink-splat-lotus/img/cover.webp"
+    featured: true
+    visible: true
+
+  - title:
       zh: "纸潮 / Paper Tide"
       en: "Paper Tide"
     description:
