@@ -43,6 +43,7 @@ export default function PortfolioCard({
 
   const handleMouseEnter = () => setOpacity(1);
   const handleMouseLeave = () => setOpacity(0);
+  const isStaticDocument = /\.html(?:[?#].*)?$/.test(href);
 
   const CardContent = (
     <div
@@ -177,6 +178,13 @@ export default function PortfolioCard({
         >
           {CardContent}
         </a>
+      ) : isStaticDocument ? (
+        <a
+          href={href}
+          className="block h-full outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded-xl"
+        >
+          {CardContent}
+        </a>
       ) : (
         <Link 
           href={href}
@@ -188,4 +196,3 @@ export default function PortfolioCard({
     </motion.div>
   );
 }
-
