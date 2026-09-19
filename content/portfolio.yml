@@ -46,6 +46,7 @@ projects:
     tags: ["Git", "DevOps", "Documentation"]
     status: "completed"
     projectPagePath: "/project/git-guide/index.html"
+    imgSrc: "/project/git-guide/img/cover.png"
     featured: false
     visible: true
 
