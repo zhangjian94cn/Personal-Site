@@ -38,6 +38,18 @@ projects:
     visible: true
 
   - title:
+      zh: "Git 场景样例图册"
+      en: "Git Scenario Atlas"
+    description:
+      zh: "面向开发、协作、发布与故障恢复的交互式 Git 场景图册，支持按场景检索、查看关系图和导出源码。"
+      en: "An interactive Git scenario atlas for development, collaboration, releases, and incident recovery, with searchable diagrams and exportable source."
+    tags: ["Git", "DevOps", "Documentation"]
+    status: "completed"
+    projectPagePath: "/project/git-guide/index.html"
+    featured: false
+    visible: true
+
+  - title:
       zh: "高精度图像分割"
       en: "High-Precision Image Segmentation"
     description:
