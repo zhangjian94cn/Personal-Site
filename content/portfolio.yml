@@ -51,6 +51,19 @@ projects:
     visible: true
 
   - title:
+      zh: "DevOps 实战手册"
+      en: "DevOps Practice Handbook"
+    description:
+      zh: "从第一次提交到可靠交付的中文 DevOps 学习路线，覆盖 CI/CD、容器、Kubernetes、GitOps、可观测性、SRE 与供应链安全。"
+      en: "A Chinese, project-driven DevOps handbook covering CI/CD, containers, Kubernetes, GitOps, observability, SRE, and software supply chain security."
+    tags: ["DevOps", "Kubernetes", "SRE", "GitOps"]
+    status: "completed"
+    projectPagePath: "/project/devops-guide/index.html"
+    imgSrc: "/project/devops-guide/img/cover.png"
+    featured: false
+    visible: true
+
+  - title:
       zh: "高精度图像分割"
       en: "High-Precision Image Segmentation"
     description:
