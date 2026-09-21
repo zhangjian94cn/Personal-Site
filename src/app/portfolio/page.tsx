@@ -31,6 +31,8 @@ type Category = typeof CATEGORIES[number];
 
 const TAG_CATEGORY_MAP: Record<string, Category> = {
   "LLM": "AI/LLM",
+  "AI Agent": "AI/LLM",
+  "MCP": "AI/LLM",
   "ChatGLM": "AI/LLM",
   "RAG": "AI/LLM",
   "Fine-tuning": "AI/LLM",

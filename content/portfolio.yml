@@ -25,6 +25,19 @@ projects:
     visible: true
 
   - title:
+      zh: "AI Agent 实践课"
+      en: "AI Agent Practical Course"
+    description:
+      zh: "16 课中文智能体教程：从判断场景、拆开结构，到多智能体协作、上下文工程、离线实验和可验收交付。"
+      en: "A 16-lesson Chinese course on AI agents, from deciding when to use one through multi-agent collaboration, context engineering, an offline lab, and an acceptance-ready delivery."
+    tags: ["AI Agent", "LLM", "MCP"]
+    status: "completed"
+    projectPagePath: "/project/agent-guide/index.html"
+    imgSrc: "/project/agent-guide/assets/agent-workbench.webp"
+    featured: false
+    visible: true
+
+  - title:
       zh: "纸潮 / Paper Tide"
       en: "Paper Tide"
     description:
