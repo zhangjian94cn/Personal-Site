@@ -1,14 +1,12 @@
 "use client";
 
 import { useLanguage } from "@/components/LanguageProvider";
+import WeChatPromo from "@/components/WeChatPromo";
 import {
-  loadAboutContent,
-  loadSiteMetadata,
   type AboutContent,
   type SiteMetadata,
 } from "@/lib/content";
 import { motion } from "framer-motion";
-import Image from "next/image";
 
 // Load data at build time
 import aboutData from "@/../content/about.yml";
@@ -242,6 +240,8 @@ export  default function AboutPage() {
           ))}
         </div>
       </div>
+
+      <WeChatPromo variant="section" />
 
       {/* Projects Section */}
       <div className="py-16">
